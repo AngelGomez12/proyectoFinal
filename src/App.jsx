@@ -1,10 +1,18 @@
-import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Layout } from "./pages/Layout";
+import { Home } from "./pages/Home";
+import { Details } from "./pages/Details";
 
 function App() {
   return (
-    <>
-      <p className="bg-gray-500">Proyecto Final</p>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/details/:id" element={<Details />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
