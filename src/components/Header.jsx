@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export const Header = () => {
-  const handleClick = () => {
-    console.log("click");
+  const [showMenu, setShowMenu] = useState(false);
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
   };
   return (
     <header className="navbar bg-base-100">
@@ -34,7 +36,7 @@ export const Header = () => {
             <a>Contacto</a>
           </li>
           <li>
-            <a className="hover:bg-yellow-400 hover:text-black">
+            <a className="hover:bg-primary hover:text-black">
               Renta de Maquinaria
             </a>
           </li>
@@ -45,16 +47,28 @@ export const Header = () => {
         <a className="btn">Iniciar Sesion</a>
       </div>
       <div className="w-full justify-end flex sm:hidden">
-        <svg
-          onClick={handleClick}
-          className="fill-white"
-          xmlns="http://www.w3.org/2000/svg"
-          height="24"
-          viewBox="0 -960 960 960"
-          width="24"
-        >
-          <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
-        </svg>
+        <div className="dropdown dropdown-end" onClick={toggleMenu}>
+          <label tabIndex={0} className="btn m-1">
+            <svg
+              className="fill-white"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+            >
+              <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+            </svg>
+          </label>
+          {showMenu && (
+            <ul
+              tabIndex={0}
+              className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <a className="btn">Crear Cuenta</a>
+              <a className="btn">Iniciar Sesion</a>
+            </ul>
+          )}
+        </div>
       </div>
     </header>
   );
