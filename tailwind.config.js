@@ -14,6 +14,7 @@ export default {
         "success": "#36d399",
         "warning": "#F8A272",
         "error": "#FF4343",
+        "primary-content": "#CDCED0",
       },
     },
   },

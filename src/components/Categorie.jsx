@@ -7,10 +7,10 @@ const Categorie = (props) => {
                 alt="Shoes"
               />
             <div className="card-body h-[200px]" >
-              <h2 className="card-title">{props.title}</h2>
-              <p>{props.subtitle}</p>
+              <h2 className="card-title  text-primary-content">{props.title}</h2>
+              <p className=" text-primary-content">{props.subtitle}</p>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary btn-md">Ver Todos</button>
+                <button className="btn btn-accent btn-m">Ver Todos</button>
               </div>
             </div>
           </div>

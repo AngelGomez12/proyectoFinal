@@ -11,7 +11,7 @@ export const Home = () => {
         }}
       >
         <div className="hero-overlay bg-opacity-60"></div>
-        <div className="hero-content text-center text-neutral-content mt-28 mb-20">
+        <div className="hero-content text-center text-primary-content mt-28 mb-20">
           <div className="max-w-2xl">
             <h1 className="mb-5 text-4xl font-extrabold">
               Renta de Maquinaria Pesada
@@ -31,7 +31,7 @@ export const Home = () => {
                   className="input input-bordered max-w-lg bg-neutral-900/70"
                 />
               </div>
-              <button className="btn btn-link mx-auto">
+              <button className="btn btn-link text-primary-content mx-auto">
                 Explora por categorías
               </button>
             </div>
@@ -41,7 +41,7 @@ export const Home = () => {
 
       <div
         id="catSection"
-        className="bg-yellow-500 flex flex-col items-center py-24"
+        className="bg-primary flex flex-col items-center py-24"
       >
         <h2 className="text-3xl font-bold text-black mb-20">
           Encuentra lo que necesitas
