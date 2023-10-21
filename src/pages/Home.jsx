@@ -1,3 +1,14 @@
+import ProductsList from "../components/Home/ProductsList/ProductsList";
+import CartProvider from "../contexts/ProductsList";
+
 export const Home = () => {
-  return <div>Home</div>;
+  return (
+      <main className="flex flex-col">
+        {/* <Carrousel/> */}
+        <CartProvider>
+          <ProductsList/>
+        </CartProvider>
+
+      </main>
+  );
 };
