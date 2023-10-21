@@ -1,9 +1,12 @@
 import Categorie from "../components/Categorie";
 
+import ProductsList from "../components/Home/ProductsList/ProductsList";
+import CartProvider from "../contexts/ProductsList";
+
 export const Home = () => {
   return (
-    <>
-      <div
+    <main className="flex flex-col">
+    <div
         id="hero-home"
         className="hero min-h-fit"
         style={{
@@ -38,7 +41,9 @@ export const Home = () => {
           </div>
         </div>
       </div>
-
+      <CartProvider>
+          <ProductsList/>
+        </CartProvider>
       <div
         id="catSection"
         className="bg-primary flex flex-col items-center py-24"
@@ -70,6 +75,6 @@ export const Home = () => {
           />
         </div>
       </div>
-    </>
+    </main>
   );
 };
