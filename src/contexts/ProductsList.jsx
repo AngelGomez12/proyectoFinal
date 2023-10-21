@@ -25,29 +25,26 @@ export default function CartProvider(props) {
     totalPages: 0 
   })
 
-  const handlerPageChange = (e) => {
+  const handlerPageChange = (page) => {
     setPagination({
       ...pagination,
-      page: +e.target.innerText
+      page,
     })
-
-    setProductsViewed(products.slice(pagination.page, pagination.page + pagination.itemsPerPage))
+    setProductsViewed(products.slice((page-1) * pagination.itemsPerPage , page * pagination.itemsPerPage))
   }
 
   useEffect(() => {
     getHomeProductsList().then(products => {
       const randomProds = randomizerProducts(products.data)
       setProducts(randomProds)
-      const firstChunk = randomProds.slice(0, 5)
+      const firstChunk = randomProds.slice(0, 6)
       setProductsViewed(firstChunk)
       setPagination({
         ...pagination, 
-        totalPages: Math.ceil(products.length / pagination.itemsPerPage)
+        totalPages: Math.ceil(products.data.length / pagination.itemsPerPage)
       })
     })
   }, []);
-
-
 
   
   return (

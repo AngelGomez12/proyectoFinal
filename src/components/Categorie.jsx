@@ -1,5 +1,4 @@
 const Categorie = (props) => {
-    console.log(props);
   return (
     <div className="card bg-base-100 shadow-xl image-full w-72 h-[200px]">
               <img className="object-cover rounded-2xl "

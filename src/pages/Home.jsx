@@ -42,8 +42,8 @@ export const Home = () => {
         </div>
       </div>
       <CartProvider>
-          <ProductsList/>
-        </CartProvider>
+        <ProductsList/>
+      </CartProvider>
       <div
         id="catSection"
         className="bg-yellow-500 flex flex-col items-center py-24"
