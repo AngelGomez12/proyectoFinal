@@ -1,3 +1,5 @@
+/* eslint react/prop-types: */
+
 const Categorie = (props) => {
   console.log(props);
   return (
