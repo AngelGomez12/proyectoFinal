@@ -6,7 +6,7 @@ import CartProvider from "../contexts/ProductsList";
 export const Home = () => {
   return (
     <main className="flex flex-col">
-    <div
+      <div
         id="hero-home"
         className="hero min-h-fit"
         style={{
@@ -22,18 +22,32 @@ export const Home = () => {
             <h3 className="mb-5 text-2xl font-bold">
               La solución perfecta para tu proyecto
             </h3>
+            <div className=" input-bordered w-72 bg-neutral-900/70 flex items-center m-auto px-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+              <input
+                type="text"
+                placeholder="Buscá aquí Máquinas"
+                className="input input-ghost w-full"
+              />
+            </div>
             <p className="mb-5 mt-44">
               Obtén el equipo que necesitas, cuando lo necesitas y sin necesidad
               de comprarlo
             </p>
             <div className="flex flex-col">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Busca tu máquina"
-                  className="input input-bordered max-w-lg bg-neutral-900/70"
-                />
-              </div>
               <button className="btn btn-link text-primary-content mx-auto">
                 Explora por categorías
               </button>
@@ -42,8 +56,8 @@ export const Home = () => {
         </div>
       </div>
       <CartProvider>
-          <ProductsList/>
-        </CartProvider>
+        <ProductsList />
+      </CartProvider>
       <div
         id="catSection"
         className="bg-primary flex flex-col items-center py-24"
