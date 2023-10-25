@@ -6,6 +6,7 @@ export default function Paginator() {
         pagination: { page },
         handlerPageChange
       } = useContext(ContextProducts)
+
   return (
     <div className="join border-[1px] border-[#40454B] mb-[100px]">
         {/*Aca deberia haber hasta 4 botones, que se muestren en base a si existe ese paginado y que tengan el valor inicio,  page-1, page, page+1, fin  */}
