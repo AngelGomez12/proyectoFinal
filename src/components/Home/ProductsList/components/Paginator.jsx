@@ -13,7 +13,7 @@ export default function Paginator() {
         <button onClick={() => page !== 1 && handlerPageChange(1)} className={`${page === 1 ? 'btn-active bg-[#1D232A]' : 'bg-[#2B323C]'} border-none join-item btn`}>1</button>
         <button onClick={() => page !== 2 && handlerPageChange(2)} className={`${page === 2 ? 'btn-active bg-[#1D232A]' : 'bg-[#2B323C]'} border-none join-item btn`}>2</button>
         <button onClick={() => page !== 3 && handlerPageChange(3)} className={`${page === 3 ? 'btn-active bg-[#1D232A]' : 'bg-[#2B323C]'} border-none join-item btn`}>3</button>
-        {/* <button onClick={() => handlerPageChange(4)} className={`${page === 4 ? 'btn-active bg-[#1D232A]' : 'bg-[#2B323C]'} border-none join-item btn`}>4</button> */}
+        <button onClick={() => page !== 4 && handlerPageChange(4)} className={`${page === 4 ? 'btn-active bg-[#1D232A]' : 'bg-[#2B323C]'} border-none join-item btn`}>4</button>
     </div>
   )
 }

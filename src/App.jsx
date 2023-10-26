@@ -3,7 +3,6 @@ import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
 import { Details } from "./pages/Details";
 import { useGlobalContext } from "./contexts/Global";
-import PrivateRoutes from "./router/PrivateRoutes";
 import AdminRoutes from "./router/AdminRoutes";
 
 function App() {
@@ -12,7 +11,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      {/* Conversar con compañero si se puede poner como rutas privadas/punlicas/admin esto */}
+      {/* Conversar con compañero si se puede poner como rutas privadas/publicas/admin esto */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           {/* <Route
