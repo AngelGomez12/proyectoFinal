@@ -8,15 +8,15 @@ export const Details = () => {
     navigate(-1);
   };
   return (
-    <section className="h-screen w-full flex justify-center items-center flex-col bg-neutral">
-      <div className="w-4/5 mt-6">
+    <section className="h-min w-full flex justify-center items-center flex-col bg-neutral ms:h-screen">
+      <div className=" mx-16 h-full mt-44 m-5 ms:w-4/5 ms:mt-6 lg:mt-24">
         <div className="flex justify-between w-full mb-5">
           <div>
             <h1 className="text-4xl font-bold">Retroexcavadora</h1>
             <h3>Hitachi Us Zaxis 135</h3>
           </div>
           <button
-            className="rounded h-12  flex items-center gap-4 border-2 px-4"
+            className="hidden rounded h-12  ms:flex lg:flex items-center gap-4 border-2 px-4"
             onClick={goBack}
           >
             <svg
@@ -34,16 +34,29 @@ export const Details = () => {
             Volver atras
           </button>
         </div>
-        <div className="flex gap-4 justify-center">
+        <div className="flex flex-wrap gap-4 justify-center">
           <img src="../public/img/Rectangle-16.png" alt="Retroexcavadora" />
-          <div className="flex flex-col gap-4 items-center">
+          <div className="flex flex-col gap-4 items-center m-4">
             <div className="flex items-center gap-4 justify-center">
-              <img src="../public/img/Rectangle-17.png" alt="Retroexcavadora" />
-              <img src="../public/img/Rectangle-18.png" alt="Retroexcavadora" />
+              <img
+                className="w-1/2 sm:w-2/5 md:w-1/2 lg:w-1/2"
+                src="../public/img/Rectangle-17.png"
+                alt="Retroexcavadora"
+              />
+              <img
+                className="w-1/2 sm:w-2/5 md:w-1/2 lg:w-1/2"
+                src="../public/img/Rectangle-18.png"
+                alt="Retroexcavadora"
+              />
             </div>
-            <div className="flex items-center gap-4 justify-center">
+
+            <div className="flex items-center gap-4 justify-center flex-wrap">
               <img src="../public/img/Rectangle-19.png" alt="Retroexcavadora" />
-              <img src="../public/img/Rectangle-20.png" alt="Retroexcavadora" />
+              <img
+                className="hidden ms:block lg:block"
+                src="../public/img/Rectangle-20.png"
+                alt="Retroexcavadora"
+              />
             </div>
             <button
               className="rounded h-12 border-2 w-72"
@@ -65,10 +78,10 @@ export const Details = () => {
           </div>
         </div>
         <div className="mt-4">
-          <h2 className="text-primary text-2xl">
+          <h2 className="text-primary text-4xl font-bold my-4">
             Descripción general del Equipo
           </h2>
-          <p>Precio: 1000$</p>
+          <p className="mb-4 text-xl">Precio: $1000</p>
           <p>
             La retroexcavadora estándar de 60-89 CV (John Deere 310 / Case 580)
             es la máquina preferida para la mayoría de los proyectos de
@@ -81,7 +94,7 @@ export const Details = () => {
             para transportar objetos pesados, es una herramienta esencial para
             cualquier proyecto a gran escala.
           </p>
-          <ul>
+          <ul className="ml-2 mt-2 list-disc">
             <li>
               Ideal para la mayoría de los proyectos de movimiento de tierras
             </li>
