@@ -32,7 +32,7 @@ export const Header = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="gap-2 menu menu-horizontal px-1">
           <li>
-            <a>Inicio</a>
+            <Link to="/">Inicio</Link>
           </li>
           <li>
             <a>Contacto</a>
