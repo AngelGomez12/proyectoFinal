@@ -2,9 +2,12 @@ import Categorie from "../components/Categorie";
 
 import ProductsList from "../components/Home/ProductsList/ProductsList";
 import CartProvider from "../contexts/ProductsList";
+import Login from "./Login";
 
 export const Home = () => {
   return (
+    <>
+    <Login/>
     <main className="flex flex-col">
       <div
         id="hero-home"
@@ -87,5 +90,6 @@ export const Home = () => {
         </div>
       </div>
     </main>
+    </>
   );
 };
