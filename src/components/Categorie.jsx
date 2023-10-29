@@ -1,7 +1,7 @@
 /* eslint react/prop-types: */
 
 const Categorie = (props) => {
-  console.log(props);
+    console.log(props);
   return (
     <div className="card bg-base-100 shadow-xl image-full w-72 h-[200px]">
       <img

@@ -1,6 +1,6 @@
 export const getHomeProductsList = async () => {
     try {
-        const url = "https://api.myjson.online/v1/records/8e9c6af0-87d8-4eb4-b89c-e73ca46534d7"
+        const url = "http://localhost:8081/productos"
         
       const response = await fetch(url);
       if (!response.ok) {

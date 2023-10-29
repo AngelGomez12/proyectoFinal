@@ -53,8 +53,8 @@ export const Home = () => {
         </div>
       </div>
       <CartProvider>
-        <ProductsList />
-      </CartProvider>
+          <ProductsList/>
+        </CartProvider>
       <div
         id="catSection"
         className="bg-primary flex flex-col items-center py-24"

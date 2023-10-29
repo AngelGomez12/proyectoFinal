@@ -17,34 +17,32 @@ export default function CartProvider(props) {
   const [pagination, setPagination] = useState({
     page: 1,
     totalProducts: 10,
-    itemsPerPage: 8,
+    itemsPerPage: 6,
     totalPages: 0,
   });
 
-  const handlerPageChange = (e) => {
+  const handlerPageChange = (page) => {
     setPagination({
       ...pagination,
-      page: +e.target.innerText,
-    });
-
-    setProductsViewed(
-      products.slice(pagination.page, pagination.page + pagination.itemsPerPage)
-    );
-  };
+      page,
+    })
+    setProductsViewed(products.slice((page-1) * pagination.itemsPerPage , page * pagination.itemsPerPage))
+  }
 
   useEffect(() => {
-    getHomeProductsList().then((products) => {
-      const randomProds = randomizerProducts(products.data);
-      setProducts(randomProds);
-      const firstChunk = randomProds.slice(0, 8);
-      setProductsViewed(firstChunk);
+    getHomeProductsList().then(products => {
+      const randomProds = randomizerProducts(products)
+      setProducts(randomProds)
+      const firstChunk = randomProds.slice(0, 6)
+      setProductsViewed(firstChunk)
       setPagination({
-        ...pagination,
-        totalPages: Math.ceil(products.length / pagination.itemsPerPage),
-      });
-    });
+        ...pagination, 
+        totalPages: Math.ceil(products.length / pagination.itemsPerPage)
+      })
+    })
   }, []);
 
+  
   return (
     <ContextProducts.Provider
       value={{
