@@ -15,7 +15,7 @@ const ProductCard = (props) => {
   return (
   <div className="card bg-base-100 shadow-xl items-center rounded-md border overflow-hidden">
     {/* Poner que sea imagenProducto[0] hover:imagenProducto[1] en el src */}
-  <figure className='w-full rounded-none'><img className='w-full object-contain' src={`https://picsum.photos/id/${id}/300`} alt="Shoes" /></figure>
+  <figure className='w-full rounded-none'><img className='w-full object-contain' src={imagenProductos[1].ruta} alt={imagenProductos[1].ruta} /></figure>
   <div className="card-body w-full p-4">
     <h2 className="card-title">
     {nombre}

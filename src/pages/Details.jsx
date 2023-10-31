@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Carrousel } from "../components/Carrousel";
+import useApi from "../hooks/hookApi";
+import { useEffect } from "react";
 export const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -7,12 +9,23 @@ export const Details = () => {
   const goBack = () => {
     navigate(-1);
   };
+
+  const { data, fetchData } = useApi(
+    `${import.meta.env.VITE_BACKEND_URL}productos/${id}`,
+    {}
+  );
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  console.log(data);
   return (
     <section className="h-min w-full flex justify-center items-center flex-col bg-neutral ms:h-screen">
       <div className=" mx-16 h-full mt-44 m-5 ms:w-4/5 ms:mt-6 lg:mt-24">
         <div className="flex justify-between w-full mb-5">
           <div>
-            <h1 className="text-4xl font-bold">Retroexcavadora</h1>
+            <h1 className="text-4xl font-bold">{data && data.nombre}</h1>
             <h3>Hitachi Us Zaxis 135</h3>
           </div>
           <button
@@ -35,6 +48,18 @@ export const Details = () => {
           </button>
         </div>
         <div className="flex flex-wrap gap-4 justify-center">
+          {data &&
+            data.imagenProductos.map((imagenProducto, index) => {
+              return (
+                <img
+                  key={index}
+                  src={imagenProducto.ruta}
+                  alt="Retroexcavadora"
+                  className="w-1/2 sm:w-2/5 md:w-1/2 lg:w-1/2"
+                />
+              );
+            })}
+
           <img src="../public/img/Rectangle-16.png" alt="Retroexcavadora" />
           <div className="flex flex-col gap-4 items-center m-4">
             <div className="flex items-center gap-4 justify-center">
@@ -81,19 +106,8 @@ export const Details = () => {
           <h2 className="text-primary text-4xl font-bold my-4">
             Descripción general del Equipo
           </h2>
-          <p className="mb-4 text-xl">Precio: $1000</p>
-          <p>
-            La retroexcavadora estándar de 60-89 CV (John Deere 310 / Case 580)
-            es la máquina preferida para la mayoría de los proyectos de
-            movimiento de tierras, como la excavación, el relleno, la carga y la
-            excavación de zanjas. La retroexcavadora estándar es una herramienta
-            de excavación variada, ideal para la construcción en general y para
-            obras industriales o agrícolas, y puede realizar tareas de
-            excavación profunda y es una de las máquinas de movimiento de
-            tierras más alquiladas en el sector de la construcción. Diseñada
-            para transportar objetos pesados, es una herramienta esencial para
-            cualquier proyecto a gran escala.
-          </p>
+          <p className="mb-4 text-xl">Precio: ${data && data.precio} </p>
+          <p>{data && data.descripcion}</p>
           <ul className="ml-2 mt-2 list-disc">
             <li>
               Ideal para la mayoría de los proyectos de movimiento de tierras
