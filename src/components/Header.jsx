@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useGlobalContext } from "../contexts/Global";
 
 export const Header = () => {
+  const { isAdmin } = useGlobalContext();
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -25,25 +27,38 @@ export const Header = () => {
           </svg>
           <div className="flex flex-col">
             <h1>Maquinaria Pro</h1>
-            <p className="text-xs">Lema de la empresa</p>
+            <p className="text-xs">Trabajo pesado a un clic</p>
           </div>
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="gap-2 menu menu-horizontal px-1">
-          <li>
-            <Link to="/">Inicio</Link>
-          </li>
-          <li>
-            <a>Contacto</a>
-          </li>
-          <li>
-            <a className="hover:bg-primary hover:text-black">
-              Renta de Maquinaria
-            </a>
-          </li>
-        </ul>
-      </div>
+      {!isAdmin ? (
+        <div className="navbar-center hidden lg:flex">
+          <ul className="gap-2 menu menu-horizontal px-1">
+            <li>
+              <Link to="/">Inicio</Link>
+            </li>
+            <li>
+              <a>Contacto</a>
+            </li>
+            <li>
+              <a className="hover:bg-primary hover:text-black">
+                Renta de Maquinaria
+              </a>
+            </li>
+          </ul>
+        </div>
+      ) : (
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">
+            <li>
+              <a>Gestionar Maquinaria</a>
+            </li>
+            <li>
+              <Link to="admin/agregar-producto">Agregar Máquina</Link>
+            </li>
+          </ul>
+        </div>
+      )}
       <div className="hidden sm:flex gap-2 navbar-end">
         <a className="btn">Crear Cuenta</a>
         <a className="btn">Iniciar Sesion</a>

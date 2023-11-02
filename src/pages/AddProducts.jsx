@@ -1,9 +1,13 @@
-import React, { useState } from "react";
-import ProductCard from "../components/AddProducts/components/ProductCard";
+import { useState } from "react";
 import useApi from "../hooks/hookApi";
+import FileUploadForm from "../components/AddProducts/components/FileUploadForm";
+import SelectCharacters from "../components/AddProducts/components/SelectedCharacters";
+import { Alerts } from "../utils/alerts";
 
 export default function AddProducts() {
+  const [showAlert, setShowAlert] = useState(false);
   const [reGet, setReget] = useState(0);
+  const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     nombre: "",
     precio: "",
@@ -18,32 +22,10 @@ export default function AddProducts() {
     },
     imagenProductos: [{ ruta: "" }],
   });
-  const { data: products } = useApi(
-    `${import.meta.env.VITE_BACKEND_URL}productos`,
-    {},
-    reGet
-  );
 
-  const handleImageChange = (event) => {
-    const selectedImages = event.target.files;
-
-    const updatedImagenProductos = [...formData.imagenProductos];
-
-    for (let i = 0; i < selectedImages.length; i++) {
-      const imageFile = selectedImages[i];
-      // Verifica si el archivo es una imagen (puedes agregar más validaciones según tus necesidades)
-      if (imageFile.type.startsWith("image/")) {
-        // Crea una URL temporal para la imagen
-        const imageUrl = URL.createObjectURL(imageFile);
-        updatedImagenProductos.push({
-          ruta: imageUrl,
-        });
-      } else {
-        console.log("No es una imagen válida: " + imageFile.name);
-      }
-    }
-
-    setFormData({ ...formData, imagenProductos: updatedImagenProductos });
+  const handleFileUpload = (file) => {
+    setFiles([...files, file]);
+    setFormData({ ...formData, imagenProductos: [...files, file] });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,123 +41,140 @@ export default function AddProducts() {
     // formData.imagenProductos.forEach((imagenProducto, index) => {
     //   data.append(`imagenProductos[${index}]`, imagenProducto.url);
     // });
-    fetch(`${import.meta.env.VITE_BACKEND_URL}productos/crearProducto`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      //   Poner aca data cuando no este mock lo de files
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setReget(reGet + 1);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    // fetch(`${import.meta.env.VITE_BACKEND_URL}productos/crearProducto`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   //   Poner aca data cuando no este mock lo de files
+    //   body: JSON.stringify(formData),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     setReget(reGet + 1);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+
+    if (!formData.nombre) {
+      setShowAlert(true);
+    }
+  };
+
+  const handleDismissAlert = () => {
+    setShowAlert(false);
   };
 
   return (
-    <article className="min-h-[80vh] flex justify-center items-center py-[90px] flex-col gap-4">
+    <article className="bg-neutral min-h-[80vh] flex justify-center items-center py-[90px] flex-col gap-4">
+      {showAlert && (
+        <Alerts
+          text="Falta el nombre de la máquina"
+          bgColorClass="error"
+          duration={3000}
+          onDismiss={handleDismissAlert}
+        />
+      )}
       <form
         onSubmit={handleSubmit}
-        className=" flex justify-center flex-col md:w-[60%] gap-4 p-4 border rounded-lg w-full"
+        className="bg-base-100 flex justify-center flex-col md:w-[50%] gap-4 p-8 py-16 rounded-lg w-full"
       >
-        <h1>Agregar nuevo producto:</h1>
-        <input
-          className="rounded px-1"
-          type="text"
-          placeholder="Nombre del producto"
-          value={formData.nombre}
-          onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-        />
-        <input
-          className="rounded px-1"
-          type="number"
-          placeholder="Precio"
-          value={formData.precio}
-          onChange={(e) => setFormData({ ...formData, precio: e.target.value })}
-        />
-        <input
-          className="rounded px-1"
-          type="text"
-          placeholder="Descripción"
-          value={formData.descripcion}
-          onChange={(e) =>
-            setFormData({ ...formData, descripcion: e.target.value })
-          }
-        />
-        <input
-          className="rounded px-1"
-          type="text"
-          placeholder="Tipo de Producto"
-          value={formData.tipoProducto.descripcion}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              tipoProducto: {
-                ...formData.tipoProducto.descripcion,
-                descripcion: e.target.value,
-              },
-            })
-          }
-        />
-        <input
-          className="rounded px-1"
-          type="text"
-          placeholder="Marca de Producto"
-          value={formData.marcaProducto.descripcion}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              marcaProducto: {
-                ...formData.marcaProducto.descripcion,
-                descripcion: e.target.value,
-              },
-            })
-          }
-        />
-        <div className="flex gap-4 flex-wrap sm:flex-nowrap">
-          <div className="flex flex-col gap-1 overflow-hidden">
-            {formData.imagenProductos.map((imagen, index) => (
-              <input
-                key={index}
-                multiple
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
-            ))}
+        <h1 className=" flex text-4xl font-bold justify-center">
+          Agregar una Maquina
+        </h1>
+        <div className="flex-col py-11">
+          <label htmlFor="">Nombre de la Máquina</label>
+          <input
+            type="text"
+            placeholder="Tractor con Arado de Disco"
+            value={formData.nombre}
+            onChange={(e) =>
+              setFormData({ ...formData, nombre: e.target.value })
+            }
+            className="input w-full input-bordered"
+          />
+        </div>
+        <p>Imágenes (Recomendado 5 Imágenes mínimo)</p>
+        <FileUploadForm handleFileUpload={handleFileUpload} />
+        <div className="flex flex-col py-11">
+          <label htmlFor="">Descripción de la Máquina</label>
+          <textarea
+            type="text"
+            placeholder="Agregá la descripción aquí"
+            value={formData.descripcion}
+            onChange={(e) =>
+              setFormData({ ...formData, descripcion: e.target.value })
+            }
+            className="textarea textarea-bordered textarea-md w-full"
+          ></textarea>
+        </div>
+        <div className="flex gap-2 w-full py-11">
+          <div className="flex flex-col w-1/3">
+            <label htmlFor="">Precio de Renta por día</label>
+            <input
+              type="number"
+              placeholder="Precio de Renta por día"
+              value={formData.precio}
+              onChange={(e) =>
+                setFormData({ ...formData, precio: e.target.value })
+              }
+              className="input input-bordered w-full max-w-xs"
+            />
           </div>
-          <div className="border w-full p-1 rounded flex flex-wrap items-center justify-end gap-1">
-            {formData.imagenProductos.map(
-              (imagen, index) =>
-                imagen.ruta && (
-                  <img
-                    key={index}
-                    className="object-contain border top-[-55px] right-0 rounded h-[60px]"
-                    src={imagen.ruta}
-                    alt="Preview"
-                  />
-                )
-            )}
+          <div className="flex flex-col w-1/3">
+            <label htmlFor="">Categoría de Máquina</label>
+            <select className="select select-bordered w-full max-w-xs">
+              <option disabled selected>
+                Agrícola / Forestal
+              </option>
+              <option>Han Solo</option>
+              <option>Greedo</option>
+            </select>
+          </div>
+          {/* <input
+            className="rounded px-1"
+            type="text"
+            placeholder="Tipo de Producto"
+            value={formData.tipoProducto.descripcion}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                tipoProducto: {
+                  ...formData.tipoProducto.descripcion,
+                  descripcion: e.target.value,
+                },
+              })
+            }
+          /> */}
+          <div className="flex-col">
+            <label htmlFor="">Marca de la Máquina</label>
+            <input
+              type="text"
+              placeholder="Marca de Producto"
+              value={formData.marcaProducto.descripcion}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  marcaProducto: {
+                    ...formData.marcaProducto.descripcion,
+                    descripcion: e.target.value,
+                  },
+                })
+              }
+              className="input input-bordered w-full max-w-xs"
+            />
           </div>
         </div>
-
-        <button
-          className="bg-primary rounded w-[20%] ml-auto text-[#000]"
-          type="submit"
-        >
-          Enviar
-        </button>
+        <SelectCharacters />
+        <div className="flex justify-end w-full gap-4">
+          <button className="btn w-52">Resetear</button>
+          <button type="submit" className="btn bg-primary w-52">
+            Agregar
+          </button>
+        </div>
       </form>
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-[8px]">
-        {products?.reverse()?.map((prod) => (
-          <ProductCard key={prod.id} {...prod} />
-        ))}
-      </section>
     </article>
   );
 }

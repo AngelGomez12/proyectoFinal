@@ -48,7 +48,7 @@ export const Details = () => {
           </button>
         </div>
         <div className="flex flex-wrap gap-4 justify-center">
-          {data &&
+          {/* {data &&
             data.imagenProductos.map((imagenProducto, index) => {
               return (
                 <img
@@ -58,7 +58,7 @@ export const Details = () => {
                   className="w-1/2 sm:w-2/5 md:w-1/2 lg:w-1/2"
                 />
               );
-            })}
+            })} */}
 
           <img src="../public/img/Rectangle-16.png" alt="Retroexcavadora" />
           <div className="flex flex-col gap-4 items-center m-4">
