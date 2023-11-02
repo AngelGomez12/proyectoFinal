@@ -4,10 +4,14 @@ import { Link } from "react-router-dom";
 const Login = () => {
   return (
     <>
-      <div className="hero min-h-screen bg-base-200">
+    <div className="min-h-screen"
+      style={{
+        backgroundImage: "url(../../public/img/login-bg.jpg)",
+      }}>
+
+    <div className="hero min-h-screen bg-base-100 bg-opacity-80">
         <div className="flex flex-col gap-8">
           <LogoCode />
-
           <div className="hero-content flex-col lg:flex-row-reverse">
             <div className="text-center lg:text-left mx-8">
               <h1 className="text-5xl font-bold text-primary-content">Entrá Ahora!</h1>
@@ -66,6 +70,8 @@ const Login = () => {
             </div>
           </div>
         </div>
+      </div>
+
       </div>
     </>
   );

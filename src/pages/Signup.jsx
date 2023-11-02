@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 const Signup = () => {
   return (
     <>
-      <div className="hero min-h-screen bg-base-200">
+   <div className="min-h-screen"
+      style={{
+        backgroundImage: "url(../../public/img/login-bg.jpg)",
+      }}>
+
+      <div className="hero min-h-screen bg-base-100 bg-opacity-80">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left mx-8 w-[380px]">
             <h1 className="text-4xl font-bold text-primary-content">Registráte Ya!</h1>
@@ -90,6 +95,8 @@ const Signup = () => {
             </form>
           </div>
         </div>
+      </div>
+
       </div>
     </>
   );
