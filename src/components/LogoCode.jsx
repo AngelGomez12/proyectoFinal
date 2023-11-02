@@ -17,8 +17,8 @@ const LogoCode = () => {
         />
         </svg>
         <div className="flex flex-col gap-0">
-        <h1 className="text-4xl font-extrabold text-white">Maquinaria Pro</h1>
-        <p className="text-2xl text-white font-light">Trabajo pesado a un clic</p>
+        <h1 className="text-3xl font-bold text-white">Maquinaria Pro</h1>
+        <p className="text-xl text-primary-content font-light">Trabajo pesado a un clic</p>
         </div>
     </div>
     </>

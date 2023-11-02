@@ -10,10 +10,10 @@ const Login = () => {
 
           <div className="hero-content flex-col lg:flex-row-reverse">
             <div className="text-center lg:text-left mx-8">
-              <h1 className="text-5xl font-bold">Entrá Ahora!</h1>
+              <h1 className="text-5xl font-bold text-primary-content">Entrá Ahora!</h1>
               <p className="py-6 w-72 font-bold">
                 Descubrí como podrás hacer <br />
-                <span className="text-accent">
+                <span className="text-primary">
                   todo el trabajo pesado en un clic!
                 </span>
               </p>
@@ -43,17 +43,20 @@ const Login = () => {
                   />
                 </div>
                 <p className="label-text my-4">
-                    Aún no tienes cuenta?
-                    <Link to="/Signup">
-                    <a href="#" className="text-sm label-text-alt link font-bold text-accent link-hover">
+                  Aún no tienes cuenta?
+                  <Link to="/Signup">
+                    <a
+                      href="#"
+                      className="text-sm label-text-alt link font-bold text-accent link-hover"
+                    >
                       {" "}
                       Crea tu cuenta aquí{" "}
                     </a>
-                    </Link>
-                  </p>
-                  <a href="#" className="text-sm label-text-alt link link-hover">
-                    Olvidaste tu contraseña?
-                  </a>
+                  </Link>
+                </p>
+                <a href="#" className="text-sm label-text-alt link link-hover">
+                  Olvidaste tu contraseña?
+                </a>
                 <div className="form-control mt-6">
                   <button className="btn bg-primary text-base-100 hover:bg-yellow-500">
                     INICIAR SESIÓN

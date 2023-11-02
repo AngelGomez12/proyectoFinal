@@ -7,11 +7,11 @@ const Signup = () => {
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left mx-8 w-[380px]">
-            <h1 className="text-4xl font-bold">Registráte Ya!</h1>
+            <h1 className="text-4xl font-bold text-primary-content">Registráte Ya!</h1>
             <p className="py-6 w-full font-bold mb-8">
-            Y Disfrutá lo que es hacer <br />
-              <span className="text-accent">
-              todo el trabajo pesado en un clic!
+              Y Disfrutá de hacer <br />
+              <span className="text-primary">
+                todo el trabajo pesado en un clic!
               </span>
             </p>
             <LogoCode />
@@ -64,20 +64,22 @@ const Signup = () => {
               </div>
               <div className="form-control">
                 <label className="label cursor-pointer flex-row-reverse justify-end gap-2">
-                  <span className="label-text">Acepto lo que tengo que aceptar</span>
+                  <span className="label-text">
+                    Acepto lo que tengo que aceptar
+                  </span>
                   <input type="checkbox" className="checkbox" />
                 </label>
               </div>
               <p className="label-text my-4">
                 Ya tienes cuenta?
                 <Link to="/Login">
-                <a
-                  href="#"
-                  className="text-sm label-text-alt link font-bold text-accent link-hover"
-                >
-                  {" "}
-                  Loguéate aquí{" "}
-                </a>
+                  <a
+                    href="#"
+                    className="text-sm label-text-alt link font-bold text-accent link-hover"
+                  >
+                    {" "}
+                    Loguéate aquí{" "}
+                  </a>
                 </Link>
               </p>
               <div className="form-control mt-6">
