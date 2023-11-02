@@ -1,4 +1,4 @@
-const Login = () => {
+const Signup = () => {
   return (
     <>
     <div className="hero min-h-screen bg-base-200">
@@ -34,4 +34,4 @@ const Login = () => {
     </>
   )
 }
-export default Login
+export default Signup
