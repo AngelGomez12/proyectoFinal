@@ -15,10 +15,10 @@ const Login = () => {
           <div className="hero-content flex-col lg:flex-row-reverse">
             <div className="text-center lg:text-left mx-8">
               <h1 className="text-5xl font-bold text-primary-content">Entrá Ahora!</h1>
-              <p className="py-6 w-72 font-bold">
-                Descubrí como podrás hacer <br />
+              <p className="text-xl py-6 w-72 font-bold">
+                Y hacé todo <br />
                 <span className="text-primary">
-                  todo el trabajo pesado en un clic!
+                  el trabajo pesado en un clic!
                 </span>
               </p>
             </div>

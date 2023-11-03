@@ -45,8 +45,12 @@ export const Header = () => {
         </ul>
       </div>
       <div className="hidden sm:flex gap-2 navbar-end">
-        <a className="btn">Crear Cuenta</a>
-        <a className="btn">Iniciar Sesion</a>
+        <Link to="/Signup">
+          <a className="btn">Crear Cuenta</a>
+        </Link>
+        <Link to="/Login">
+          <a className="btn">Iniciar Sesion</a>
+        </Link>
       </div>
       <div className="w-full justify-end flex sm:hidden">
         <div className="dropdown dropdown-end" onClick={toggleMenu}>
@@ -66,8 +70,12 @@ export const Header = () => {
               tabIndex={0}
               className="gap-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <a className="btn">Crear Cuenta</a>
-              <a className="btn">Iniciar Sesion</a>
+              <Link to="/Signup">
+                <a className="btn">Crear Cuenta</a>
+              </Link>
+              <Link to="/Login">
+                <a className="btn">Iniciar Sesion</a>
+              </Link>
               <a className="btn">Inicio</a>
               <a className="btn">Contacto</a>
               <a className="btn">Renta de Maquinaria</a>

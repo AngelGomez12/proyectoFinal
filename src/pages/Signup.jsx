@@ -12,8 +12,8 @@ const Signup = () => {
       <div className="hero min-h-screen bg-base-100 bg-opacity-80">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left mx-8 w-[380px]">
-            <h1 className="text-4xl font-bold text-primary-content">Registráte Ya!</h1>
-            <p className="py-6 w-full font-bold mb-8">
+            <h1 className="text-5xl font-bold text-primary-content">Registráte Ya!</h1>
+            <p className="text-xl py-6 w-full font-bold mb-8">
               Y Disfrutá de hacer <br />
               <span className="text-primary">
                 todo el trabajo pesado en un clic!
