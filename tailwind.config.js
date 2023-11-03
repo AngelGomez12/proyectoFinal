@@ -15,6 +15,7 @@ export default {
         "warning": "#F8A272",
         "error": "#FF4343",
         "primary-content": "#CDCED0",
+        "secondary-content": "#40454B"
       },
     },
   },
