@@ -30,7 +30,7 @@ const Signup = () => {
                 <input
                   type="text"
                   placeholder="Dorian Battiato"
-                  className="input input-bordered"
+                  className="input input-bordered placeholder:text-secondary-content"
                   required
                 />
               </div>
@@ -41,7 +41,7 @@ const Signup = () => {
                 <input
                   type="email"
                   placeholder="Ingresá tu email"
-                  className="input input-bordered"
+                  className="input input-bordered placeholder:text-secondary-content"
                   required
                 />
               </div>
@@ -52,7 +52,7 @@ const Signup = () => {
                 <input
                   type="password"
                   placeholder="Crea una contraseña"
-                  className="input input-bordered"
+                  className="input input-bordered placeholder:text-secondary-content"
                   required
                 />
               </div>
@@ -63,7 +63,7 @@ const Signup = () => {
                 <input
                   type="password"
                   placeholder="Confirmá tu contraseña"
-                  className="input input-bordered"
+                  className="input input-bordered placeholder:text-secondary-content"
                   required
                 />
               </div>
