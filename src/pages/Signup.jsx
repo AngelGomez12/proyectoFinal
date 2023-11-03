@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Signup = () => {
-  //Captura de Dato del Form SIGN UP
+  //Captura de Datos del Form SIGN UP
 
   const [userData, setuserData] = useState({
     firstname: { value: "", isOK: null },
@@ -13,45 +13,46 @@ const Signup = () => {
     terms: { value: false },
   });
 
-  const [show, setShow] = useState(false);
+  /*   const [show, setShow] = useState(false); */
 
   // Mensajes de Validación:
 
-  const errMessage = {
+  /*   const errMessage = {
     errFirstName: "Nombre no Válido",
     errLastName: "Nombre no Válido",
     errEmail: "Porfa, danos tu Email correcto 🙂",
     errPass: "Tu contraseña no coincide",
-  };
+  }; */
 
   // Manejadores:
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(
-      `NUEVO USUARIO: \n
-      Nombre: ${userData.firstname.value} \n
-      Apellido: ${userData.lastname.value} \n
-      Email: ${userData.email.value} \n
-      Contraseña: ${userData.password.value} \n
-      Aceptó?: ${userData.terms.value} \n
-      \n ========================`
-    );
-  };
-
   const handleNameData = (e) => {
-    // Validar NOMBRE...
-    setuserData({
-      ...userData,
-      firstname: { value: e.target.value, isOK: true },
-    });
+    // Validar NOMBRE... > 3 letras
+    if (e.target.value.length > 3 && e.target.value.charAt(0) !== " ") {
+      setuserData({
+        ...userData,
+        firstname: { value: e.target.value, isOK: true },
+      });
+    } else {
+      setuserData({
+        ...userData,
+        firstname: { value: "", isOK: false },
+      });
+    }
   };
   const handleLastNameData = (e) => {
-    // Validar APELLIDO...
-    setuserData({
-      ...userData,
-      lastname: { value: e.target.value, isOK: true },
-    });
+    // Validar APELLIDO > 3 letras
+    if (e.target.value.length > 3 && e.target.value.charAt(0) !== " ") {
+      setuserData({
+        ...userData,
+        lastname: { value: e.target.value, isOK: true },
+      });
+    } else {
+      setuserData({
+        ...userData,
+        lastname: { value: "", isOK: false },
+      });
+    }
   };
   const handleEmailData = (e) => {
     // Validar EMAIL...
@@ -69,11 +70,34 @@ const Signup = () => {
   };
   const handleTerms = (e) => {
     // Validar TERMINOS Y CONDICIONES...
-/*     console.log(e.target.checked); */
+    /*     console.log(e.target.checked); */
     setuserData({
       ...userData,
-      terms: { value: e.target.checked},
+      terms: { value: e.target.checked },
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      userData.firstname.isOK === true &&
+      userData.lastname.isOK === true &&
+      userData.password.isOK === true &&
+      userData.terms.value === true
+    ) {
+      console.log(
+        `NUEVO USUARIO: \n
+        Nombre: ${userData.firstname.value} \n
+        Apellido: ${userData.lastname.value} \n
+        Email: ${userData.email.value} \n
+        Contraseña: ${userData.password.value} \n
+        Aceptó?: ${userData.terms.value} \n
+        \n ========================`
+      );
+    } else {
+      console.log("Error en el Registro");
+    }
   };
 
   return (
@@ -102,13 +126,25 @@ const Signup = () => {
               <form className="card-body" onSubmit={handleSubmit}>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Nombre Completo</span>
+                    <span className="label-text">Nombre</span>
                   </label>
                   <input
                     type="text"
-                    placeholder="Dorian Battiato"
+                    placeholder="Ingresá tu Nombre"
                     className="input input-bordered placeholder:text-secondary-content"
                     onChange={handleNameData}
+                    required
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Apellido</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ingresá tu Apellido"
+                    className="input input-bordered placeholder:text-secondary-content"
+                    onChange={handleLastNameData}
                     required
                   />
                 </div>
@@ -137,22 +173,15 @@ const Signup = () => {
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Confirma tu Contraseña</span>
-                  </label>
-                  <input
-                    type="password"
-                    placeholder="Confirmá tu contraseña"
-                    className="input input-bordered placeholder:text-secondary-content"
-                    required
-                  />
-                </div>
-                <div className="form-control">
                   <label className="label cursor-pointer flex-row-reverse justify-end gap-2">
                     <span className="label-text">
                       Acepto lo que tengo que aceptar
                     </span>
-                    <input type="checkbox" className="checkbox" onChange={handleTerms} />
+                    <input
+                      type="checkbox"
+                      className="checkbox"
+                      onChange={handleTerms}
+                    />
                   </label>
                 </div>
                 <p className="label-text my-4">
