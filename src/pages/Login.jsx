@@ -11,21 +11,21 @@ const Login = () => {
         }}
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-6 max-w-xs sm:max-w-max " >
             <LogoCode />
-            <div className="hero-content flex-col lg:flex-row-reverse">
-              <div className="text-center lg:text-left mx-8">
-                <h1 className="text-5xl font-bold text-primary-content">
+            <div className="hero-content flex-col lg:flex-row-reverse gap-6">
+              <div className="text-center lg:text-left w-96">
+                <h1 className="text-4xl font-bold text-primary-content mt-6 lg:mt-0">
                   Entrá Ahora!
                 </h1>
-                <p className="text-xl py-6 w-72 font-bold">
-                  Y hacé todo <br />
+                <p className="text-lg py-2 max-w-full font-medium sm:text-xl sm:font-medium lg:py-4">
+                  Y hacé todo tu <br />
                   <span className="text-primary">
-                    el trabajo pesado en un clic!
+                    trabajo pesado en un clic!
                   </span>
                 </p>
               </div>
-              <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+              <div className="card flex-shrink-0 shadow-2xl bg-base-100 w-72 sm:w-full max-w-sm">
                 <form className="card-body">
                   <div className="form-control">
                     <label className="label">
@@ -50,7 +50,7 @@ const Login = () => {
                     />
                   </div>
                   <p className="label-text my-4">
-                    Aún no tienes cuenta?
+                    Aún no tienes cuenta? <br />
                     <Link to="/Signup">
                       <a
                         href="#"

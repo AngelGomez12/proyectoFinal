@@ -2,7 +2,7 @@ const LogoCode = () => {
   return (
     <>
     <div id="logo"
-    className="mx-auto max-w-md min-w-[336px] flex items-center gap-2">
+    className="mx-auto max-w-md min-w-[336px] hidden lg:flex items-center gap-2">
         <svg
         className="h-full z-50"
         xmlns="http://www.w3.org/2000/svg"
