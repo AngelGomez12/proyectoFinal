@@ -1,6 +1,7 @@
 import LogoCode from "../components/LogoCode";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import useApi from "../hooks/hookApi";
 
 const Signup = () => {
   //Captura de Datos del Form SIGN UP
@@ -23,6 +24,17 @@ const Signup = () => {
     errEmail: "Porfa, danos tu Email correcto 🙂",
     errPass: "Tu contraseña no coincide",
   }; */
+
+  const { data, loading, error, fetchData, } = useApi(
+    `${import.meta.env.VITE_BACKEND_URL}/signup`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    }
+  );
 
   // Manejadores:
 
@@ -128,6 +140,13 @@ const Signup = () => {
     } else {
       console.log("Error en el Registro");
     }
+
+    try {
+      fetchData();
+    } catch (error) {
+      console.error("Error fetching data");
+    }
+
   };
 
   return (

@@ -27,7 +27,7 @@ const useApi = (url, options = {}) => {
 
   useEffect(() => {
     fetchData();
-  }, [url, JSON.stringify(options)]);
+  }, [url]);
 
   return { data, loading, error, fetchData };
 };

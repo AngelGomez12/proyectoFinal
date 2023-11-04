@@ -1,19 +1,37 @@
 import LogoCode from "../components/LogoCode";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import useApi from "../hooks/hookApi";
 
 
 const Login = () => {
 
   const [loginData, setLoginData] = useState({
-    email: { value: "", isOK: null },
-    password: { value: "", isOK: null }
+    email: { value: ""},
+    password: { value: ""}
   });
+
+  const { data, loading, error, fetchData, } = useApi(
+    `${import.meta.env.VITE_BACKEND_URL}/login`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginData),
+    }
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginData);
-  }
+    try {
+      fetchData();
+    } catch (error) {
+      console.error("Error fetching data");
+    }
+    console.log(handleSubmit.data);
+  };
+  
 
   return (
     <>
