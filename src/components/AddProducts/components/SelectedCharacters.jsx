@@ -4,7 +4,8 @@ function SelectCharacters() {
   const [options, setOptions] = useState([]);
   const [currentOption, setCurrentOption] = useState("");
 
-  const handleAddOption = () => {
+  const handleAddOption = (e) => {
+    e.preventDefault();
     if (currentOption) {
       setOptions([...options, currentOption]);
       setCurrentOption("");

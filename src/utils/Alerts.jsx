@@ -16,7 +16,7 @@ export const Alerts = ({ text, bgColorClass, duration, onDismiss }) => {
 
   return visible ? (
     <div
-      className={`fixed top-6 left-1/2 transform -translate-x-1/2 alert alert-${bgColorClass} p-4 rounded shadow-md z-50 w-1/2`}
+      className={`fixed top-6 left-1/2 transform -translate-x-1/2 alert ${bgColorClass} p-4 rounded shadow-md z-50 w-1/2 text-white flex justify-center`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

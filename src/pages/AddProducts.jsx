@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useApi from "../hooks/hookApi";
 import FileUploadForm from "../components/AddProducts/components/FileUploadForm";
 import SelectCharacters from "../components/AddProducts/components/SelectedCharacters";
 import { Alerts } from "../utils/alerts";
+import { useNavigate } from "react-router-dom";
 
 export default function AddProducts() {
+  const navigate = useNavigate();
+  const [categorias, setCategorias] = useState([]);
+  const [Alert, setAlert] = useState({
+    color: "",
+    text: "",
+  });
   const [showAlert, setShowAlert] = useState(false);
   const [reGet, setReget] = useState(0);
   const [files, setFiles] = useState([]);
@@ -22,6 +29,16 @@ export default function AddProducts() {
     },
     imagenProductos: [{ ruta: "" }],
   });
+  const { data } = useApi(
+    `${import.meta.env.VITE_BACKEND_URL}productos/categorias`,
+    {}
+  );
+
+  useEffect(() => {
+    if (data) {
+      setCategorias(data);
+    }
+  }, []);
 
   const handleFileUpload = (file) => {
     setFiles([...files, file]);
@@ -59,8 +76,72 @@ export default function AddProducts() {
     //   });
 
     if (!formData.nombre) {
+      setAlert({
+        color: "bg-error",
+        text: "El nombre no puede estar vacío",
+      });
       setShowAlert(true);
+      return;
     }
+
+    if (formData.imagenProductos.length < 1) {
+      setAlert({
+        color: "bg-error",
+        text: "Debes agregar al menos una imagen",
+      });
+      setShowAlert(true);
+      return;
+    }
+
+    if (!formData.descripcion) {
+      setAlert({
+        color: "bg-error",
+        text: "La descripción no puede estar vacía",
+      });
+      setShowAlert(true);
+      return;
+    }
+
+    if (!formData.precio) {
+      setAlert({
+        color: "bg-error",
+        text: "El precio no puede estar vacío",
+      });
+      setShowAlert(true);
+      return;
+    }
+
+    if (!formData.marcaProducto.descripcion) {
+      setAlert({
+        color: "bg-error",
+        text: "Debes seleccionar una marca",
+      });
+      setShowAlert(true);
+      return;
+    }
+
+    const { data, loading, error, fetchData } = useApi(
+      `${import.meta.env.VITE_BACKEND_URL}productos/crearProducto`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+    fetchData();
+    setAlert({
+      color: "bg-success",
+      text: "Se ha agregado correctamente",
+    });
+    setShowAlert(true);
+  };
+
+  const submitAndOut = (e) => {
+    e.preventDefault();
+    handleSubmit(e);
+    navigate("/");
   };
 
   const handleDismissAlert = () => {
@@ -71,9 +152,9 @@ export default function AddProducts() {
     <article className="bg-neutral min-h-[80vh] flex justify-center items-center py-[90px] flex-col gap-4">
       {showAlert && (
         <Alerts
-          text="Falta el nombre de la máquina"
-          bgColorClass="error"
-          duration={3000}
+          text={Alert.text}
+          bgColorClass={Alert.color}
+          duration={2000}
           onDismiss={handleDismissAlert}
         />
       )}
@@ -124,30 +205,30 @@ export default function AddProducts() {
             />
           </div>
           <div className="flex flex-col w-1/3">
-            <label htmlFor="">Categoría de Máquina</label>
-            <select className="select select-bordered w-full max-w-xs">
-              <option disabled selected>
-                Agrícola / Forestal
+            <label htmlFor="categoria">Categoría de Máquina</label>
+            <select
+              className="select select-bordered w-full max-w-xs"
+              name="categoria"
+              value={formData.tipoProducto.descripcion}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  tipoProducto: {
+                    descripcion: e.target.value,
+                  },
+                })
+              }
+            >
+              <option value="" disabled>
+                Seleccione una categoría
               </option>
-              <option>Han Solo</option>
-              <option>Greedo</option>
+              {categorias.map((categoria, index) => (
+                <option key={index} value={categoria}>
+                  {categoria}
+                </option>
+              ))}
             </select>
           </div>
-          {/* <input
-            className="rounded px-1"
-            type="text"
-            placeholder="Tipo de Producto"
-            value={formData.tipoProducto.descripcion}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                tipoProducto: {
-                  ...formData.tipoProducto.descripcion,
-                  descripcion: e.target.value,
-                },
-              })
-            }
-          /> */}
           <div className="flex-col">
             <label htmlFor="">Marca de la Máquina</label>
             <input
@@ -169,8 +250,13 @@ export default function AddProducts() {
         </div>
         <SelectCharacters />
         <div className="flex justify-end w-full gap-4">
-          <button className="btn w-52">Resetear</button>
-          <button type="submit" className="btn bg-primary w-52">
+          <button className="btn w-52" onClick={submitAndOut}>
+            Agregar y salir
+          </button>
+          <button
+            type="submit"
+            className="btn bg-primary w-52 text-neutral hover:text-gray-100"
+          >
             Agregar
           </button>
         </div>
