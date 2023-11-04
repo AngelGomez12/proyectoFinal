@@ -28,12 +28,15 @@ const Signup = () => {
 
   const handleNameData = (e) => {
     // Validar NOMBRE... > 3 letras
+    const element = e.target;
     if (e.target.value.length > 3 && e.target.value.charAt(0) !== " ") {
+      element.classList.replace("input-error", "input-success");
       setuserData({
         ...userData,
         firstname: { value: e.target.value, isOK: true },
       });
     } else {
+      element.classList.add("input-error");
       setuserData({
         ...userData,
         firstname: { value: "", isOK: false },
@@ -42,12 +45,15 @@ const Signup = () => {
   };
   const handleLastNameData = (e) => {
     // Validar APELLIDO > 3 letras
+    const element = e.target;
     if (e.target.value.length > 3 && e.target.value.charAt(0) !== " ") {
+      element.classList.replace("input-error", "input-success");
       setuserData({
         ...userData,
         lastname: { value: e.target.value, isOK: true },
       });
     } else {
+      element.classList.add("input-error");
       setuserData({
         ...userData,
         lastname: { value: "", isOK: false },
@@ -55,18 +61,28 @@ const Signup = () => {
     }
   };
   const handleEmailData = (e) => {
-    // Validar EMAIL...
+    // Validar EMAIL con Regex común
     setuserData({
       ...userData,
       email: { value: e.target.value, isOK: true },
     });
   };
   const handlePassData = (e) => {
-    // Validar PASSWORD...
-    setuserData({
-      ...userData,
-      password: { value: e.target.value, isOK: true },
-    });
+    // Validar PASSWORD > 4 Caracteres
+    const element = e.target;
+    if (e.target.value.length >= 4 && e.target.value.charAt(0) !== " ") {
+      element.classList.replace("input-error", "input-success");
+      setuserData({
+        ...userData,
+        password: { value: e.target.value, isOK: true },
+      });
+    } else {
+      element.classList.add("input-error");
+      setuserData({
+        ...userData,
+        password: { value: "", isOK: false },
+      });
+    }
   };
   const handleTerms = (e) => {
     // Validar TERMINOS Y CONDICIONES...
@@ -166,7 +182,7 @@ const Signup = () => {
                   </label>
                   <input
                     type="password"
-                    placeholder="Crea una contraseña"
+                    placeholder="Mínimo de 4 carácteres"
                     className="input input-bordered placeholder:text-secondary-content"
                     onChange={handlePassData}
                     required
