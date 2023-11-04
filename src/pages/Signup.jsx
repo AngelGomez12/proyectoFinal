@@ -5,7 +5,7 @@ import { useState } from "react";
 const Signup = () => {
   //Captura de Datos del Form SIGN UP
 
-  const [userData, setuserData] = useState({
+  const [userData, setUserData] = useState({
     firstname: { value: "", isOK: null },
     lastname: { value: "", isOK: null },
     email: { value: "", isOK: null },
@@ -29,15 +29,15 @@ const Signup = () => {
   const handleNameData = (e) => {
     // Validar NOMBRE... > 3 letras
     const element = e.target;
-    if (e.target.value.length > 3 && e.target.value.charAt(0) !== " ") {
+    if (e.target.value.length >= 3 && e.target.value.charAt(0) !== " ") {
       element.classList.replace("input-error", "input-success");
-      setuserData({
+      setUserData({
         ...userData,
         firstname: { value: e.target.value, isOK: true },
       });
     } else {
       element.classList.add("input-error");
-      setuserData({
+      setUserData({
         ...userData,
         firstname: { value: "", isOK: false },
       });
@@ -46,15 +46,15 @@ const Signup = () => {
   const handleLastNameData = (e) => {
     // Validar APELLIDO > 3 letras
     const element = e.target;
-    if (e.target.value.length > 3 && e.target.value.charAt(0) !== " ") {
+    if (e.target.value.length >= 3 && e.target.value.charAt(0) !== " ") {
       element.classList.replace("input-error", "input-success");
-      setuserData({
+      setUserData({
         ...userData,
         lastname: { value: e.target.value, isOK: true },
       });
     } else {
       element.classList.add("input-error");
-      setuserData({
+      setUserData({
         ...userData,
         lastname: { value: "", isOK: false },
       });
@@ -62,23 +62,37 @@ const Signup = () => {
   };
   const handleEmailData = (e) => {
     // Validar EMAIL con Regex común
-    setuserData({
-      ...userData,
-      email: { value: e.target.value, isOK: true },
-    });
+    const element = e.target;
+    const regex =
+    /* /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; */
+    /\S+@\S+\.\S+/;
+
+    if (regex.test(e.target.value)) {
+      element.classList.replace("input-error", "input-success");
+      setUserData({
+        ...userData,
+        email: { value: e.target.value, isOK: true },
+      });
+    } else {
+      element.classList.add("input-error");
+      setUserData({
+        ...userData,
+        email: { value: "", isOK: false },
+      });
+    }
   };
   const handlePassData = (e) => {
     // Validar PASSWORD > 4 Caracteres
     const element = e.target;
     if (e.target.value.length >= 4 && e.target.value.charAt(0) !== " ") {
       element.classList.replace("input-error", "input-success");
-      setuserData({
+      setUserData({
         ...userData,
         password: { value: e.target.value, isOK: true },
       });
     } else {
       element.classList.add("input-error");
-      setuserData({
+      setUserData({
         ...userData,
         password: { value: "", isOK: false },
       });
@@ -87,7 +101,7 @@ const Signup = () => {
   const handleTerms = (e) => {
     // Validar TERMINOS Y CONDICIONES...
     /*     console.log(e.target.checked); */
-    setuserData({
+    setUserData({
       ...userData,
       terms: { value: e.target.checked },
     });
