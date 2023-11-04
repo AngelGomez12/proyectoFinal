@@ -1,130 +1,266 @@
-import React, { useState } from 'react';
-import ProductCard from '../components/AddProducts/components/ProductCard';
-import useApi from '../hooks/hookApi';
+import { useEffect, useState } from "react";
+import useApi from "../hooks/hookApi";
+import FileUploadForm from "../components/AddProducts/components/FileUploadForm";
+import SelectCharacters from "../components/AddProducts/components/SelectedCharacters";
+import { Alerts } from "../utils/alerts";
+import { useNavigate } from "react-router-dom";
 
 export default function AddProducts() {
-    const [reGet, setReget] = useState(0)
+  const navigate = useNavigate();
+  const [categorias, setCategorias] = useState([]);
+  const [Alert, setAlert] = useState({
+    color: "",
+    text: "",
+  });
+  const [showAlert, setShowAlert] = useState(false);
+  const [reGet, setReget] = useState(0);
+  const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     nombre: "",
     precio: "",
     descripcion: "",
     tipoProducto: {
       id: "",
-      nombre: ""
+      descripcion: "",
     },
     marcaProducto: {
       id: "",
-      nombre: ""
+      descripcion: "",
     },
-    imagenProductos: [
-      { url: "" },
-    ]
+    imagenProductos: [{ ruta: "" }],
   });
-  const {data: products} = useApi('http://localhost:8081/productos/', {}, reGet)
+  const { data } = useApi(
+    `${import.meta.env.VITE_BACKEND_URL}productos/categorias`,
+    {}
+  );
 
-  const handleImageChange = (event) => {
-    const selectedImages = event.target.files;
-
-    const updatedImagenProductos = [...formData.imagenProductos];
-
-    for (let i = 0; i < selectedImages.length; i++) {
-      updatedImagenProductos.push({ url: selectedImages[i], preview: URL.createObjectURL(selectedImages[i]) });
+  useEffect(() => {
+    if (data) {
+      setCategorias(data);
     }
+  }, []);
 
-    setFormData({ ...formData, imagenProductos: updatedImagenProductos });
+  const handleFileUpload = (file) => {
+    setFiles([...files, file]);
+    setFormData({ ...formData, imagenProductos: [...files, file] });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // const data = new FormData();
-  
+
     // data.append('nombre', formData.nombre);
     // data.append('precio', formData.precio);
     // data.append('descripcion', formData.descripcion);
     // data.append('tipoProducto', JSON.stringify(formData.tipoProducto));
     // data.append('marcaProducto', JSON.stringify(formData.marcaProducto));
-  
+
     // formData.imagenProductos.forEach((imagenProducto, index) => {
     //   data.append(`imagenProductos[${index}]`, imagenProducto.url);
     // });
-    fetch('http://localhost:8081/productos/crearProducto', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    //   Poner aca data cuando no este mock lo de files
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setReget(reGet+1)
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+    // fetch(`${import.meta.env.VITE_BACKEND_URL}productos/crearProducto`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   //   Poner aca data cuando no este mock lo de files
+    //   body: JSON.stringify(formData),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     setReget(reGet + 1);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+
+    if (!formData.nombre) {
+      setAlert({
+        color: "bg-error",
+        text: "El nombre no puede estar vacío",
       });
+      setShowAlert(true);
+      return;
+    }
+
+    if (formData.imagenProductos.length < 1) {
+      setAlert({
+        color: "bg-error",
+        text: "Debes agregar al menos una imagen",
+      });
+      setShowAlert(true);
+      return;
+    }
+
+    if (!formData.descripcion) {
+      setAlert({
+        color: "bg-error",
+        text: "La descripción no puede estar vacía",
+      });
+      setShowAlert(true);
+      return;
+    }
+
+    if (!formData.precio) {
+      setAlert({
+        color: "bg-error",
+        text: "El precio no puede estar vacío",
+      });
+      setShowAlert(true);
+      return;
+    }
+
+    if (!formData.marcaProducto.descripcion) {
+      setAlert({
+        color: "bg-error",
+        text: "Debes seleccionar una marca",
+      });
+      setShowAlert(true);
+      return;
+    }
+
+    const { data, loading, error, fetchData } = useApi(
+      `${import.meta.env.VITE_BACKEND_URL}productos/crearProducto`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+    fetchData();
+    setAlert({
+      color: "bg-success",
+      text: "Se ha agregado correctamente",
+    });
+    setShowAlert(true);
   };
-  
+
+  const submitAndOut = (e) => {
+    e.preventDefault();
+    handleSubmit(e);
+    navigate("/");
+  };
+
+  const handleDismissAlert = () => {
+    setShowAlert(false);
+  };
 
   return (
-    <article className='min-h-[80vh] flex justify-center items-center py-[90px] flex-col gap-4'>
-    <form onSubmit={handleSubmit} className=" flex justify-center flex-col md:w-[60%] gap-4 p-4 border rounded-lg w-full">
-      <h1>Agregar nuevo producto:</h1>
-      <input className='rounded px-1'
-        type="text"
-        placeholder="Nombre del producto"
-        value={formData.nombre}
-        onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-      />
-      <input className='rounded px-1'
-        type="number"
-        placeholder="Precio"
-        value={formData.precio}
-        onChange={(e) => setFormData({ ...formData, precio: e.target.value })}
-      />
-      <input className='rounded px-1'
-        type="text"
-        placeholder="Descripción"
-        value={formData.descripcion}
-        onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
-      />
-      <input className='rounded px-1'
-        type="text"
-        placeholder="Tipo de Producto"
-        value={formData.tipoProducto.nombre}
-        onChange={(e) => setFormData({ ...formData, tipoProducto: { ...formData.tipoProducto, nombre: e.target.value } })}
-      />
-      <input className='rounded px-1'
-        type="text"
-        placeholder="Marca de Producto"
-        value={formData.marcaProducto.nombre}
-        onChange={(e) => setFormData({ ...formData, marcaProducto: { ...formData.marcaProducto, nombre: e.target.value } })}
-      />
-      <div className='flex gap-4 flex-wrap sm:flex-nowrap'>
-
-        <div className='flex flex-col gap-1 overflow-hidden'>
-      {formData.imagenProductos.map((imagen, index) => (
-            <input
-            key={index}
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              />
-        ))}
-      </div>
-      <div className='border w-full p-1 rounded flex flex-wrap items-center justify-end gap-1'>
-            {formData.imagenProductos.map((imagen, index) => imagen.preview && <img key={index} className='object-contain border top-[-55px] right-0 rounded h-[60px]' src={imagen.preview} alt="Preview" />)}
+    <article className="bg-neutral min-h-[80vh] flex justify-center items-center py-[90px] flex-col gap-4">
+      {showAlert && (
+        <Alerts
+          text={Alert.text}
+          bgColorClass={Alert.color}
+          duration={2000}
+          onDismiss={handleDismissAlert}
+        />
+      )}
+      <form
+        onSubmit={handleSubmit}
+        className="bg-base-100 flex justify-center flex-col md:w-[50%] gap-4 p-8 py-16 rounded-lg w-full"
+      >
+        <h1 className=" flex text-4xl font-bold justify-center">
+          Agregar una Maquina
+        </h1>
+        <div className="flex-col py-11">
+          <label htmlFor="">Nombre de la Máquina</label>
+          <input
+            type="text"
+            placeholder="Tractor con Arado de Disco"
+            value={formData.nombre}
+            onChange={(e) =>
+              setFormData({ ...formData, nombre: e.target.value })
+            }
+            className="input w-full input-bordered"
+          />
         </div>
-      </div>
-
-
-      <button className='bg-primary rounded w-[20%] ml-auto text-[#000]' type='submit'>Enviar</button>
-    </form>
-<section className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-[8px]'>
-{products?.reverse()?.map((prod) => <ProductCard key={prod.id} {...prod} />)}
-
-</section>
+        <p>Imágenes (Recomendado 5 Imágenes mínimo)</p>
+        <FileUploadForm handleFileUpload={handleFileUpload} />
+        <div className="flex flex-col py-11">
+          <label htmlFor="">Descripción de la Máquina</label>
+          <textarea
+            type="text"
+            placeholder="Agregá la descripción aquí"
+            value={formData.descripcion}
+            onChange={(e) =>
+              setFormData({ ...formData, descripcion: e.target.value })
+            }
+            className="textarea textarea-bordered textarea-md w-full"
+          ></textarea>
+        </div>
+        <div className="flex gap-2 w-full py-11">
+          <div className="flex flex-col w-1/3">
+            <label htmlFor="">Precio de Renta por día</label>
+            <input
+              type="number"
+              placeholder="Precio de Renta por día"
+              value={formData.precio}
+              onChange={(e) =>
+                setFormData({ ...formData, precio: e.target.value })
+              }
+              className="input input-bordered w-full max-w-xs"
+            />
+          </div>
+          <div className="flex flex-col w-1/3">
+            <label htmlFor="categoria">Categoría de Máquina</label>
+            <select
+              className="select select-bordered w-full max-w-xs"
+              name="categoria"
+              value={formData.tipoProducto.descripcion}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  tipoProducto: {
+                    descripcion: e.target.value,
+                  },
+                })
+              }
+            >
+              <option value="" disabled>
+                Seleccione una categoría
+              </option>
+              {categorias.map((categoria, index) => (
+                <option key={index} value={categoria}>
+                  {categoria}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex-col">
+            <label htmlFor="">Marca de la Máquina</label>
+            <input
+              type="text"
+              placeholder="Marca de Producto"
+              value={formData.marcaProducto.descripcion}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  marcaProducto: {
+                    ...formData.marcaProducto.descripcion,
+                    descripcion: e.target.value,
+                  },
+                })
+              }
+              className="input input-bordered w-full max-w-xs"
+            />
+          </div>
+        </div>
+        <SelectCharacters />
+        <div className="flex justify-end w-full gap-4">
+          <button className="btn w-52" onClick={submitAndOut}>
+            Agregar y salir
+          </button>
+          <button
+            type="submit"
+            className="btn bg-primary w-52 text-neutral hover:text-gray-100"
+          >
+            Agregar
+          </button>
+        </div>
+      </form>
     </article>
-
   );
 }
