@@ -1,7 +1,20 @@
 import LogoCode from "../components/LogoCode";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+
 
 const Login = () => {
+
+  const [loginData, setLoginData] = useState({
+    email: { value: "", isOK: null },
+    password: { value: "", isOK: null }
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(loginData);
+  }
+
   return (
     <>
       <div
@@ -26,7 +39,7 @@ const Login = () => {
                 </p>
               </div>
               <div className="card flex-shrink-0 shadow-2xl bg-base-100 w-72 sm:w-full max-w-sm">
-                <form className="card-body">
+                <form className="card-body" onSubmit={handleSubmit}>
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text">Email</span>
@@ -35,6 +48,8 @@ const Login = () => {
                       type="email"
                       placeholder="Ingresá tu email"
                       className="input input-bordered placeholder:text-secondary-content"
+                      onChange={(e) => setLoginData ({
+                        ...loginData, email: { value: e.target.value, isOK: null }})}
                       required
                     />
                   </div>
@@ -46,6 +61,8 @@ const Login = () => {
                       type="password"
                       placeholder="Ingresá tu contraseña"
                       className="input input-bordered placeholder:text-secondary-content"
+                      onChange={(e) => setLoginData ({
+                        ...loginData, password: { value: e.target.value, isOK: null }})}
                       required
                     />
                   </div>
