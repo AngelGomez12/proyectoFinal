@@ -5,7 +5,7 @@ const Login = () => {
   return (
     <>
       <div
-        className="min-h-screen"
+        className="min-h-screen bg-cover bg-no-repeat"
         style={{
           backgroundImage: "url(../../public/img/login-bg.jpg)",
         }}

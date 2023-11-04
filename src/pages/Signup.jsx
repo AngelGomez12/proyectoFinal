@@ -133,13 +133,13 @@ const Signup = () => {
   return (
     <>
       <div
-        className="min-h-screen"
+        className="min-h-screen bg-cover bg-no-repeat"
         style={{
-          backgroundImage: "url(../../public/img/login-bg.jpg)",
+          backgroundImage: "url(../../public/img/signup-bg.jpg)",
         }}
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">
-          <div className="hero-content flex-col lg:flex-row-reverse gap-6 mt-[10vh]">
+          <div className="hero-content flex-col lg:flex-row-reverse gap-6 mt-[10vh] max-w-xs sm:max-w-max">
             <div className="text-center lg:text-left w-96">
               <h1 className="text-4xl font-bold text-primary-content mt-6 lg:mt-0">
                 Registráte Ya!
@@ -152,7 +152,7 @@ const Signup = () => {
               </p>
               <LogoCode />
             </div>
-            <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div className="card flex-shrink-0 shadow-2xl bg-base-100 w-72 sm:w-full max-w-sm">
               <form className="card-body" onSubmit={handleSubmit}>
                 <div className="form-control">
                   <label className="label">
