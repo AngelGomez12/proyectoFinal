@@ -6,6 +6,7 @@ import { useGlobalContext } from "./contexts/Global";
 import AdminRoutes from "./router/AdminRoutes";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Account from "./pages/Account";
 
 function App() {
   const { isAdmin } = useGlobalContext();
@@ -28,6 +29,7 @@ function App() {
           <Route path="/details/:id" element={<Details />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/account" element={<Account />} />
         </Route>
       </Routes>
       <HandlerSesionSwitcher/>
