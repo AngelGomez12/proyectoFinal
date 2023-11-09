@@ -22,7 +22,6 @@ export const Details = () => {
       });
   }, []);
 
-  console.log(data);
   return (
     <section className="h-min w-full flex justify-center items-center flex-col bg-neutral ms:h-screen">
       <div className=" mx-16 h-full mt-44 m-5 ms:w-4/5 ms:mt-6 lg:mt-24 w-4/5">
