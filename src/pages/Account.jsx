@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import UserBar from "../components/UserBar";
 
 const Account = () => {
   const navigate = useNavigate();
@@ -12,7 +11,6 @@ const Account = () => {
 
   return (
     <>
-    <UserBar/>
       <section className="w-full flex justify-center items-center flex-col bg-neutral h-[90vh]">
         <div className="px-16 h-full w-screen mt-40 m-5">
           <div className="flex justify-between w-full mb-5">

@@ -7,7 +7,6 @@ import AdminRoutes from "./router/AdminRoutes";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Account from "./pages/Account";
-import Admin from "./pages/Admin";
 
 function App() {
   const { isAdmin } = useGlobalContext();

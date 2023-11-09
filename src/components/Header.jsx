@@ -3,14 +3,15 @@ import { useState } from "react";
 import { useGlobalContext } from "../contexts/Global";
 
 export const Header = () => {
-  const { isAdmin } = useGlobalContext();
+  const { isAdmin, isLoggedIn } = useGlobalContext();
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+  const userName = JSON.parse(localStorage.getItem("userDto")).firstName;
   return (
     <header className="navbar bg-base-100 fixed z-50">
-      <div className="navbar-start">
+      <div className=" navbar-start">
         <Link to="/" className="btn btn-ghost normal-case text-xl">
           <svg
             className="h-full"
@@ -31,43 +32,106 @@ export const Header = () => {
           </div>
         </Link>
       </div>
-      {!isAdmin ? (
-        <div className="navbar-center hidden lg:flex">
-          <ul className="gap-2 menu menu-horizontal px-1">
-            <li>
-              <Link to="/">Inicio</Link>
-            </li>
-            <li>
-              <a>Contacto</a>
-            </li>
-            <li>
-              <a className="hover:bg-primary hover:text-black">
-                Renta de Maquinaria
-              </a>
-            </li>
-          </ul>
-        </div>
+
+      {isLoggedIn ? (
+        /* ADMINISTRADOR */
+        isAdmin ? (
+          <div className="navbar-end hidden lg:flex">
+            <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
+              <li>
+                <a>Gestionar Maquinaria</a>
+              </li>
+              <li>
+                <Link to="admin/agregar-producto">Agregar Máquina</Link>
+              </li>
+            </ul>
+
+            <div className="flex items-center justify-center gap-2 mr-6 navbar-end ">
+              <p className="w-32 text-right text-[14px]">
+                Hola!, <span>{`${userName}`}</span>
+              </p>
+              <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900 border border-primary">
+                <span className=" text-xl font-medium m-auto">
+                  {`${userName.charAt(0)}`}
+                </span>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* USUARIO */
+          <div className="navbar-end hidden lg:flex">
+            <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
+              <li>
+                <Link to="/">Inicio</Link>
+              </li>
+              <li>
+                <a>Contacto</a>
+              </li>
+              <li>
+                <a className="hover:bg-primary hover:text-black">
+                  Renta de Maquinaria
+                </a>
+              </li>
+            </ul>
+
+            <div className="flex items-center justify-center gap-2 mr-6 navbar-end ">
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className=" flex items-center gap-2 cursor-pointer">
+                  <p className=" w-32 text-right text-[14px]">
+                    Hola!, <span>{`${userName}`}</span>
+                  </p>
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
+                    <span className=" text-xl font-medium m-auto">
+                      {`${userName.charAt(0)}`}
+                    </span>
+                  </div>
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                  <Link to="/account">Mi Cuenta</Link>
+                  </li>
+                  <li>
+                    <a>Cerrar Sesión</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )
       ) : (
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>Gestionar Maquinaria</a>
-            </li>
-            <li>
-              <Link to="admin/agregar-producto">Agregar Máquina</Link>
-            </li>
-          </ul>
-        </div>
+        /* ANONIMO NO LOGUEADO */
+        <>
+          <div className="navbar-end hidden lg:flex">
+            <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
+              <li>
+                <Link to="/">Inicio</Link>
+              </li>
+              <li>
+                <a>Contacto</a>
+              </li>
+              <li>
+                <a className="hover:bg-primary hover:text-black">
+                  Renta de Maquinaria
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="hidden lg:flex gap-2 navbar-end">
+            <Link to="/Signup">
+              <a className="btn">Crear Cuenta</a>
+            </Link>
+            <Link to="/Login">
+              <a className="btn">Iniciar Sesion</a>
+            </Link>
+          </div>
+        </>
       )}
-      <div className="hidden sm:flex gap-2 navbar-end">
-        <Link to="/Signup">
-          <a className="btn">Crear Cuenta</a>
-        </Link>
-        <Link to="/Login">
-          <a className="btn">Iniciar Sesion</a>
-        </Link>
-      </div>
-      <div className="w-full justify-end flex sm:hidden">
+
+      <div className="w-full justify-end flex lg:hidden">
         <div className="dropdown dropdown-end" onClick={toggleMenu}>
           <label tabIndex={0} className="btn m-1">
             <svg
@@ -80,6 +144,7 @@ export const Header = () => {
               <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
             </svg>
           </label>
+
           {showMenu && (
             <ul
               tabIndex={0}
