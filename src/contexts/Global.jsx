@@ -14,7 +14,7 @@ export const GlobalProvider = ({ children }) => {
   const login = (userData) => {
     setIsLoggedIn(true);
     setUsername(userData.username);
-    setIsAdmin(userData.isAdmin);
+    setIsAdmin(userData.role == 'ADMIN');
   };
 
   const logout = () => {

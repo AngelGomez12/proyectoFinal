@@ -47,7 +47,7 @@ const HandlerSesionSwitcher = () => {
   const navigate = useNavigate()
 
   return (
-  <div className="bg-green-600 opacity-1 text-[#000] fixed bottom-0 right-0 z-50 rounded-lg p-2 flex">
+/*   <div className="bg-green-600 opacity-1 text-[#000] fixed bottom-0 right-0 z-50 rounded-lg p-2 flex">
     {isLoggedIn ? (
       <div className="flex gap-2">
         {isAdmin ? <p>admin</p> : <p>normal</p>}
@@ -72,5 +72,6 @@ const HandlerSesionSwitcher = () => {
         </button>
       </div>
     )}
-  </div>
+  </div> */
+  <></>
   )}

@@ -9,13 +9,14 @@ export const Header = () => {
     setShowMenu(!showMenu);
   };
   const navigate = useNavigate()
-
+  let userDto = JSON.parse(localStorage.getItem("userDto"));
   const closeSessionHandler = (e) => {
     e.preventDefault();
     localStorage.removeItem("jwtToken")
     localStorage.removeItem("userDto")
     logout();
     navigate('/');
+
   }
   return (
     <header className="navbar bg-base-100 fixed z-50">
@@ -62,11 +63,12 @@ export const Header = () => {
                     className=" flex items-center gap-2 cursor-pointer"
                   >
                     <p className=" w-32 text-right text-[14px]">
-                      Hola!, <span>{`${JSON.parse(localStorage.getItem("userDto")).firstName}`}</span>
+                      Hola!, <span>{`${userDto ? userDto.firstName : "usuario" }`}</span>
                     </p>
                     <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900 border border-primary">
                       <span className=" text-xl font-medium m-auto">
-                        {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`}
+                        {`${userDto ? userDto.firstName.charAt(0) : "U" }`}
+                        {/* {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`} */}
                       </span>
                     </div>
                   </label>
@@ -110,7 +112,7 @@ export const Header = () => {
                     className=" flex items-center gap-2 cursor-pointer"
                   >
                     <p className=" w-32 text-right text-[14px]">
-                      Hola!, <span>{`${JSON.parse(localStorage.getItem("userDto")).firstName}`}</span>
+                      Hola!, <span>{`${userDto ? userDto.firstName : "usuario" }`}</span>
                     </p>
                     <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
                       <span className=" text-xl font-medium m-auto">
@@ -176,7 +178,7 @@ export const Header = () => {
                       </p>
                       <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
                         <span className=" text-xl font-medium m-auto">
-                          {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`}
+                          {`${userDto ? userDto.firstName.charAt(0) : "U" }`}
                         </span>
                       </div>
                     </div>
