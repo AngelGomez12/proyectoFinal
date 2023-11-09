@@ -36,70 +36,147 @@ export const Header = () => {
       {isLoggedIn ? (
         /* ADMINISTRADOR */
         isAdmin ? (
-          <div className="navbar-end hidden lg:flex">
-            <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
-              <li>
-                <a>Gestionar Maquinaria</a>
-              </li>
-              <li>
-                <Link to="admin/agregar-producto">Agregar Máquina</Link>
-              </li>
-            </ul>
+          <>
+            <div className="navbar-end hidden lg:flex">
+              <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
+                <li>
+                  <a>Gestionar Maquinaria</a>
+                </li>
+                <li>
+                  <Link to="admin/agregar-producto">Agregar Máquina</Link>
+                </li>
+              </ul>
 
-            <div className="flex items-center justify-center gap-2 mr-6 navbar-end ">
-              <p className="w-32 text-right text-[14px]">
-                Hola!, <span>{`${userName}`}</span>
-              </p>
-              <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900 border border-primary">
-                <span className=" text-xl font-medium m-auto">
-                  {`${userName.charAt(0)}`}
-                </span>
+              <div className="flex items-center justify-center gap-2 mr-6 navbar-end ">
+                <div className="dropdown dropdown-end">
+                  <label
+                    tabIndex={0}
+                    className=" flex items-center gap-2 cursor-pointer"
+                  >
+                    <p className=" w-32 text-right text-[14px]">
+                      Hola!, <span>{`${userName}`}</span>
+                    </p>
+                    <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900 border border-primary">
+                      <span className=" text-xl font-medium m-auto">
+                        {`${userName.charAt(0)}`}
+                      </span>
+                    </div>
+                  </label>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                  >
+                    <li>
+                      <Link to="/account">Mi Cuenta</Link>
+                    </li>
+                    <li>
+                      <a>Cerrar Sesión</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
+          </>
         ) : (
           /* USUARIO */
-          <div className="navbar-end hidden lg:flex">
-            <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
-              <li>
-                <Link to="/">Inicio</Link>
-              </li>
-              <li>
-                <a>Contacto</a>
-              </li>
-              <li>
-                <a className="hover:bg-primary hover:text-black">
-                  Renta de Maquinaria
-                </a>
-              </li>
-            </ul>
+          <>
+            <div className="navbar-end hidden lg:flex">
+              <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
+                <li>
+                  <Link to="/">Inicio</Link>
+                </li>
+                <li>
+                  <a>Contacto</a>
+                </li>
+                <li>
+                  <a className="hover:bg-primary hover:text-black">
+                    Renta de Maquinaria
+                  </a>
+                </li>
+              </ul>
 
-            <div className="flex items-center justify-center gap-2 mr-6 navbar-end ">
-              <div className="dropdown dropdown-end">
-                <label tabIndex={0} className=" flex items-center gap-2 cursor-pointer">
-                  <p className=" w-32 text-right text-[14px]">
-                    Hola!, <span>{`${userName}`}</span>
-                  </p>
-                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
-                    <span className=" text-xl font-medium m-auto">
-                      {`${userName.charAt(0)}`}
-                    </span>
-                  </div>
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                >
-                  <li>
-                  <Link to="/account">Mi Cuenta</Link>
-                  </li>
-                  <li>
-                    <a>Cerrar Sesión</a>
-                  </li>
-                </ul>
+              <div className="flex items-center justify-center gap-2 mr-6 navbar-end ">
+                <div className="dropdown dropdown-end">
+                  <label
+                    tabIndex={0}
+                    className=" flex items-center gap-2 cursor-pointer"
+                  >
+                    <p className=" w-32 text-right text-[14px]">
+                      Hola!, <span>{`${userName}`}</span>
+                    </p>
+                    <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
+                      <span className=" text-xl font-medium m-auto">
+                        {`${userName.charAt(0)}`}
+                      </span>
+                    </div>
+                  </label>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                  >
+                    <li>
+                      <Link to="/account">Mi Cuenta</Link>
+                    </li>
+                    <li>
+                      <a>Cerrar Sesión</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
+
+            <div className="w-full justify-end flex lg:hidden">
+              <div className="dropdown dropdown-end" onClick={toggleMenu}>
+                <label tabIndex={0} className="btn m-1">
+                  <svg
+                    className="fill-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24"
+                    viewBox="0 -960 960 960"
+                    width="24"
+                  >
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+                  </svg>
+                </label>
+
+                {showMenu && (
+                  <ul
+                    tabIndex={0}
+                    className="gap-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                  >
+                    <li>
+                      <Link to="/">Inicio</Link>
+                    </li>
+                    <li>
+                      <a>Contacto</a>
+                    </li>
+                    <li>
+                      <a className="hover:bg-primary hover:text-black">
+                        Renta de Maquinaria
+                      </a>
+                    </li>
+                    <hr className=" border-neutral-900" />
+                    <li>
+                      <Link to="/account">Mi Cuenta</Link>
+                    </li>
+                    <li>
+                      <a onClick={console.log("hey")}>Cerrar Sesión</a>
+                    </li>
+                    <div className=" flex items-center justify-start gap-2 mb-2 pl-4">
+                      <p className=" text-[14px]">
+                        Hola!, <span>{`${userName}`}</span>
+                      </p>
+                      <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
+                        <span className=" text-xl font-medium m-auto">
+                          {`${userName.charAt(0)}`}
+                        </span>
+                      </div>
+                    </div>
+                  </ul>
+                )}
+              </div>
+            </div>
+          </>
         )
       ) : (
         /* ANONIMO NO LOGUEADO */
@@ -128,41 +205,50 @@ export const Header = () => {
               <a className="btn">Iniciar Sesion</a>
             </Link>
           </div>
+
+          <div className="w-full justify-end flex lg:hidden">
+            <div className="dropdown dropdown-end" onClick={toggleMenu}>
+              <label tabIndex={0} className="btn m-1">
+                <svg
+                  className="fill-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24"
+                  viewBox="0 -960 960 960"
+                  width="24"
+                >
+                  <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+                </svg>
+              </label>
+
+              {showMenu && (
+                <ul
+                  tabIndex={0}
+                  className="gap-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <Link to="/">Inicio</Link>
+                  </li>
+                  <li>
+                    <a>Contacto</a>
+                  </li>
+                  <li>
+                    <a className="hover:bg-primary hover:text-black">
+                      Renta de Maquinaria
+                    </a>
+                  </li>
+                  <hr className=" border-neutral-900" />
+                  <Link to="/Signup">
+                    <a className="btn">Crear Cuenta</a>
+                  </Link>
+                  <Link to="/Login">
+                    <a className="btn">Iniciar Sesion</a>
+                  </Link>
+                </ul>
+              )}
+            </div>
+          </div>
         </>
       )}
-
-      <div className="w-full justify-end flex lg:hidden">
-        <div className="dropdown dropdown-end" onClick={toggleMenu}>
-          <label tabIndex={0} className="btn m-1">
-            <svg
-              className="fill-white"
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              viewBox="0 -960 960 960"
-              width="24"
-            >
-              <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
-            </svg>
-          </label>
-
-          {showMenu && (
-            <ul
-              tabIndex={0}
-              className="gap-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <Link to="/Signup">
-                <a className="btn">Crear Cuenta</a>
-              </Link>
-              <Link to="/Login">
-                <a className="btn">Iniciar Sesion</a>
-              </Link>
-              <a className="btn">Inicio</a>
-              <a className="btn">Contacto</a>
-              <a className="btn">Renta de Maquinaria</a>
-            </ul>
-          )}
-        </div>
-      </div>
     </header>
   );
 };
