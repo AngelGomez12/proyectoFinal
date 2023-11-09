@@ -7,6 +7,8 @@ const Account = () => {
     navigate(-1);
   };
 
+/*   console.log(JSON.parse(localStorage.getItem("userDto")).firstName); */
+
   return (
     <>
       <section className="w-full flex justify-center items-center flex-col bg-neutral h-[90vh]">
@@ -14,7 +16,7 @@ const Account = () => {
           <div className="flex justify-between w-full mb-5">
             <div className="flex flex-row gap-4 items-center">
               <h1 className="text-3xl font-bold">Mi Cuenta</h1>
-              <button className="btn btn-circle">
+              <div className="btn btn-circle">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
@@ -34,7 +36,7 @@ const Account = () => {
                     />
                   </g>
                 </svg>
-              </button>
+              </div>
             </div>
             <button
               className="hidden rounded h-12  ms:flex lg:flex items-center gap-4 border-2 px-4"
@@ -60,13 +62,13 @@ const Account = () => {
             <h4 className="">
               Nombre Completo:
             </h4>
-            <h4 className="text-primary-content font-bold">{`{ Nombre + Apellido }`}</h4>
+            <h4 className="text-primary-content font-bold">{`${JSON.parse(localStorage.getItem("userDto")).firstName}`}</h4>
           </div>
           <div className="my-6">
             <h4 className="">
               Email Registrado:
             </h4>
-            <h4 className="text-primary-content font-bold">{`{ email@email.com }`}</h4>
+            <h4 className="text-primary-content font-bold">{`${JSON.parse(localStorage.getItem("userDto")).username}`}</h4>
           </div>
           <div className="my-8">
             <button className="btn btn-outline btn-error btn-sm">
