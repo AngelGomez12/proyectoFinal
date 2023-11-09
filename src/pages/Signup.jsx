@@ -107,35 +107,6 @@ const Signup = () => {
       lastname: userData.lastname.value,
     }
 
-    if (
-      userData.firstname.isOK === true &&
-      userData.lastname.isOK === true &&
-      userData.password.isOK === true &&
-      userData.terms.value === true
-    ) {
-      console.log(
-        `NUEVO USUARIO: \n
-        Nombre: ${userData.firstname.value} \n
-        Apellido: ${userData.lastname.value} \n
-        Email: ${userData.email.value} \n
-        Contraseña: ${userData.password.value} \n
-        Aceptó?: ${userData.terms.value} \n
-        \n ========================`
-      );
-    } else {
-      console.log("Error en el Registro");
-    }
-
-/*     user
- const RegisterComponent = () => {
-    const [formData, setFormData] = useState({
-        username: '',
-        password: '',
-        firstname: '',
-        lastname: '',
-        "{"username":"diego@barrera.com","password":"1234","firstname":{"value":"Diego","isOK":true},"lastname":{"value":"Barrera","isOK":true}}"
-    }); */
-
     try {
       fetch('http://localhost:8081/auth/register', {
         method: 'POST',
@@ -143,6 +114,7 @@ const Signup = () => {
         'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
+
     });
 
     } catch (error) {

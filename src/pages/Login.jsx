@@ -1,45 +1,17 @@
 import LogoCode from "../components/LogoCode";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useGlobalContext } from "../contexts/Global";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
     email: { value: "" },
     password: { value: "" },
   });
+  const navigate = useNavigate()
 
-  /* const handleSubmit = (e) => {
-    e.preventDefault();
+  const { isLoggedIn, isAdmin, login, logout } = useGlobalContext();
 
-    const body = {
-      username: loginData.email.value,
-      password: loginData.password.value,
-    };
-    try {
-      const response = fetch("http://localhost:8081/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      console.log(response);
-
-      if (response.ok) {
-        const data = response.json();
-        const { token, userDto } = data;
-
-        localStorage.setItem("jwtToken", token);
-
-        localStorage.setItem("userDto", JSON.stringify(userDto));
-      } else {
-        // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
-      }
-    } catch (error) {
-      console.error("Error en el inicio de sesión:", error);
-    }
-  }; */
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,6 +20,8 @@ const Login = () => {
       username: loginData.email.value,
       password: loginData.password.value,
     };
+
+/* REVISAR AQUÍ LA REDIRECCION DESPUES DEL LOGIN */
   
     fetch("http://localhost:8081/auth/login", {
       method: "POST",
@@ -69,6 +43,9 @@ const Login = () => {
   
         localStorage.setItem("jwtToken", token);
         localStorage.setItem("userDto", JSON.stringify(userDto));
+        login(userDto);
+        navigate('/');
+
       })
       .catch((error) => {
         console.error("Error en el inicio de sesión:", error);
