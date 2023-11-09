@@ -6,6 +6,7 @@ import { useGlobalContext } from "./contexts/Global";
 import AdminRoutes from "./router/AdminRoutes";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import ListProduct from "./pages/ListProduct";
 
 function App() {
   const { isAdmin } = useGlobalContext();
@@ -25,9 +26,10 @@ function App() {
             path="/admin/*"
             element={isAdmin ? <AdminRoutes /> : <Navigate to='/'/>}
           />
-          <Route path="/details/:id" element={<Details />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/details/:id" element={<Details/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/signup" element={<Signup/>} />
+          <Route path="/productos" element={<ListProduct/>}/>
         </Route>
       </Routes>
       <HandlerSesionSwitcher/>
