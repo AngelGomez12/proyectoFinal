@@ -1,18 +1,21 @@
-import { Link, } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useGlobalContext } from "../contexts/Global";
 
 export const Header = () => {
-  const { isAdmin, isLoggedIn } = useGlobalContext();
+  const { isAdmin, isLoggedIn, logout } = useGlobalContext();
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+  const navigate = useNavigate()
 
   const closeSessionHandler = (e) => {
     e.preventDefault();
     localStorage.removeItem("jwtToken")
     localStorage.removeItem("userDto")
+    logout();
+    navigate('/');
   }
   return (
     <header className="navbar bg-base-100 fixed z-50">
@@ -123,7 +126,7 @@ export const Header = () => {
                       <Link to="/account">Mi Cuenta</Link>
                     </li>
                     <li>
-                      <a>Cerrar Sesión</a>
+                      <a onClick={closeSessionHandler} >Cerrar Sesión</a>
                     </li>
                   </ul>
                 </div>
@@ -165,7 +168,7 @@ export const Header = () => {
                       <Link to="/account">Mi Cuenta</Link>
                     </li>
                     <li>
-                      <a onClick={console.log("hey")}>Cerrar Sesión</a>
+                      <a onClick={closeSessionHandler}>Cerrar Sesión</a>
                     </li>
                     <div className=" flex items-center justify-start gap-2 mb-2 pl-4">
                       <p className=" text-[14px]">
