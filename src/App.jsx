@@ -6,6 +6,7 @@ import { useGlobalContext } from "./contexts/Global";
 import AdminRoutes from "./router/AdminRoutes";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import ListProduct from "./pages/ListProduct";
 import Account from "./pages/Account";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/productos" element={<ListProduct/>}/>
         </Route>
       </Routes>
       <HandlerSesionSwitcher/>
