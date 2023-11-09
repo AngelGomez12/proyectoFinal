@@ -29,14 +29,25 @@ export default function AddProducts() {
     },
     imagenProductos: [{ ruta: "" }],
   });
-  const { data } = useApi(
+  const { data: category } = useApi(
     `${import.meta.env.VITE_BACKEND_URL}productos/categorias`,
     {}
   );
 
+  const { data, loading, error, fetchData } = useApi(
+    `http://localhost:8081/api/products/create`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }
+  );
+
   useEffect(() => {
-    if (data) {
-      setCategorias(data);
+    if (category) {
+      setCategorias(category);
     }
   }, []);
 
@@ -120,16 +131,7 @@ export default function AddProducts() {
       return;
     }
 
-    const { data, loading, error, fetchData } = useApi(
-      `${import.meta.env.VITE_BACKEND_URL}productos/crearProducto`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
+
     fetchData();
     setAlert({
       color: "bg-success",
