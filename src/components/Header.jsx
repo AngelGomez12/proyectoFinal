@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useGlobalContext } from "../contexts/Global";
 
@@ -8,7 +8,12 @@ export const Header = () => {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
-  const userName = JSON.parse(localStorage.getItem("userDto")).firstName;
+
+  const closeSessionHandler = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("jwtToken")
+    localStorage.removeItem("userDto")
+  }
   return (
     <header className="navbar bg-base-100 fixed z-50">
       <div className=" navbar-start">
@@ -54,11 +59,11 @@ export const Header = () => {
                     className=" flex items-center gap-2 cursor-pointer"
                   >
                     <p className=" w-32 text-right text-[14px]">
-                      Hola!, <span>{`${userName}`}</span>
+                      Hola!, <span>{`${JSON.parse(localStorage.getItem("userDto")).firstName}`}</span>
                     </p>
                     <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900 border border-primary">
                       <span className=" text-xl font-medium m-auto">
-                        {`${userName.charAt(0)}`}
+                        {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`}
                       </span>
                     </div>
                   </label>
@@ -70,7 +75,7 @@ export const Header = () => {
                       <Link to="/account">Mi Cuenta</Link>
                     </li>
                     <li>
-                      <a>Cerrar Sesión</a>
+                      <a onClick={closeSessionHandler}>Cerrar Sesión</a>
                     </li>
                   </ul>
                 </div>
@@ -102,11 +107,11 @@ export const Header = () => {
                     className=" flex items-center gap-2 cursor-pointer"
                   >
                     <p className=" w-32 text-right text-[14px]">
-                      Hola!, <span>{`${userName}`}</span>
+                      Hola!, <span>{`${JSON.parse(localStorage.getItem("userDto")).firstName}`}</span>
                     </p>
                     <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
                       <span className=" text-xl font-medium m-auto">
-                        {`${userName.charAt(0)}`}
+                        {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`}
                       </span>
                     </div>
                   </label>
@@ -164,11 +169,11 @@ export const Header = () => {
                     </li>
                     <div className=" flex items-center justify-start gap-2 mb-2 pl-4">
                       <p className=" text-[14px]">
-                        Hola!, <span>{`${userName}`}</span>
+                        Hola!, <span>{`${JSON.parse(localStorage.getItem("userDto")).firstName}`}</span>
                       </p>
                       <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
                         <span className=" text-xl font-medium m-auto">
-                          {`${userName.charAt(0)}`}
+                          {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`}
                         </span>
                       </div>
                     </div>
