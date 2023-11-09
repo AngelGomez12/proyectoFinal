@@ -1,37 +1,56 @@
 import LogoCode from "../components/LogoCode";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import useApi from "../hooks/hookApi";
-
+import { useGlobalContext } from "../contexts/Global";
 
 const Login = () => {
-
   const [loginData, setLoginData] = useState({
-    email: { value: ""},
-    password: { value: ""}
+    email: { value: "" },
+    password: { value: "" },
   });
+  const navigate = useNavigate()
 
-  const { data, loading, error, fetchData, } = useApi(
-    `${import.meta.env.VITE_BACKEND_URL}/login`,
-    {
+  const { isLoggedIn, isAdmin, login, logout } = useGlobalContext();
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  
+    const body = {
+      username: loginData.email.value,
+      password: loginData.password.value,
+    };
+
+/* REVISAR AQUÍ LA REDIRECCION DESPUES DEL LOGIN */
+  
+    fetch("http://localhost:8081/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(loginData),
-    }
-  );
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    try {
-      fetchData();
-    } catch (error) {
-      console.error("Error fetching data");
-    }
-    console.log(handleSubmit.data);
-  };
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
+          throw new Error("Error en la solicitud");
+        }
+      })
+      .then((data) => {
+        const { token, userDto } = data;
   
+        localStorage.setItem("jwtToken", token);
+        localStorage.setItem("userDto", JSON.stringify(userDto));
+        login(userDto);
+        navigate('/');
+
+      })
+      .catch((error) => {
+        console.error("Error en el inicio de sesión:", error);
+      });
+  };
 
   return (
     <>
@@ -42,7 +61,7 @@ const Login = () => {
         }}
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">
-          <div className="flex flex-col gap-6 max-w-xs sm:max-w-max " >
+          <div className="flex flex-col gap-6 max-w-xs sm:max-w-max ">
             <LogoCode />
             <div className="hero-content flex-col lg:flex-row-reverse gap-6">
               <div className="text-center lg:text-left w-96">
@@ -66,8 +85,12 @@ const Login = () => {
                       type="email"
                       placeholder="Ingresá tu email"
                       className="input input-bordered placeholder:text-secondary-content"
-                      onChange={(e) => setLoginData ({
-                        ...loginData, email: { value: e.target.value, isOK: null }})}
+                      onChange={(e) =>
+                        setLoginData({
+                          ...loginData,
+                          email: { value: e.target.value, isOK: null },
+                        })
+                      }
                       required
                     />
                   </div>
@@ -79,8 +102,12 @@ const Login = () => {
                       type="password"
                       placeholder="Ingresá tu contraseña"
                       className="input input-bordered placeholder:text-secondary-content"
-                      onChange={(e) => setLoginData ({
-                        ...loginData, password: { value: e.target.value, isOK: null }})}
+                      onChange={(e) =>
+                        setLoginData({
+                          ...loginData,
+                          password: { value: e.target.value, isOK: null },
+                        })
+                      }
                       required
                     />
                   </div>

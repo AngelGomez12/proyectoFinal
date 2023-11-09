@@ -1,7 +1,6 @@
 import LogoCode from "../components/LogoCode";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import useApi from "../hooks/hookApi";
 
 const Signup = () => {
   //Captura de Datos del Form SIGN UP
@@ -9,32 +8,11 @@ const Signup = () => {
   const [userData, setUserData] = useState({
     firstname: { value: "", isOK: null },
     lastname: { value: "", isOK: null },
-    email: { value: "", isOK: null },
-    password: { value: "", isOK: null },
+    email: { value: "", isOK: null }, /* username */
+    password: { value: "", isOK: null }, 
     terms: { value: false },
   });
 
-  /*   const [show, setShow] = useState(false); */
-
-  // Mensajes de Validación:
-
-  /*   const errMessage = {
-    errFirstName: "Nombre no Válido",
-    errLastName: "Nombre no Válido",
-    errEmail: "Porfa, danos tu Email correcto 🙂",
-    errPass: "Tu contraseña no coincide",
-  }; */
-
-  const { data, loading, error, fetchData, } = useApi(
-    `${import.meta.env.VITE_BACKEND_URL}/signup`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    }
-  );
 
   // Manejadores:
 
@@ -122,27 +100,23 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      userData.firstname.isOK === true &&
-      userData.lastname.isOK === true &&
-      userData.password.isOK === true &&
-      userData.terms.value === true
-    ) {
-      console.log(
-        `NUEVO USUARIO: \n
-        Nombre: ${userData.firstname.value} \n
-        Apellido: ${userData.lastname.value} \n
-        Email: ${userData.email.value} \n
-        Contraseña: ${userData.password.value} \n
-        Aceptó?: ${userData.terms.value} \n
-        \n ========================`
-      );
-    } else {
-      console.log("Error en el Registro");
+    const body ={
+      username: userData.email.value,
+      password: userData.password.value,
+      firstname: userData.firstname.value,
+      lastname: userData.lastname.value,
     }
 
     try {
-      fetchData();
+      fetch('http://localhost:8081/auth/register', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+
+    });
+
     } catch (error) {
       console.error("Error fetching data");
     }
