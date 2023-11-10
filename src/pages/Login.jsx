@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import LogoCode from "../components/LogoCode";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";

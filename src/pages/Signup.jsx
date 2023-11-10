@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
+
 import LogoCode from "../components/LogoCode";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useGlobalContext } from "../contexts/Global";
 
 const Signup = () => {
   //Captura de Datos del Form SIGN UP
@@ -14,6 +17,7 @@ const Signup = () => {
   });
   
   const navigate = useNavigate()
+  const { isLoggedIn, isAdmin, login, logout } = useGlobalContext();
 
   // Manejadores:
 
@@ -75,6 +79,7 @@ const Signup = () => {
   const handlePassData = (e) => {
     // Validar PASSWORD > 4 Caracteres
     const element = e.target;
+
     if (e.target.value.length >= 4 && e.target.value.charAt(0) !== " ") {
       element.classList.replace("input-error", "input-success");
       setUserData({
@@ -91,14 +96,13 @@ const Signup = () => {
   };
   const handleTerms = (e) => {
     // Validar TERMINOS Y CONDICIONES...
-    /*     console.log(e.target.checked); */
     setUserData({
       ...userData,
       terms: { value: e.target.checked },
     });
   };
 
-  const handleSubmit = (e) => {
+/*   const handleSubmit = (e) => {
     e.preventDefault();
 
     const body ={
@@ -107,6 +111,11 @@ const Signup = () => {
       firstname: userData.firstname.value,
       lastname: userData.lastname.value,
     }
+
+    const bodyLogin = {
+      username: body.username,
+      password: body.password,
+    };
 
     try {
       fetch('http://localhost:8081/auth/register', {
@@ -122,9 +131,89 @@ const Signup = () => {
       console.error("Error fetching data");
     }
 
-    navigate('/login');
+    fetch("http://localhost:8081/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyLogin),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
+          throw new Error("Error en la solicitud");
+        }
+      })
+      .then((data) => {
+        const { token, userDto } = data;
+  
+        localStorage.setItem("jwtToken", token);
+        localStorage.setItem("userDto", JSON.stringify(userDto));
+        login(userDto);
+        if (userDto.role === "ADMIN") {
+          navigate('/admin');
+        } else {
+        navigate('/');
+        }
 
+      })
+      .catch((error) => {
+        console.error("Error en el inicio de sesión:", error);
+      });
+
+  }; */
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const body = {
+      username: userData.email.value,
+      password: userData.password.value,
+      firstname: userData.firstname.value,
+      lastname: userData.lastname.value,
+    };
+
+    const bodyLogin = {
+      username: body.username,
+      password: body.password,
+    };
+  
+    // Ejecutamos el primer fetch para crear el usuario
+    const registerResponse = await fetch('http://localhost:8081/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+  
+    // Comprobamos si el primer fetch se ha completado con éxito
+    if (!registerResponse.ok) {
+      // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
+      return;
+    }
+  
+    // Ejecutamos el segundo fetch para iniciar sesión
+    const loginResponse = await fetch('http://localhost:8081/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bodyLogin),
+    });
+  
+    // Comprobamos si el segundo fetch se ha completado con éxito
+    if (!loginResponse.ok) {
+      // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
+      return;
+    }
+  
+    // El inicio de sesión ha sido exitoso
+    // ...
   };
+  
 
   return (
     <>

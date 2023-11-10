@@ -62,7 +62,7 @@ const Account = () => {
             <h4 className="">
               Nombre Completo:
             </h4>
-            <h4 className="text-primary-content font-bold">{`${JSON.parse(localStorage.getItem("userDto")).firstName}`}</h4>
+            <h4 className="text-primary-content font-bold">{`${JSON.parse(localStorage.getItem("userDto")).firstName} ${JSON.parse(localStorage.getItem("userDto")).lastName}`}</h4>
           </div>
           <div className="my-6">
             <h4 className="">
