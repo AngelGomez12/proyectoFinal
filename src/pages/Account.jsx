@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import BackBtn from "../components/BackBtn";
 
 const Account = () => {
   const navigate = useNavigate();
@@ -6,8 +7,6 @@ const Account = () => {
   const goBack = () => {
     navigate(-1);
   };
-
-/*   console.log(JSON.parse(localStorage.getItem("userDto")).firstName); */
 
   return (
     <>
@@ -38,7 +37,8 @@ const Account = () => {
                 </svg>
               </div>
             </div>
-            <button
+            <BackBtn/>
+            {/* <button
               className="hidden rounded h-12  ms:flex lg:flex items-center gap-4 border-2 px-4"
               onClick={goBack}
             >
@@ -55,7 +55,7 @@ const Account = () => {
                 />
               </svg>
               Volver atras
-            </button>
+            </button> */}
           </div>
 
           <div className="my-6">
