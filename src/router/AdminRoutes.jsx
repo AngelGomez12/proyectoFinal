@@ -15,10 +15,10 @@ Y Hacer que Reemplace por completo el Home de User y Cliente */
       <Route index path="/" element={
         <>
         <AdminMobileOverlay/>
-      <div className='min-h-[80vh] flex justify-center pt-[80px]'>
-       {/*  <Link to='agregar-producto' className='btn btn-warning hover:bg-transparent hover:text-[#fff]'>Agregar Productos</Link> */}
         <Admin/>
-        </div>
+{/*       <div className='min-h-[80vh] flex justify-center pt-[80px]'>
+       { <Link to='agregar-producto' className='btn btn-warning hover:bg-transparent hover:text-[#fff]'>Agregar Productos</Link>}
+        </div> */}
         </>
       } />
       <Route path="agregar-producto" element={<AddProducts/>} />

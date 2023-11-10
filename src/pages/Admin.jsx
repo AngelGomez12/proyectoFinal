@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Admin = () => {
     return (
       <>
-      <div className="hero min-h-screen bg-base-200">
+      <div className=" hidden lg:grid hero min-h-screen bg-base-200">
     <div className="hero-content flex-col-reverse  lg:flex-row-reverse ">
       <img src="../../public/img/admin-home.jpg" className="max-w-sm rounded-lg shadow-2xl" />
       <div>
