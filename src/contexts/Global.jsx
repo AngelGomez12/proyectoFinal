@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const GlobalContext = createContext();
 
@@ -7,19 +7,24 @@ export const useGlobalContext = () => {
 };
 
 export const GlobalProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [username, setUsername] = useState('');
+  let userParse = {};
+  let user = localStorage.getItem("userDto");
+  if (user) {
+    userParse = JSON.parse(user);
+  }
+  const [isLoggedIn, setIsLoggedIn] = useState(!!user);
+  const [isAdmin, setIsAdmin] = useState(userParse?.role == "ADMIN");
+  const [username, setUsername] = useState("");
 
   const login = (userData) => {
     setIsLoggedIn(true);
     setUsername(userData.username);
-    setIsAdmin(userData.role == 'ADMIN');
+    setIsAdmin(userData.role == "ADMIN");
   };
 
   const logout = () => {
     setIsLoggedIn(false);
-    setUsername('');
+    setUsername("");
     setIsAdmin(false);
   };
 

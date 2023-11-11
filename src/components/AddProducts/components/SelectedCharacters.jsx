@@ -3,7 +3,7 @@ import { useState } from "react";
 function SelectCharacters({ specs, updateSpecs }) {
   const [options, setOptions] = useState([]);
   const [currentOption, setCurrentOption] = useState("");
-  let specCopy = [...specs];
+  let specCopy = [...(specs || [])];
   const handleAddOption = (e) => {
     e.preventDefault();
     if (currentOption) {
