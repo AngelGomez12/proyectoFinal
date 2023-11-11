@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
 import { Details } from "./pages/Details";
@@ -15,7 +21,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      {/* Conversar con compañero si se puede poner como rutas privadas/publicas/admin esto */}
+        {/* Conversar con compañero si se puede poner como rutas privadas/publicas/admin esto */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           {/* <Route
@@ -25,29 +31,28 @@ function App() {
           /> */}
           <Route
             path="/admin/*"
-            element={isAdmin ? <AdminRoutes /> : <Navigate to='/'/>}
+            element={isAdmin ? <AdminRoutes /> : <Navigate to="/" />}
           />
           <Route path="/details/:id" element={<Details />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/productos" element={<ListProduct/>}/>
+          <Route path="admin/productos" element={<ListProduct />} />
         </Route>
       </Routes>
-      <HandlerSesionSwitcher/>
+      <HandlerSesionSwitcher />
     </BrowserRouter>
   );
 }
 
 export default App;
 
-
 const HandlerSesionSwitcher = () => {
   const { isLoggedIn, isAdmin, login, logout } = useGlobalContext();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
-/*   <div className="bg-green-600 opacity-1 text-[#000] fixed bottom-0 right-0 z-50 rounded-lg p-2 flex">
+    /*   <div className="bg-green-600 opacity-1 text-[#000] fixed bottom-0 right-0 z-50 rounded-lg p-2 flex">
     {isLoggedIn ? (
       <div className="flex gap-2">
         {isAdmin ? <p>admin</p> : <p>normal</p>}
@@ -73,5 +78,6 @@ const HandlerSesionSwitcher = () => {
       </div>
     )}
   </div> */
-  <></>
-  )}
+    <></>
+  );
+};
