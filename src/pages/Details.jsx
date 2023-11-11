@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Carrousel } from "../components/Carrousel";
 import { useEffect, useState } from "react";
+import BackBtn from "../components/BackBtn";
 export const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -30,24 +31,7 @@ export const Details = () => {
             <h1 className="text-4xl font-bold">{data && data.name}</h1>
             <h3>Hitachi Us Zaxis 135</h3>
           </div>
-          <button
-            className="hidden rounded h-12  ms:flex lg:flex items-center gap-4 border-2 px-4"
-            onClick={goBack}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-            >
-              <path
-                d="M3.825 9L9.425 14.6L8 16L0 8L8 0L9.425 1.4L3.825 7H16V9H3.825Z"
-                fill="#CDCED0"
-              />
-            </svg>
-            Volver atras
-          </button>
+          <BackBtn />
         </div>
         <div className="flex flex-col gap-4 items-center m-4 w-full">
           <div className="flex gap-4 w-full justify-center items-center">
