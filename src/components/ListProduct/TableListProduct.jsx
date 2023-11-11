@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { AgregarMaquina } from './AgregarMaquina'
 import { useState } from 'react';
+import {Editar} from './Editar'
 export const TableListProduct = () => {
 
   const [product, setProduct] = useState([]);
@@ -117,12 +118,13 @@ export const TableListProduct = () => {
               className="dropdown-content z-[4] menu p-2 shadow bg-base-100 rounded-box w-50 font-thin"
             >
               <li>
-                <a>
+                <a className='mr-4 '>
                   <img
+                  className='mr-7'
                     src="public\border_color (1).svg"
                     alt="Avatar Tailwind CSS Component"
                   />
-                  Editar
+                  <Editar/>
                 </a>
               </li>
               <li>
