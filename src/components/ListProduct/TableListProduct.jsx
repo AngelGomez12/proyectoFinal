@@ -7,9 +7,19 @@ export const TableListProduct = () => {
   const [product, setProduct] = useState([]);
 
 
-  const handleUpdateProduct = (newProduct) => {
-    setProduct(newProduct);
-  };
+  // const handleUpdateProduct = (newProduct) => {
+  //   setProduct(newProduct);
+  // };
+
+
+  // const handleUpdateProductType = (productId, newType) => {
+  //   // Find the product in the current state and update its type
+  //   const updatedProducts = product.map((p) =>
+  //     p.id === productId ? { ...p, productType: { description: newType } } : p
+  //   );
+  //   setProduct(updatedProducts);
+  // };
+
 
    const handleDeleteProduct = (productId) => {
      // Send a DELETE request to the backend to remove the product with the given productId.
