@@ -8,15 +8,15 @@ export const Header = () => {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  let userDto = JSON.parse(localStorage.getItem("userDto"));
   const closeSessionHandler = (e) => {
     e.preventDefault();
-    localStorage.removeItem("jwtToken")
-    localStorage.removeItem("userDto")
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("userDto");
     logout();
-    navigate('/');
-  }
+    navigate("/");
+  };
   return (
     <header className="navbar bg-base-100 fixed z-50">
       <div className=" navbar-start">
@@ -48,7 +48,7 @@ export const Header = () => {
             <div className="navbar-end hidden lg:flex">
               <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
                 <li>
-                  <a>Gestionar Maquinaria</a>
+                  <Link to="admin/productos">Gestionar Maquinaria</Link>
                 </li>
                 <li>
                   <Link to="admin/agregar-producto">Agregar Máquina</Link>
@@ -62,11 +62,15 @@ export const Header = () => {
                     className=" flex items-center gap-2 cursor-pointer"
                   >
                     <p className=" w-32 text-right text-[14px]">
-                      Hola!, <span>{`${JSON.parse(localStorage.getItem("userDto")).firstName}`}</span>
+                      Hola!,{" "}
+                      <span>{`${
+                        userDto ? userDto.firstName : "usuario"
+                      }`}</span>
                     </p>
                     <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900 border border-primary">
                       <span className=" text-xl font-medium m-auto">
-                        {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`}
+                        {`${userDto ? userDto.firstName.charAt(0) : "U"}`}
+                        {/* {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`} */}
                       </span>
                     </div>
                   </label>
@@ -110,11 +114,16 @@ export const Header = () => {
                     className=" flex items-center gap-2 cursor-pointer"
                   >
                     <p className=" w-32 text-right text-[14px]">
-                      Hola!, <span>{`${JSON.parse(localStorage.getItem("userDto")).firstName}`}</span>
+                      Hola!,{" "}
+                      <span>{`${
+                        userDto ? userDto.firstName : "usuario"
+                      }`}</span>
                     </p>
                     <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
                       <span className=" text-xl font-medium m-auto">
-                        {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`}
+                        {`${JSON.parse(
+                          localStorage.getItem("userDto")
+                        ).firstName.charAt(0)}`}
                       </span>
                     </div>
                   </label>
@@ -126,7 +135,7 @@ export const Header = () => {
                       <Link to="/account">Mi Cuenta</Link>
                     </li>
                     <li>
-                      <a onClick={closeSessionHandler} >Cerrar Sesión</a>
+                      <a onClick={closeSessionHandler}>Cerrar Sesión</a>
                     </li>
                   </ul>
                 </div>
@@ -172,11 +181,14 @@ export const Header = () => {
                     </li>
                     <div className=" flex items-center justify-start gap-2 mb-2 pl-4">
                       <p className=" text-[14px]">
-                        Hola!, <span>{`${JSON.parse(localStorage.getItem("userDto")).firstName}`}</span>
+                        Hola!,{" "}
+                        <span>{`${
+                          JSON.parse(localStorage.getItem("userDto")).firstName
+                        }`}</span>
                       </p>
                       <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
                         <span className=" text-xl font-medium m-auto">
-                          {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`}
+                          {`${userDto ? userDto.firstName.charAt(0) : "U"}`}
                         </span>
                       </div>
                     </div>

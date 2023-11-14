@@ -44,7 +44,11 @@ const Login = () => {
         localStorage.setItem("jwtToken", token);
         localStorage.setItem("userDto", JSON.stringify(userDto));
         login(userDto);
+        if (userDto.role === "ADMIN") {
+          navigate('/admin');
+        } else {
         navigate('/');
+        }
 
       })
       .catch((error) => {

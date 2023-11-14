@@ -7,13 +7,13 @@ export const ContextProducts = createContext({
   setProducts: () => {},
   pagination: { page: 1, totalProducts: 10, itemsPerPage: 6, totalPages: 0 },
   handlerPageChange: () => {},
-  productsViewed: [],
+  productsViewed: undefined,
   setProductsViewed: () => {},
 });
 
 export default function CartProvider(props) {
   const [products, setProducts] = useState([]);
-  const [productsViewed, setProductsViewed] = useState([]);
+  const [productsViewed, setProductsViewed] = useState(undefined);
   const [pagination, setPagination] = useState({
     page: 1,
     totalProducts: 10,

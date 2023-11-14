@@ -1,5 +1,5 @@
 import LogoCode from "../components/LogoCode";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Signup = () => {
@@ -12,7 +12,8 @@ const Signup = () => {
     password: { value: "", isOK: null }, 
     terms: { value: false },
   });
-
+  
+  const navigate = useNavigate()
 
   // Manejadores:
 
@@ -120,6 +121,8 @@ const Signup = () => {
     } catch (error) {
       console.error("Error fetching data");
     }
+
+    navigate('/login');
 
   };
 

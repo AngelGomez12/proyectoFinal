@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 
-function FileUploadForm({ onFileUpload }) {
+function FileUploadForm({ handleFileUpload }) {
   const [files, setFiles] = useState([]);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       setFiles([...files, selectedFile]);
-      if (onFileUpload) {
-        onFileUpload(selectedFile);
-      }
+      handleFileUpload(selectedFile);
     }
   };
 
