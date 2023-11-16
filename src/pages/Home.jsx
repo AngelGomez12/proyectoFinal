@@ -42,12 +42,12 @@ export const Home = () => {
         }}
       >
         <div className="hero-overlay bg-opacity-70"></div>
-        <div className="hero-content text-center text-primary-content mt-28 mb-44 sm:mb-64">
+        <div className="hero-content text-center text-primary-content mt-28 mb-20 sm:mb-40">
           <div className="max-w-2xl">
-            <h1 className="mb-5 text-3xl sm:text-4xl font-extrabold text-white">
+            <h1 className="mb-3 text-3xl sm:text-4xl font-extrabold text-white">
               Renta de Maquinaria Pesada
             </h1>
-            <h3 className="mb-5 text-xl sm:text-2xl font-bold">
+            <h3 className="mb-8 text-xl sm:text-2xl font-bold">
               La solución perfecta para tu proyecto
             </h3>
 
@@ -92,6 +92,9 @@ export const Home = () => {
           </div>
         </div>
       </div>
+      <CartProvider>
+        <ProductsList />
+      </CartProvider>
       <div
         id="catSection"
         className=" flex flex-col items-center py-16"
@@ -123,9 +126,6 @@ export const Home = () => {
           />
         </div>
       </div>
-      <CartProvider>
-        <ProductsList />
-      </CartProvider>
     </main>
   );
 };
