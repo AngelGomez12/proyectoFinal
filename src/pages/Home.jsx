@@ -42,12 +42,12 @@ export const Home = () => {
         }}
       >
         <div className="hero-overlay bg-opacity-60"></div>
-        <div className="hero-content text-center text-primary-content mt-28 mb-20">
+        <div className="hero-content text-center text-primary-content mt-28 mb-44 sm:mb-64">
           <div className="max-w-2xl">
-            <h1 className="mb-5 text-4xl font-extrabold">
+            <h1 className="mb-5 text-3xl sm:text-4xl font-extrabold text-white">
               Renta de Maquinaria Pesada
             </h1>
-            <h3 className="mb-5 text-2xl font-bold">
+            <h3 className="mb-5 text-xl sm:text-2xl font-bold">
               La solución perfecta para tu proyecto
             </h3>
 
@@ -55,7 +55,7 @@ export const Home = () => {
             className="sm:join mx-4">
               <input
                 className="input rounded bg-[#1E293B] sm:join-item  sm:rounded-l-full w-full sm:w-auto placeholder:text-sm placeholder:font-light placeholder:tracking-wide"
-                placeholder="Buscar Máquinas"
+                placeholder="Cuál máquina buscas?"
                 onChange={handleSearch}
               />
               <div className="flex items-center bg-[#1E293B] sm:join-item rounded h-12">
@@ -86,32 +86,18 @@ export const Home = () => {
               </button>
             </form>
 
-            <p className="mb-5 mt-44">
-              Obtén el equipo que necesitas, cuando lo necesitas y sin necesidad
-              de comprarlo
+            <p className="my-4">
+            Usa la maquinaria que necesitas, cuando la necesitas y sin necesidad de comprarla
             </p>
-            <div className="flex flex-col">
-              <a
-                className="btn btn-link text-primary-content mx-auto scroll-smooth"
-                href="#catSection"
-                /* scrollTo="#catSection"
-                duration="500" */
-              >
-                Explora por categorías
-              </a>
-            </div>
           </div>
         </div>
       </div>
-      <CartProvider>
-        <ProductsList />
-      </CartProvider>
       <div
         id="catSection"
         className="bg-primary flex flex-col items-center py-24"
       >
-        <h2 className="text-3xl font-bold text-black mb-20">
-          Encuentra lo que necesitas
+        <h2 className="text-xl sm:text-2xl font-bold text-black mb-20">
+        Explora nuestras opciones por categorías
         </h2>
 
         <div id="catNav" className="flex flex-wrap gap-6 mx-8 justify-center">
@@ -137,6 +123,9 @@ export const Home = () => {
           />
         </div>
       </div>
+      <CartProvider>
+        <ProductsList />
+      </CartProvider>
     </main>
   );
 };
