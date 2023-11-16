@@ -2,9 +2,10 @@ import Categorie from "../components/Categorie";
 import ProductsList from "../components/Home/ProductsList/ProductsList";
 import CartProvider from "../contexts/ProductsList";
 
+
 export const Home = () => {
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col scroll-smooth">
       <div
         id="hero-home"
         className="hero min-h-fit"
@@ -45,9 +46,10 @@ export const Home = () => {
               de comprarlo
             </p>
             <div className="flex flex-col">
-              <button className="btn btn-link text-primary-content mx-auto">
+              <a className="btn btn-link text-primary-content mx-auto scroll-smooth"
+              href="#catSection" scrollTo="#catSection" duration="500">
                 Explora por categorías
-              </button>
+              </a>
             </div>
           </div>
         </div>
