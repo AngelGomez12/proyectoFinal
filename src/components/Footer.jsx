@@ -48,7 +48,7 @@ export const Footer = () => {
             <span className=" text-xs font-normal">Trabajo pesado a un clic</span>
           </p>
         </aside>
-        <div className=" place-self-center">
+        <div className=" md:place-self-center place-content-start">
           <p>
             {" "}
             <a className="link link-hover">@Copyright</a> Camada 1 Equipo 3

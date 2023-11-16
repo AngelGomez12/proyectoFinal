@@ -4,6 +4,7 @@ import LogoCode from "../components/LogoCode";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useGlobalContext } from "../contexts/Global";
+import { Alerts } from "../utils/alerts";
 
 const Signup = () => {
   //Captura de Datos del Form SIGN UP
@@ -18,6 +19,15 @@ const Signup = () => {
   
   const navigate = useNavigate()
   const { isLoggedIn, isAdmin, login, logout } = useGlobalContext();
+
+  const [Alert, setAlert] = useState({
+    color: "",
+    text: "",
+  });
+  const [showAlert, setShowAlert] = useState(false);
+  const handleDismissAlert = () => {
+    setShowAlert(false);
+  };
 
   // Manejadores:
 
@@ -102,69 +112,6 @@ const Signup = () => {
     });
   };
 
-/*   const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const body ={
-      username: userData.email.value,
-      password: userData.password.value,
-      firstname: userData.firstname.value,
-      lastname: userData.lastname.value,
-    }
-
-    const bodyLogin = {
-      username: body.username,
-      password: body.password,
-    };
-
-    try {
-      fetch('http://localhost:8081/auth/register', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-
-    });
-
-    } catch (error) {
-      console.error("Error fetching data");
-    }
-
-    fetch("http://localhost:8081/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bodyLogin),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
-          throw new Error("Error en la solicitud");
-        }
-      })
-      .then((data) => {
-        const { token, userDto } = data;
-  
-        localStorage.setItem("jwtToken", token);
-        localStorage.setItem("userDto", JSON.stringify(userDto));
-        login(userDto);
-        if (userDto.role === "ADMIN") {
-          navigate('/admin');
-        } else {
-        navigate('/');
-        }
-
-      })
-      .catch((error) => {
-        console.error("Error en el inicio de sesión:", error);
-      });
-
-  }; */
-
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -174,44 +121,44 @@ const Signup = () => {
       firstname: userData.firstname.value,
       lastname: userData.lastname.value,
     };
+  
+    fetch("http://localhost:8081/auth/register", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(body),
+})
+  .then((response) => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
+      throw new Error("Error en la solicitud");
+    }
+  })
+  .then((data) => {
+    const { token, userDto } = data;
 
-    const bodyLogin = {
-      username: body.username,
-      password: body.password,
-    };
-  
-    // Ejecutamos el primer fetch para crear el usuario
-    const registerResponse = await fetch('http://localhost:8081/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
-  
-    // Comprobamos si el primer fetch se ha completado con éxito
-    if (!registerResponse.ok) {
-      // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
-      return;
+    localStorage.setItem("jwtToken", token);
+    localStorage.setItem("userDto", JSON.stringify(userDto));
+    login(userDto);
+    if (userDto.role === "ADMIN") {
+      navigate("/admin");
+    } else {
+      navigate("/");
     }
-  
-    // Ejecutamos el segundo fetch para iniciar sesión
-    const loginResponse = await fetch('http://localhost:8081/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bodyLogin),
+  })
+  .catch((error) => {
+    console.log("ERROR");
+    setAlert({
+      color: "bg-error",
+      text: "No pudimos crear el usuario",
     });
-  
-    // Comprobamos si el segundo fetch se ha completado con éxito
-    if (!loginResponse.ok) {
-      // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
-      return;
-    }
-  
-    // El inicio de sesión ha sido exitoso
-    // ...
+    // **Update showAlert state to true**
+    setShowAlert(true);
+    return;
+  });
   };
   
 
@@ -224,6 +171,14 @@ const Signup = () => {
         }}
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">
+        {showAlert && (
+        <Alerts
+          text={Alert.text}
+          bgColorClass={Alert.color}
+          duration={2000}
+          onDismiss={handleDismissAlert}
+        />
+      )}
           <div className="hero-content flex-col lg:flex-row-reverse gap-6 mt-[10vh] max-w-xs sm:max-w-max">
             <div className="text-center lg:text-left w-96">
               <h1 className="text-4xl font-bold text-primary-content mt-6 lg:mt-0">
