@@ -50,17 +50,19 @@ export const Home = () => {
             <h3 className="mb-5 text-2xl font-bold">
               La solución perfecta para tu proyecto
             </h3>
-            <form onSubmit={handleSubmit} className="join bg-[#1E293B]">
+
+            <form onSubmit={handleSubmit}
+            className="sm:join mx-4">
               <input
-                className="input bg-[#1E293B] join-item placeholder:text-sm placeholder:font-light placeholder:tracking-wide"
+                className="input rounded bg-[#1E293B] sm:join-item  sm:rounded-l-full w-full sm:w-auto placeholder:text-sm placeholder:font-light placeholder:tracking-wide"
                 placeholder="Buscar Máquinas"
                 onChange={handleSearch}
               />
-              <div className=" flex items-center">
+              <div className="flex items-center bg-[#1E293B] sm:join-item rounded h-12">
                 <Datepicker
                   placeholder={"En qué fechas?"}
                   /* inputClassName="w-full rounded-md focus:ring-0 dark:placeholder:text-green-100" */
-                  /* containerClassName="h-full" */
+                  /* containerClassName="" */
                   separator={" → "}
                   displayFormat={"DD/MM/YY"}
                   primaryColor={"yellow"}
@@ -68,7 +70,7 @@ export const Home = () => {
                   onChange={handleValueChange}
                 />
               </div>
-              <button className="btn join-item rounded-r-full text-primary">
+              <button className="btn sm:join-item sm:rounded-r-full text-primary">
                 Buscar
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -83,6 +85,7 @@ export const Home = () => {
                 </svg>
               </button>
             </form>
+
             <p className="mb-5 mt-44">
               Obtén el equipo que necesitas, cuando lo necesitas y sin necesidad
               de comprarlo
