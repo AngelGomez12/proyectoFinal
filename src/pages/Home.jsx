@@ -1,9 +1,35 @@
 import Categorie from "../components/Categorie";
 import ProductsList from "../components/Home/ProductsList/ProductsList";
 import CartProvider from "../contexts/ProductsList";
-
+import React, { useState } from "react";
+import Datepicker from "react-tailwindcss-datepicker";
 
 export const Home = () => {
+  const [value, setValue] = useState({
+    startDate: null,
+    endDate: null,
+  });
+  const [search, setSearch] = useState({
+    term: { value: null },
+  });
+
+  const handleValueChange = (newValue) => {
+    /* console.log("newValue:", newValue); */
+    setValue(newValue);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`Buscando: ${search.term} \n Fecha inicio: ${value.startDate} \n Fecha final: ${value.endDate}`);
+  }
+  const handleSearch = (e) => {
+    const element = e.target;
+    setSearch((prevState) => ({
+      ...prevState,
+      term: { value: element.value },
+    }));
+  };
+
   return (
     <main className="flex flex-col scroll-smooth">
       <div
@@ -22,8 +48,23 @@ export const Home = () => {
             <h3 className="mb-5 text-2xl font-bold">
               La solución perfecta para tu proyecto
             </h3>
-            <div className="join">
-              <button className="btn join-item rounded-r-full">
+            <form onSubmit={handleSubmit} className="join bg-[#1E293B]">
+              <input
+                className="input bg-[#1E293B] join-item placeholder:text-sm placeholder:font-light placeholder:tracking-wide "
+                placeholder="Buscar Máquinas"
+                onChange={handleSearch}
+              />
+              <div className=" flex items-center">
+              <Datepicker
+              placeholder={"En qué fechas?"}
+                separator={" → "} 
+                displayFormat={"DD/MM/YY"} 
+                primaryColor={"yellow"} 
+                value={value} 
+                onChange={handleValueChange}/>
+                </div>
+                <button className="btn join-item rounded-r-full text-primary">
+                  Buscar
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -36,18 +77,18 @@ export const Home = () => {
                   />
                 </svg>
               </button>
-              <input
-                className="input bg-neutral-900/60 join-item "
-                placeholder="Buscar Máquinas"
-              />
-            </div>
+            </form>
             <p className="mb-5 mt-44">
               Obtén el equipo que necesitas, cuando lo necesitas y sin necesidad
               de comprarlo
             </p>
             <div className="flex flex-col">
-              <a className="btn btn-link text-primary-content mx-auto scroll-smooth"
-              href="#catSection" scrollTo="#catSection" duration="500">
+              <a
+                className="btn btn-link text-primary-content mx-auto scroll-smooth"
+                href="#catSection"
+                /* scrollTo="#catSection"
+                duration="500" */
+              >
                 Explora por categorías
               </a>
             </div>
