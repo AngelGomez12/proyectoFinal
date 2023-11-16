@@ -51,8 +51,7 @@ export const Home = () => {
               La solución perfecta para tu proyecto
             </h3>
 
-            <form onSubmit={handleSubmit}
-            className="sm:join mx-4">
+            <form onSubmit={handleSubmit} className="sm:join mx-4">
               <input
                 className="input rounded bg-[#1E293B] sm:join-item  sm:rounded-l-full w-full sm:w-auto placeholder:text-sm placeholder:font-light placeholder:tracking-wide"
                 placeholder="Cuál máquina buscas?"
@@ -87,7 +86,8 @@ export const Home = () => {
             </form>
 
             <p className="my-4">
-            Usa la maquinaria que necesitas, cuando la necesitas y sin necesidad de comprarla
+              Usa la maquinaria que necesitas, cuando la necesitas y sin
+              necesidad de comprarla
             </p>
           </div>
         </div>
@@ -95,12 +95,9 @@ export const Home = () => {
       <CartProvider>
         <ProductsList />
       </CartProvider>
-      <div
-        id="catSection"
-        className=" flex flex-col items-center py-16"
-      >
+      <div id="catSection" className=" flex flex-col items-center py-16">
         <h2 className="text-xl sm:text-2xl font-bold mb-20">
-        Explora nuestras opciones por categorías
+          Explora nuestras opciones por categorías
         </h2>
 
         <div id="catNav" className="flex flex-wrap gap-6 mx-8 justify-center">

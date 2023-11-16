@@ -35,44 +35,43 @@ const Login = () => {
     /* REVISAR AQUÍ LA REDIRECCION DESPUES DEL LOGIN */
 
     fetch("http://localhost:8081/auth/login", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(body),
-})
-  .then((response) => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
-      throw new Error("Error en la solicitud");
-    }
-  })
-  .then((data) => {
-    const { token, userDto } = data;
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
+          throw new Error("Error en la solicitud");
+        }
+      })
+      .then((data) => {
+        const { token, userDto } = data;
 
-    localStorage.setItem("jwtToken", token);
-    localStorage.setItem("userDto", JSON.stringify(userDto));
-    login(userDto);
-    if (userDto.role === "ADMIN") {
-      navigate("/admin");
-    } else {
-      navigate("/");
-    }
-  })
-  .catch((error) => {
-    console.log("ERROR");
-    setAlert({
-      color: "bg-error",
-      text: "Verifica que tus datos de sean correctos.",
-    });
-    // **Update showAlert state to true**
-    setShowAlert(true);
-    return;
-  });
-
-  }
+        localStorage.setItem("jwtToken", token);
+        localStorage.setItem("userDto", JSON.stringify(userDto));
+        login(userDto);
+        if (userDto.role === "ADMIN") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.log("ERROR");
+        setAlert({
+          color: "bg-error",
+          text: "Verifica que tus datos de sean correctos.",
+        });
+        // **Update showAlert state to true**
+        setShowAlert(true);
+        return;
+      });
+  };
 
   return (
     <>
@@ -83,14 +82,14 @@ const Login = () => {
         }}
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">
-        {showAlert && (
-        <Alerts
-          text={Alert.text}
-          bgColorClass={Alert.color}
-          duration={2000}
-          onDismiss={handleDismissAlert}
-        />
-      )}
+          {showAlert && (
+            <Alerts
+              text={Alert.text}
+              bgColorClass={Alert.color}
+              duration={2000}
+              onDismiss={handleDismissAlert}
+            />
+          )}
           <div className="flex flex-col gap-6 max-w-xs sm:max-w-max ">
             <LogoCode />
             <div className="hero-content flex-col lg:flex-row-reverse gap-6">
