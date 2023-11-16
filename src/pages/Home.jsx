@@ -20,8 +20,10 @@ export const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`Buscando: ${search.term} \n Fecha inicio: ${value.startDate} \n Fecha final: ${value.endDate}`);
-  }
+    console.log(
+      `Buscando: ${search.term.value} \n\n Fecha inicio: ${value.startDate} \n Fecha final: ${value.endDate}`
+    );
+  };
   const handleSearch = (e) => {
     const element = e.target;
     setSearch((prevState) => ({
@@ -50,21 +52,24 @@ export const Home = () => {
             </h3>
             <form onSubmit={handleSubmit} className="join bg-[#1E293B]">
               <input
-                className="input bg-[#1E293B] join-item placeholder:text-sm placeholder:font-light placeholder:tracking-wide "
+                className="input bg-[#1E293B] join-item placeholder:text-sm placeholder:font-light placeholder:tracking-wide"
                 placeholder="Buscar Máquinas"
                 onChange={handleSearch}
               />
               <div className=" flex items-center">
-              <Datepicker
-              placeholder={"En qué fechas?"}
-                separator={" → "} 
-                displayFormat={"DD/MM/YY"} 
-                primaryColor={"yellow"} 
-                value={value} 
-                onChange={handleValueChange}/>
-                </div>
-                <button className="btn join-item rounded-r-full text-primary">
-                  Buscar
+                <Datepicker
+                  placeholder={"En qué fechas?"}
+                  /* inputClassName="w-full rounded-md focus:ring-0 dark:placeholder:text-green-100" */
+                  /* containerClassName="h-full" */
+                  separator={" → "}
+                  displayFormat={"DD/MM/YY"}
+                  primaryColor={"yellow"}
+                  value={value}
+                  onChange={handleValueChange}
+                />
+              </div>
+              <button className="btn join-item rounded-r-full text-primary">
+                Buscar
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
