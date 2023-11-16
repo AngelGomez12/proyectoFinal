@@ -14,7 +14,7 @@ const Categorie = (props) => {
         <h2 className="card-title  text-white">{props.title}</h2>
         <p className=" text-primary-content text-[14px]">{props.subtitle}</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-accent btn-sm">Ver Todos</button>
+          <button className="btn btn-accent btn-sm text-base-100">Ver Todos</button>
         </div>
       </div>
     </div>

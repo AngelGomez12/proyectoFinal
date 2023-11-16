@@ -41,7 +41,7 @@ export const Home = () => {
           backgroundImage: "url(../../public/img/bg-image-hero.jpg)",
         }}
       >
-        <div className="hero-overlay bg-opacity-60"></div>
+        <div className="hero-overlay bg-opacity-70"></div>
         <div className="hero-content text-center text-primary-content mt-28 mb-44 sm:mb-64">
           <div className="max-w-2xl">
             <h1 className="mb-5 text-3xl sm:text-4xl font-extrabold text-white">
@@ -94,9 +94,9 @@ export const Home = () => {
       </div>
       <div
         id="catSection"
-        className="bg-primary flex flex-col items-center py-24"
+        className=" flex flex-col items-center py-16"
       >
-        <h2 className="text-xl sm:text-2xl font-bold text-black mb-20">
+        <h2 className="text-xl sm:text-2xl font-bold mb-20">
         Explora nuestras opciones por categorías
         </h2>
 
