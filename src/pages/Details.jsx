@@ -105,7 +105,9 @@ export const Details = () => {
                   ✕
                 </button>
               </form>
-              <Carrousel data={data && data.productImages} />
+              {data && data.productImages.length > 0 && (
+                <Carrousel data={data && data.productImages} />
+              )}
             </div>
           </dialog>
         </div>

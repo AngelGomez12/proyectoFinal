@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-const Carrousel = ({ data }) => {
+const Carousel = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
@@ -12,26 +12,37 @@ const Carrousel = ({ data }) => {
   };
 
   return (
-    <div className="carousel">
-      <button onClick={prevSlide}>Anterior</button>
-      <div className="carousel-content">
-        {data.map((item, index) => (
+    <div className="relative">
+      <button
+        className="absolute inset-y-1/2 left-0 z-10 text-white px-3 py-1 rounded"
+        onClick={prevSlide}
+      >
+        Anterior
+      </button>
+      <button
+        className="absolute inset-y-1/2 right-0 z-10 text-white px-3 py-1 rounded"
+        onClick={nextSlide}
+      >
+        Siguiente
+      </button>
+      <div className="flex justify-center items-center">
+        {data.map((image, index) => (
           <div
             key={index}
-            className={index === currentIndex ? "slide active" : "slide"}
+            className={`w-full h-64 transition-opacity duration-500 ${
+              index === currentIndex ? "opacity-100" : "opacity-0 hidden"
+            }`}
           >
             <img
-              className="w-1/2 sm:w-2/5 md:w-1/2 lg:w-1/2 max-h-80 min-h-min"
-              key={index}
-              src={`data:image/jpeg;base64, ${item.productImage}`}
-              alt="Retroexcavadora"
+              src={`data:image/jpeg;base64, ${image.productImage}`}
+              alt={`Imagen ${index}`}
+              className="object-cover w-full h-full"
             />
           </div>
         ))}
       </div>
-      <button onClick={nextSlide}>Siguiente</button>
     </div>
   );
 };
 
-export default Carrousel;
+export default Carousel;
