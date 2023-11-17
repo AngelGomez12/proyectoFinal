@@ -28,13 +28,13 @@ function ProductSearch({ onFilterChange }) {
   };
 
   const handleSuggestionClick = (productName) => {
-    console.log("click suggestion", productName);
     setSearchTerm(productName);
+
+    onFilterChange(productName);
     setShowSuggestions(false);
   };
 
   const handleClickOutside = (event) => {
-    console.log("click outside");
     if (searchRef.current && !searchRef.current.contains(event.target)) {
       setShowSuggestions(false);
     }

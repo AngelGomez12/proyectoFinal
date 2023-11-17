@@ -80,7 +80,6 @@ export default function AddProducts() {
       Promise.all(imagePromises)
         .then(() => {
           setFormData({ ...formData, productImages: base64DataArray });
-          console.log("Datos Base64 de las imágenes:", base64DataArray);
         })
         .catch((error) => {
           console.error("Error al convertir imágenes a Base64:", error);

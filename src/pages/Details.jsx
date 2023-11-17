@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { Carrousel } from "../components/Carrousel";
 import { useEffect, useState } from "react";
+import Carrousel from "../components/Carrousel";
 export const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ export const Details = () => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}products/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setData(data);
       })
       .catch((error) => {
@@ -28,7 +27,6 @@ export const Details = () => {
         <div className="flex justify-between w-full mb-5">
           <div>
             <h1 className="text-4xl font-bold">{data && data.name}</h1>
-            <h3>Hitachi Us Zaxis 135</h3>
           </div>
           <button
             className="hidden rounded h-12  ms:flex lg:flex items-center gap-4 border-2 px-4"
@@ -107,14 +105,12 @@ export const Details = () => {
                   ✕
                 </button>
               </form>
-              <Carrousel data={data} />
+              <Carrousel data={data && data.productImages} />
             </div>
           </dialog>
         </div>
         <div className="mt-4">
-          <p className="mb-4 text-xl">
-            Precio por hora: ${data && data.price}{" "}
-          </p>
+          <p className="mb-4 text-xl">Precio por dia: ${data && data.price} </p>
           <h2 className="text-primary text-4xl font-bold my-4">
             Descripción general del Equipo
           </h2>

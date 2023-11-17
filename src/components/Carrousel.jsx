@@ -1,50 +1,37 @@
-export const Carrousel = () => {
+import { useState } from "react";
+
+const Carrousel = ({ data }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex((currentIndex + 1) % data.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((currentIndex - 1 + data.length) % data.length);
+  };
+
   return (
-    <div className="carousel w-full">
-      <div id="slide1" className="carousel-item relative w-full">
-        <img src="../public/img/Rectangle-16.png" className="w-full" />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide4" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide2" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
+    <div className="carousel">
+      <button onClick={prevSlide}>Anterior</button>
+      <div className="carousel-content">
+        {data.map((item, index) => (
+          <div
+            key={index}
+            className={index === currentIndex ? "slide active" : "slide"}
+          >
+            <img
+              className="w-1/2 sm:w-2/5 md:w-1/2 lg:w-1/2 max-h-80 min-h-min"
+              key={index}
+              src={`data:image/jpeg;base64, ${item.productImage}`}
+              alt="Retroexcavadora"
+            />
+          </div>
+        ))}
       </div>
-      <div id="slide2" className="carousel-item relative w-full">
-        <img src="../public/img/Rectangle-17.png" className="w-full" />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide1" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide3" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-      <div id="slide3" className="carousel-item relative w-full">
-        <img src="../public/img/Rectangle-18.png" className="w-full" />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide2" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide4" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-      <div id="slide4" className="carousel-item relative w-full">
-        <img src="../public/img/Rectangle-19.png" className="w-full" />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide3" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide1" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
+      <button onClick={nextSlide}>Siguiente</button>
     </div>
   );
 };
+
+export default Carrousel;
