@@ -100,7 +100,6 @@
 
   #         name: 
 
-
 name: CI/CD con Vercel
 
 on:
@@ -134,14 +133,11 @@ jobs:
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: 1vtMzDfCmcAfofwzdN6g9v0g
+
       - name: Entrada de confirmación automatizada
         run: |
           echo -n "y" | xargs -I % bash -c 'read -n 1 -p "Set up and deploy “~/work/proyectoFinal/proyectoFinal”? [Y/n] " < /dev/tty'
 
-          # confirm: "El despliegue se realizará en 5 segundos. ¿Desea cancelar?"          
-          # rollbackonhealthcheckfailed: true
-
       - name: Notificar en caso de Fallo
         if: failure()
         run: echo "La implementación falló. Verifica los registros del flujo de trabajo para más detalles."
-
