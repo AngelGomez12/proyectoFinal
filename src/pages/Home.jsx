@@ -4,6 +4,7 @@ import ProductsList from "../components/Home/ProductsList/ProductsList";
 import ProductSearch from "../components/Home/Search/ProductSearch";
 import CartProvider from "../contexts/ProductsList";
 import Datepicker from "react-tailwindcss-datepicker";
+import { useEffect } from "react";
 
 export const Home = () => {
   const [filter, setFilter] = useState("");
@@ -11,6 +12,8 @@ export const Home = () => {
     startDate: null,
     endDate: null,
   });
+
+ useEffect(() => {alert('ci/cd papa')}, [])
 
   const handleValueChange = (newValue) => {
     /* console.log("newValue:", newValue); */
