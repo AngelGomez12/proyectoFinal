@@ -4,7 +4,8 @@ import ProductsList from "../components/Home/ProductsList/ProductsList";
 import ProductSearch from "../components/Home/Search/ProductSearch";
 import CartProvider from "../contexts/ProductsList";
 import Datepicker from "react-tailwindcss-datepicker";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 export const Home = () => {
   const [filter, setFilter] = useState("");
   const [value, setValue] = useState({
@@ -38,6 +39,8 @@ export const Home = () => {
             <h3 className="mb-8 text-xl sm:text-2xl font-bold">
               La solución perfecta para tu proyecto
             </h3>
+
+            <FontAwesomeIcon icon={icon({name: 'user-secret'})} /> {/* // Defaults to the Classic family, Solid style */}
 
             <div className="sm:join mx-4">
               <div className="join">
