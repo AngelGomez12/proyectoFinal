@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { AgregarMaquina } from "./AgregarMaquina";
+import { AgregarMaquina } from "./AgregarMaquina.jsx";
 import { useState } from "react";
 export const TableListProduct = () => {
   const [product, setProduct] = useState([]);

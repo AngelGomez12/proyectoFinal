@@ -1,6 +1,5 @@
 import { Fragment, useState } from 'react'
 import { TableListProduct } from '../components/ListProduct/TableListProduct';
-import { AgregarMaquina } from '../components/ListProduct/AgregarMaquina';
 
 
 
