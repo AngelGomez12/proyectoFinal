@@ -100,41 +100,41 @@
 
   #         name: 
 
-nombre: CI/CD con Vercel
+name: CI/CD with Vercel
 
-en:
+on:
   push:
-    ramas: [main]
+    branches: [main]
   pull_request:
-    ramas: [main]
-    tipos: [abierto, sincronizar]
+    branches: [main]
+    types: [opened, synchronize]
 
-trabajos:
-  desplegar:
-    se ejecuta en: ubuntu-latest
-    pasos:
-      - nombre: Checkout del Repositorio
-        usa: actions/checkout@v2
-        con:
-          profundidad de búsqueda: 0
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-      - nombre: Configurar Node.js
-        usa: actions/setup-node@v2
-        con:
-          versión de nodo: '16'
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-      - nombre: Instalar Dependencias
-        ejecutar: npm ci
+      - name: Install Dependencies
+        run: npm ci
 
-      - nombre: Compilar
-        ejecutar: npm run build
+      - name: Build
+        run: npm run build
 
-      - nombre: Implementar en Vercel
-        usa: amondnet/vercel-action@v20
-        con:
-          token de vercel: 1vtMzDfCmcAfofwzdN6g9v0g
-          nombre: Maquinaria Pro
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: 1vtMzDfCmcAfofwzdN6g9v0g
+          name: Maquinaria Pro
 
-      - nombre: Notificar en caso de Fallo
-        si: fracaso()
-        ejecutar: echo "La implementación falló. Verifica los registros del flujo de trabajo para más detalles."
+      - name: Notify on Failure
+        if: failure()
+        run: echo "Deployment failed. Check the workflow logs for more details."
