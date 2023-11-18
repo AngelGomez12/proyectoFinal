@@ -135,7 +135,7 @@ jobs:
         with:
           vercel-token: 1vtMzDfCmcAfofwzdN6g9v0g
           name: Maquinaria Pro
-          ask: false
+          confirm: "El despliegue se realizará en 5 segundos. ¿Desea cancelar?"          
           rollbackonhealthcheckfailed: true
 
       - name: Notificar en caso de Fallo
