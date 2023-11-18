@@ -1,5 +1,8 @@
 import { createContext, useEffect, useState } from "react";
-import { getHomeProductsList } from "../queries/getHomeProductsList";
+import {
+  getHomeProductsList,
+  getProductTypes,
+} from "../queries/getHomeProductsList";
 import { randomizerProducts } from "../utils/randomizerProducts";
 
 export const ContextProducts = createContext({
@@ -20,29 +23,37 @@ export default function CartProvider(props) {
     itemsPerPage: 6,
     totalPages: 0,
   });
+  const [productTypes, setProductTypes] = useState([]);
 
   const handlerPageChange = (page) => {
     setPagination({
       ...pagination,
       page,
-    })
-    setProductsViewed(products.slice((page-1) * pagination.itemsPerPage , page * pagination.itemsPerPage))
-  }
+    });
+    setProductsViewed(
+      products.slice(
+        (page - 1) * pagination.itemsPerPage,
+        page * pagination.itemsPerPage
+      )
+    );
+  };
 
   useEffect(() => {
-    getHomeProductsList().then(products => {
-      const randomProds = randomizerProducts(products)
-      setProducts(randomProds)
-      const firstChunk = randomProds.slice(0, 6)
-      setProductsViewed(firstChunk)
+    getHomeProductsList().then((products) => {
+      const randomProds = randomizerProducts(products);
+      setProducts(randomProds);
+      const firstChunk = randomProds.slice(0, 6);
+      setProductsViewed(firstChunk);
       setPagination({
-        ...pagination, 
-        totalPages: Math.ceil(products.length / pagination.itemsPerPage)
-      })
-    })
+        ...pagination,
+        totalPages: Math.ceil(products.length / pagination.itemsPerPage),
+      });
+    });
+    getProductTypes().then((types) => {
+      setProductTypes(types);
+    });
   }, []);
 
-  
   return (
     <ContextProducts.Provider
       value={{
@@ -52,6 +63,7 @@ export default function CartProvider(props) {
         setProductsViewed,
         pagination,
         handlerPageChange,
+        productTypes,
       }}
     >
       {props.children}
