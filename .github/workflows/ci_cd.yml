@@ -133,7 +133,7 @@ jobs:
       - name: Implementar en Vercel
         uses: amondnet/vercel-action@v20
         with:
-          vercelToken: 1vtMzDfCmcAfofwzdN6g9v0g
+          vercel-token: 1vtMzDfCmcAfofwzdN6g9v0g
           name: Maquinaria Pro
           rollbackonhealthcheckfailed: true
 
