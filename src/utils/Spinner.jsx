@@ -1,7 +1,7 @@
 export const Spinner = () => {
   return (
     <>
-      <span className="loading loading-spinner loading-lg"></span>
+      <span className="loading loading-spinner loading-lg col-span-2"></span>
     </>
   );
 };
