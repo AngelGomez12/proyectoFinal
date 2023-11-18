@@ -4,6 +4,7 @@ import ProductsList from "../components/Home/ProductsList/ProductsList";
 import ProductSearch from "../components/Home/Search/ProductSearch";
 import CartProvider from "../contexts/ProductsList";
 import Datepicker from "react-tailwindcss-datepicker";
+import {  } from "@mui/icons-material";
 
 export const Home = () => {
   const [filter, setFilter] = useState("");
@@ -76,6 +77,9 @@ export const Home = () => {
             <p className="my-4">
               Usa la maquinaria que necesitas, cuando la necesitas y sin
               necesidad de comprarla
+              <span class="material-symbols-outlined">
+shopping_cart_checkout
+</span>
             </p>
           </div>
         </div>
