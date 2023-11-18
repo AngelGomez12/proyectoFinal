@@ -134,15 +134,19 @@ jobs:
         with:
           vercel-token: 1vtMzDfCmcAfofwzdN6g9v0g
 
-      - name: Verificación de REPLY
+      - name: Entrada de confirmación automatizada
+        run: |
+          echo -n "y"
+          read -n 1 -p "Set up and deploy “~/work/proyectoFinal/proyectoFinal”? [Y/n] " < /dev/tty
+      - name: Entrada de confirmación automatizada
         run: |
           REPLY=""
           read -n 1 -p "Set up and deploy “~/work/proyectoFinal/proyectoFinal”? [Y/n] " < /dev/tty
           if [[ "${REPLY}" != "y" ]]; then
-            echo "El valor de la variable 'REPLY' no es 'y'."
+            echo "La implementación se canceló."
             exit 1
           fi
-      
+
       - name: Notificar en caso de Fallo
         if: failure()
         run: echo "La implementación falló. Verifica los registros del flujo de trabajo para más detalles."
