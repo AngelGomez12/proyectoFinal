@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FileUploadForm from "../components/AddProducts/components/FileUploadForm";
 import SelectCharacters from "../components/AddProducts/components/SelectedCharacters";
-import { Alerts } from '@utils/alerts';
+import { Alerts } from "../utils/alerts";
 import { useNavigate } from "react-router-dom";
 
 export default function AddProducts() {

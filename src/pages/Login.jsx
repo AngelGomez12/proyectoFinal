@@ -4,7 +4,7 @@ import LogoCode from "../components/LogoCode";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useGlobalContext } from "../contexts/Global";
-import { Alerts } from '@utils/alerts';
+import { Alerts } from "../utils/alerts";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
