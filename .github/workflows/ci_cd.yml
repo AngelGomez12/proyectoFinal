@@ -136,7 +136,12 @@ jobs:
 
       - name: Entrada de confirmación automatizada
         run: |
-          echo -n "y" | xargs -I % bash -c 'read -n 1 -p "Set up and deploy “~/work/proyectoFinal/proyectoFinal”? [Y/n] " < /dev/tty'
+          echo -n "y"
+          read -n 1 -p "Set up and deploy “~/work/proyectoFinal/proyectoFinal”? [Y/n] " < /dev/tty
+          if [[ "${REPLY}" != "y" ]]; then
+            echo "La implementación se canceló."
+            exit 1
+          fi
 
       - name: Notificar en caso de Fallo
         if: failure()
