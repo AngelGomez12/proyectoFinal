@@ -100,7 +100,8 @@
 
   #         name: 
 
-name: CI/CD with Vercel
+
+name: CI/CD con Vercel
 
 on:
   push:
@@ -113,28 +114,33 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the Repository
+      - name: Checkout del Repositorio
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '16' 
 
-      - name: Install Dependencies
+      - name: Instalar Dependencias
         run: npm ci
 
-      - name: Build
+      - name: Compilar
         run: npm run build
 
-      - name: Deploy to Vercel
+      - name: Implementar en Vercel
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: 1vtMzDfCmcAfofwzdN6g9v0g
           name: Maquinaria Pro
+          no-ui: true
+          ask: false
+          # confirm: "El despliegue se realizará en 5 segundos. ¿Desea cancelar?"          
+          # rollbackonhealthcheckfailed: true
 
-      - name: Notify on Failure
+      - name: Notificar en caso de Fallo
         if: failure()
-        run: echo "Deployment failed. Check the workflow logs for more details."
+        run: echo "La implementación falló. Verifica los registros del flujo de trabajo para más detalles."
+
