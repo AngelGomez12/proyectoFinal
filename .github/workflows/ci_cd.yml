@@ -134,8 +134,8 @@ jobs:
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: 1vtMzDfCmcAfofwzdN6g9v0g
-          ask: false
           name: Maquinaria Pro
+          ask: false
           rollbackonhealthcheckfailed: true
 
       - name: Notificar en caso de Fallo
