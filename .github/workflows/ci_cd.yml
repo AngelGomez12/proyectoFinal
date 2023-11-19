@@ -203,10 +203,6 @@ jobs:
 
       - name: Ver contenido del directorio de construcción
         run: ls
-        
-      - name: Configurar ACL en el cubo S3
-        run: |
-          aws s3api put-bucket-policy --bucket maquinaria-pro-g3 --policy '{"Version": "2012-10-17","Statement": [{"Effect": "Allow","Principal": "*","Action": "s3:GetObject","Resource": "arn:aws:s3:::maquinaria-pro-g3/*"}]}'
 
       - name: Desplegar en S3
         run: |
