@@ -134,7 +134,7 @@ jobs:
         with:
           vercel-token: 1vtMzDfCmcAfofwzdN6g9v0g
           vercel-args: '--prod'
-          branch: ${{ env.GITHUB_REF##*/ }}
+          branch: main
 
       - name: Entrada de confirmación automatizada
         run: |
