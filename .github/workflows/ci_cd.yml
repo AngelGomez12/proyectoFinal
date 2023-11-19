@@ -195,7 +195,6 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          rm -rf node_modules
           npm install dayjs
           npm ci
 
