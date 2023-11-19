@@ -133,21 +133,16 @@ jobs:
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: 1vtMzDfCmcAfofwzdN6g9v0g
-          vercel-args: '--prod'
-          branch: main
 
-      - name: Entrada de confirmación automatizada
+      - name: Verificación de REPLY
         run: |
           REPLY=""
           read -n 1 -p "Set up and deploy “~/work/proyectoFinal/proyectoFinal”? [Y/n] " < /dev/tty
           if [[ "${REPLY}" != "y" ]]; then
-            echo "La implementación se canceló."
+            echo "El valor de la variable 'REPLY' no es 'y'."
             exit 1
           fi
-
-      - name: Verificación de errores
-        run: |
-          if [ $? -ne 0 ]; then
-            echo "Se han producido errores durante el deploy."
-            exit 1
-          fi
+      
+      - name: Notificar en caso de Fallo
+        if: failure()
+        run: echo "La implementación falló. Verifica los registros del flujo de trabajo para más detalles."
