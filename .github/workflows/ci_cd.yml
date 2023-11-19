@@ -133,6 +133,7 @@ jobs:
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: 1vtMzDfCmcAfofwzdN6g9v0g
+          github-deployment: true
 
       - name: Verificación de REPLY
         run: |
