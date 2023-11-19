@@ -192,7 +192,7 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
-        run: vercel switch nam --token=1vtMzDfCmcAfofwzdN6g9v0g --scope=pabloc43
+        run: vercel switch nam --scope=pabloc43
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --token=1vtMzDfCmcAfofwzdN6g9v0g
       - name: Build Project Artifacts
