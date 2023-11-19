@@ -190,9 +190,11 @@ jobs:
           aws-secret-access-key: Xeso15BEL4nwq5TRtFx9I6bw/JKEUyLvj/47uozv
           aws-region: eu-central-1
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
       - name: Build production app
-        run: yarn build
+        run: npm run build --verbose
+      _ name: View build
+        run: ls
       - name: Deploy to S3
         run: |
           aws s3 cp build s3://maquinaria-pro-g3 --recursive --acl public-read
