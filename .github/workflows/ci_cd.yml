@@ -191,8 +191,8 @@ jobs:
       - name: Configurar credenciales de AWS
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: AKIAY3PLHSUJCEWYHAXB
+          aws-secret-access-key: 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
           aws-region: eu-central-1
 
       - name: Instalar dependencias
