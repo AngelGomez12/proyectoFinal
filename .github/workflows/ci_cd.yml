@@ -173,43 +173,26 @@
 #           token: 1vtMzDfCmcAfofwzdN6g9v0g
 #         env:
 #           NODE_ENV: production
-name: Vercel Production Deployment
-
+name: Deploy to S3
 on:
   push:
     branches:
       - main
-
 jobs:
-  deploy-production:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          node-version: 14
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Build Project
-        run: npm run build
-
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-
-      - name: Authenticate with Vercel
-        run: vercel login --token 1vtMzDfCmcAfofwzdN6g9v0g
-
-      - name: Switch to Vercel Project
-        run: vercel switch nam --scope=pabloc43
-
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes
-
-      - name: Deploy to Vercel
-        run: vercel deploy --prod
+          aws-access-key-id: AKIAY3PLHSUJCEWYHAXB
+          aws-secret-access-key: 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
+          aws-region: eu-central-1
+      - name: Install dependencies
+        run: yarn install
+      - name: Build production app
+        run: yarn build
+      - name: Deploy to S3
+        run: |
+          aws s3 cp build s3://maquinaria-pro-g3 --recursive --acl public-read
