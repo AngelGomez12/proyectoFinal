@@ -194,9 +194,7 @@ jobs:
           node-version: 14
 
       - name: Install Dependencies
-        run: |
-          npm install dayjs
-          npm ci
+        run: npm ci && npm install dayjs
 
       - name: Build Project
         run: npm run build
