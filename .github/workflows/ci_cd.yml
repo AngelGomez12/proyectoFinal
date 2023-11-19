@@ -191,8 +191,6 @@ jobs:
         run: npm run build
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=1vtMzDfCmcAfofwzdN6g9v0g
       - name: Build Project Artifacts
         run: vercel build --prod --token=1vtMzDfCmcAfofwzdN6g9v0g
       - name: Deploy Project Artifacts to Vercel
