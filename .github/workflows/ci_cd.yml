@@ -168,7 +168,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Deploy to Vercel
-        uses: vercel/vercel@v2
+        uses: vercel/vercel@v3
         with:
           token: 1vtMzDfCmcAfofwzdN6g9v0g
         env:
