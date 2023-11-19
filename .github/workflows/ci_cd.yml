@@ -132,12 +132,10 @@ jobs:
       - name: Implementar en Vercel
         uses: amondnet/vercel-action@v20
         with:
-          vercel-token: 1vtMzDfCmcAfofwzdN6g9v0g
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-args: '--prod'
+          branch: ${{ env.GITHUB_REF##*/ }}
 
-      - name: Entrada de confirmación automatizada
-        run: |
-          echo -n "y"
-          read -n 1 -p "Set up and deploy “~/work/proyectoFinal/proyectoFinal”? [Y/n] " < /dev/tty
       - name: Entrada de confirmación automatizada
         run: |
           REPLY=""
@@ -147,6 +145,9 @@ jobs:
             exit 1
           fi
 
-      - name: Notificar en caso de Fallo
-        if: failure()
-        run: echo "La implementación falló. Verifica los registros del flujo de trabajo para más detalles."
+      - name: Verificación de errores
+        run: |
+          if [ $? -ne 0 ]; then
+            echo "Se han producido errores durante el deploy."
+            exit 1
+          fi
