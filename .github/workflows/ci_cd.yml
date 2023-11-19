@@ -185,6 +185,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
@@ -192,4 +196,4 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --prod --token=1vtMzDfCmcAfofwzdN6g9v0g
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --prod --token=1vtMzDfCmcAfofwzdN6g9v0g
+        run: vercel deploy  --prod --token=1vtMzDfCmcAfofwzdN6g9v0g
