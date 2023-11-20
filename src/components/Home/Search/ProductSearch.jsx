@@ -61,14 +61,14 @@ function ProductSearch({ onFilterChange }) {
   }, []);
 
   return (
-    <div ref={searchRef} className="relative">
-      <div className="btn join-item rounded-r-full">
+    <div ref={searchRef} className="">
+      <div className="join-item sm:rounded-r-full bg-[#1E293B]">
         <input
           type="text"
           placeholder="Buscar productos..."
           value={searchTerm}
           onChange={handleSearch}
-          className="input rounded bg-[#1E293B] sm:join-item  sm:rounded-l-full w-full sm:w-auto placeholder:text-sm placeholder:font-light placeholder:tracking-wide"
+          className="input rounded sm:rounded-l-full w-full bg-[#1E293B] sm:w-auto placeholder:text-sm placeholder:font-light placeholder:tracking-wide"
         />
       </div>
       {showSuggestions && (

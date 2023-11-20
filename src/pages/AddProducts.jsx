@@ -42,6 +42,7 @@ export default function AddProducts() {
       .then((data) => {
         // Mapea solo las propiedades "description" de los objetos
         setCategorias(data);
+        /* console.log(data); */
       })
       .catch((error) => {
         console.error("Error al cargar specs", error);
@@ -207,7 +208,7 @@ export default function AddProducts() {
         className="bg-base-100 flex justify-center flex-col md:w-[50%] gap-4 p-8 py-16 rounded-lg w-full"
       >
         <h1 className=" flex text-4xl font-bold justify-center">
-          Agregar una Maquina
+          Agregar una Máquina
         </h1>
         <div className="flex-col py-11">
           <label htmlFor="">Nombre de la Máquina</label>
