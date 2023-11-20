@@ -41,29 +41,55 @@ export const Home = () => {
               La solución perfecta para tu proyecto
             </h3>
 
-            <div className="sm:join mx-4">
-              <div className="join">
-                <CartProvider>
+{/* BUSCADOR DESKTOP */}
+
+            <div className="hidden sm:join">
+              <div className="rounded-l-full">
+              <CartProvider>
                   <ProductSearch onFilterChange={handleFilterChange} />
                 </CartProvider>
               </div>
               <div className="flex items-center bg-[#1E293B] sm:join-item rounded h-12">
-                <Datepicker
+              <Datepicker
                   placeholder={"En qué fechas?"}
-                  /* inputClassName="w-full rounded-md focus:ring-0 dark:placeholder:text-green-100" */
-                  /* containerClassName="" */
                   separator={" → "}
                   displayFormat={"DD/MM/YY"}
                   primaryColor={"yellow"}
                   value={value}
                   onChange={handleValueChange}
-                />
-              </div>
+                  />
+                  </div>
               <button className="btn sm:join-item sm:rounded-r-full text-primary">
                 Buscar
                 <span class="material-symbols-outlined">search</span>
               </button>
-            </div>
+              </div>
+
+{/* BUSCADOR MOBILE */}
+
+            <div className=" flex flex-col sm:hidden gap-1">
+              <div className=" rounded-xl overflow-clip">
+              <CartProvider>
+                  <ProductSearch onFilterChange={handleFilterChange} />
+                </CartProvider>
+              </div>
+              <div className=" flex gap-1">
+              <div className="flex items-center bg-[#1E293B] h-12 y w-4/5 rounded-xl">
+              <Datepicker
+                  placeholder={"En qué fechas?"}
+                  separator={" → "}
+                  displayFormat={"DD/MM/YY"}
+                  primaryColor={"yellow"}
+                  value={value}
+                  onChange={handleValueChange}
+                  />
+                  </div>
+              <button className="btn text-primary w-1/5 rounded-xl">
+                <span class="material-symbols-outlined">search</span>
+              </button>
+              </div>
+              </div>
+
 
             <p className="my-4">
               Usa la maquinaria que necesitas, cuando la necesitas y sin
