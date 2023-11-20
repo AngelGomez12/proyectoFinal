@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { useState } from "react";
 
 function SelectCharacters({ specs, updateSpecs }) {
@@ -46,15 +47,15 @@ function SelectCharacters({ specs, updateSpecs }) {
         </button>
       </div>
 
-      <div className="flex">
+      <div className="flex flex-col flex-nowrap">
         {options.map((optionId, index) => (
-          <div key={index} className="flex items-center mb-2">
+          <div key={index} className="flex justify-start items-center gap-2 border-[1.5px] rounded-md px-2 py-1 max-w-fit border-secondary-content">
             <span>{specCopy[parseInt(optionId) - 1].description}</span>
             <button
               onClick={() => handleRemoveOption(index)}
-              className="ml-2 text-red-500"
+              className="ml-1 hover:text-red-500 flex items-center"
             >
-              X
+              <span class="material-symbols-outlined">close_small</span>
             </button>
           </div>
         ))}
