@@ -50,6 +50,7 @@ function SelectCharacters({ specs, updateSpecs }) {
       <div className="flex flex-col flex-nowrap">
         {options.map((optionId, index) => (
           <div key={index} className="flex justify-start items-center gap-2 border-[1.5px] rounded-md px-2 py-1 max-w-fit border-secondary-content">
+            <span class="material-symbols-outlined">{specCopy[parseInt(optionId) - 1].icon}</span>
             <span>{specCopy[parseInt(optionId) - 1].description}</span>
             <button
               onClick={() => handleRemoveOption(index)}

@@ -42,6 +42,7 @@ export default function AddProducts() {
       .then((data) => {
         // Mapea solo las propiedades "description" de los objetos
         setCategorias(data);
+        /* console.log(data); */
       })
       .catch((error) => {
         console.error("Error al cargar specs", error);
