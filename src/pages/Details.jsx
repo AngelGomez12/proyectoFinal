@@ -32,7 +32,10 @@ export const Details = () => {
           </div>
           <BackBtn />
         </div>
-        <div id="Product_Images" className="max-h-[600px] sm:h-[400px] mb-8 sm:mb-4">
+        <div
+          id="Product_Images"
+          className="max-h-[600px] sm:h-[400px] mb-8 sm:mb-4"
+        >
           <div className="flex flex-col sm:flex-row gap-4 h-full">
             {data && (
               <>
@@ -50,7 +53,7 @@ export const Details = () => {
                 ))}
 
                 <div className="flex flex-col sm:w-1/2 gap-4 justify-start items-center">
-                  <div className="flex h-1/2 gap-4">
+                  <div className="flex max-h-40 sm:h-1/2 gap-4">
                     {data.productImages
                       .slice(1, 3)
                       .map((imagenProducto, index) => (
@@ -96,11 +99,11 @@ export const Details = () => {
           </div>
 
           <dialog id="my_modal_3" className="modal">
-            <div className="modal-box">
+            <div className="modal-box p-8">
               <form method="dialog">
                 {/* if there is a button in form, it will close the modal */}
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                  ✕
+                  <span class="material-symbols-outlined">close_small</span>
                 </button>
               </form>
               {data && data.productImages.length > 0 && (
