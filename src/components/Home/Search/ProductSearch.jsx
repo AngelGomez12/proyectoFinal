@@ -72,7 +72,7 @@ function ProductSearch({ onFilterChange }) {
         />
       </div>
       {showSuggestions && (
-        <ul className="absolute z-10 bg-white border border-gray-300 mt-1 w-full max-h-40 overflow-y-auto rounded-md shadow-lg">
+        <ul className="absolute z-10 bg-white border border-gray-300 mt-1 max-w-3xl min-w-fit max-h-40 overflow-y-auto rounded-md shadow-lg">
           {searchResults.map((product) => (
             <li
               key={product.id}

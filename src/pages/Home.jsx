@@ -51,13 +51,24 @@ export const Home = () => {
               </div>
               <div className="flex items-center bg-[#1E293B] sm:join-item rounded h-12">
               <Datepicker
-                  placeholder={"En qué fechas?"}
-                  separator={" → "}
-                  displayFormat={"DD/MM/YY"}
-                  primaryColor={"yellow"}
-                  value={value}
-                  onChange={handleValueChange}
-                  />
+              value={value}
+              onChange={handleValueChange}
+              i18n={"es"}
+              popoverDirection="down"
+              placeholder={"Cuáles fechas?"}
+              separator={" → "}
+              displayFormat={"DD/MM/YY"}
+              primaryColor={"yellow"}
+              startWeekOn="mon"
+              useRange={false}
+              showFooter={true}
+              configs={{
+                footer: {
+                  cancel: "Cancelar",
+                  apply: "Aplicar",
+                },
+              }}
+            />
                   </div>
               <button className="btn sm:join-item sm:rounded-r-full text-primary">
                 Buscar
@@ -76,6 +87,7 @@ export const Home = () => {
               <div className=" flex gap-1">
               <div className="flex items-center bg-[#1E293B] h-12 y w-4/5 rounded-xl">
               <Datepicker
+              i18n={"es"} 
                   placeholder={"En qué fechas?"}
                   separator={" → "}
                   displayFormat={"DD/MM/YY"}
