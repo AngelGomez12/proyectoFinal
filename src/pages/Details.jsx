@@ -124,8 +124,8 @@ export const Details = () => {
           </dialog>
         </div>
 
-        <div id="Product_Info" className="mt-4 flex flex-row-reverse gap-16">
-          <div className="w-1/3">
+        <div id="Product_Info" className="mt-4 flex flex-col md:flex-row-reverse gap-16">
+          <div className="w-full mx-2 sm:mx-8 md:w-1/3">
             <h3 className="text-primary text-xl font-bold my-4">
               Chequear Disponibilidad
             </h3>
