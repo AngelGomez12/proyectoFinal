@@ -5,7 +5,7 @@ import ProductCart from "./components/ProductCart";
 import { Spinner } from "../../../utils/Spinner";
 import { Filter } from "../Search/Filter";
 
-export default function ProductsList({ filter }) {
+export default function ProductsList({ filter, onFilterChange }) {
   const { productsViewed, products, productTypes } =
     useContext(ContextProducts);
   let filterProducts = [];
@@ -14,6 +14,14 @@ export default function ProductsList({ filter }) {
     filterProducts = products.filter((product) =>
       product.name.toLowerCase().includes(filter.toLowerCase())
     );
+
+    if (filterProducts.length === 0) {
+      filterProducts = products.filter((product) =>
+        product.productType.description
+          .toLowerCase()
+          .includes(filter.toLowerCase())
+      );
+    }
   }
 
   let title = !filter
@@ -26,9 +34,9 @@ export default function ProductsList({ filter }) {
         <h1 className="text-[30px] mt-[112px] font-[700] text-center">
           {title}
         </h1>
-        <div className="mt-[112px] w-1/2">
+        <div className="mt-[112px] w-1/2 flex items-center gap-2">
           Filtrar por:
-          <Filter productTypes={productTypes} />
+          <Filter productTypes={productTypes} onFilterChange={onFilterChange} />
         </div>
       </div>
       <section className="grid grid-cols-1 md:grid-cols-2 gap-x-[28px] gap-y-[32px] ">

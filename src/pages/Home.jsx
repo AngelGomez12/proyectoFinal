@@ -81,7 +81,7 @@ export const Home = () => {
         </div>
       </div>
       <CartProvider>
-        <ProductsList filter={filter} />
+        <ProductsList filter={filter} onFilterChange={handleFilterChange} />
       </CartProvider>
       <div id="catSection" className=" flex flex-col items-center py-16">
         <h2 className="text-xl sm:text-2xl font-bold mb-20">
