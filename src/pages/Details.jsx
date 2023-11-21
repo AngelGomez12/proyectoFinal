@@ -39,7 +39,8 @@ export const Details = () => {
       <div className="mx-16 h-full mt-36 w-4/5">
         <div className="flex justify-between w-full mb-5">
           <div>
-            <h1 className="text-4xl font-bold mb-4">{data && data.name}</h1>
+            <h1 className="text-4xl font-bold">{data && data.name}</h1>
+            <p className="text-xl">{data && data.productType.description}</p>
           </div>
           <BackBtn />
         </div>
