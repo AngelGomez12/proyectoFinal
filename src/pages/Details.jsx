@@ -80,7 +80,7 @@ export const Details = () => {
                         </>
                       ))}
                   </div>
-                  <div className="flex items-center gap-4 justify-center">
+                  <div className="flex max-h-40 sm:h-1/2 gap-4">
                     {data.productImages
                       .slice(3, 5)
                       .map((imagenProducto, index) => (
