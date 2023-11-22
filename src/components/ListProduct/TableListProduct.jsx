@@ -1,12 +1,28 @@
-import React, { useEffect } from 'react'
-import { AgregarMaquina } from './AgregarMaquina'
-import { useState } from 'react';
-import {Editar} from './Editar'
-export const TableListProduct = () => {
-  const [product, setProduct] = useState([]);
+import React, { useEffect, useState } from "react";
+import { AgregarMaquina } from "./AgregarMaquina";
+import Form from "./Form";
 
-  const handleUpdateProduct = (newProduct) => {
-    setProduct(newProduct);
+export const TableListProduct = () => {
+  const [products, setProducts] = useState([]);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const openEditModal = (productId) => {
+    const productToEdit = products.find((product) => product.id === productId);
+    setEditingProduct(productToEdit);
+    setShowModal(true);
+  };
+
+  const handleUpdateProduct = (updatedProduct) => {
+    // Update the state with the edited product
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === updatedProduct.id ? updatedProduct : product
+      )
+    );
+
+    // Close the modal
+    setShowModal(false);
   };
 
   const handleDeleteProduct = (productId) => {
@@ -16,8 +32,10 @@ export const TableListProduct = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        //       // Update the state with the new list of products after deletion.
-        window.location.reload();
+        // Update the state with the new list of products after deletion.
+        setProducts((prevProducts) =>
+          prevProducts.filter((product) => product.id !== productId)
+        );
       })
       .catch((error) => {
         console.error("Error deleting product", error);
@@ -28,7 +46,7 @@ export const TableListProduct = () => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}products`)
       .then((response) => response.json())
       .then((data) => {
-        setProduct(data);
+        setProducts(data);
         console.log(data);
       })
       .catch((error) => {
@@ -67,7 +85,7 @@ export const TableListProduct = () => {
             </tr>
           </thead>
           <tbody>
-            {product.slice(0, 7).map((product) => (
+            {products.slice(0, 7).map((product) => (
               <tr key={product.id}>
                 <th>
                   <div className="flex">
@@ -130,9 +148,53 @@ export const TableListProduct = () => {
                       className="dropdown-content z-[4] menu p-2 shadow bg-base-100 rounded-box w-50 font-thin"
                     >
                       <li>
-                        
-                          <Editar/>
+                        <div className="flex font-thin">
+                          <button
+                            className="btn bg-transparent border-none w-5 no-hover h-5 font-thin capitalize text-base hover:bg-transparent "
+                            onClick={() => {
+                              openEditModal(product.id);
+                              document.getElementById("my_modal_1").showModal();
+                            }}
+                          >
+                            {" "}
+                            Editar
+                          </button>
+                        </div>
+                        <dialog id="my_modal_1" className="modal">
+                          <div
+                            className="modal-box"
+                            style={{ maxWidth: "none", width: "auto" }}
+                          >
+                            {showModal && editingProduct && (
+                              <Form
+                                editingProduct={editingProduct}
+                                showButtons={false}
+                                onUpdateProduct={handleUpdateProduct}
+                              />
+                            )}
+                            <div className="modal-action">
+                              <form method="dialog">
+                                <div className="flex justify-between items-center">
+                                  <div>
+                                    <button
+                                      className="bg-base100 mr-16"
+                                      onClick={() => setShowModal(false)}
+                                    >
+                                      resetear
+                                    </button>
+                                    <input
+                                      className="bg-primary rounded-lg w-40 py-2 text-black mr-5 cursor-pointer"
+                                      type="submit"
+                                      value="Actualizar"
+                                    />
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </dialog>
                       </li>
+
                       <li>
                         <a
                           className="text-red-600"

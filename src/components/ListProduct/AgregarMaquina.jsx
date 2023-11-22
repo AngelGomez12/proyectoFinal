@@ -10,7 +10,7 @@ export const AgregarMaquina = () => {
     <>
     <div className='flex  '>
    {/* Open the modal using document.getElementById('ID').showModal() method */}
-   <Link to='agregar-producto'><button className="btn bg-primary text-black">+ Agregar Maquina</button></Link>
+   <Link to='/admin/agregar-producto'><button className="btn bg-primary text-black">+ Agregar Maquina</button></Link>
 <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
   <div className="modal-box " style={{ maxWidth: "none", width: "auto" }} >
     <h3 className="font-bold text-2xl text-center">Agregar una Máquina</h3>
