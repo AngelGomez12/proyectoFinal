@@ -14,7 +14,7 @@ export default function ProductCart({ name, description, productImages, id }) {
             <h3 className="text-[20px] font-[600] text-ellipsis overflow-hidden">
               {name}
             </h3>
-            <p className="text-ellipsis overflow-hidden">{description}</p>
+            <p className="truncate ... text-ellipsis overflow-hidden">{description}</p>
           </div>
           <div className="bg-[#FFE100] flex items-center text-[#1D232A] px-[12px] rounded-[8px] h-[32px] font-400">
             Ver Detalle

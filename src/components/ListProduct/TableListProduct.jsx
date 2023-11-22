@@ -100,7 +100,11 @@ export const TableListProduct = () => {
                     </div>
                   </div>
                 </td>
-                <td>{product.description}</td>
+                <td>
+                  <p className=" w-[220px] truncate ... ">
+                  {product.description}
+                  </p>
+                  </td>
                 <th>
                   <p>${product.price}</p>
                 </th>
