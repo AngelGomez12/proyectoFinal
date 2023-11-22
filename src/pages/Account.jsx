@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unknown-property */
 import BackBtn from "../components/BackBtn";
-import Temp_Caracteristicas from "../components/Temp_Caracteristicas";
 
 const Account = () => {
   return (
@@ -39,7 +38,6 @@ const Account = () => {
           </div>
         </div>
       </section>
-      <Temp_Caracteristicas />
     </>
   );
 };
