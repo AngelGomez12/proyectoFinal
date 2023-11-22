@@ -81,7 +81,7 @@ export const Details = () => {
                         </>
                       ))}
                   </div>
-                  <div className="flex items-center gap-4 justify-center">
+                  <div className="flex max-h-40 sm:h-1/2 gap-4">
                     {data.productImages
                       .slice(3, 5)
                       .map((imagenProducto, index) => (
@@ -125,8 +125,8 @@ export const Details = () => {
           </dialog>
         </div>
 
-        <div id="Product_Info" className="mt-4 flex flex-row-reverse gap-16">
-          <div className="w-1/3">
+        <div id="Product_Info" className="mt-4 flex flex-col md:flex-row-reverse gap-16">
+          <div className="w-full mx-2 sm:mx-8 md:w-1/3">
             <h3 className="text-primary text-xl font-bold my-4">
               Chequear Disponibilidad
             </h3>
