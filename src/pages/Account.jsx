@@ -11,7 +11,9 @@ const Account = () => {
             <div className="flex flex-row gap-4 items-center">
               <h1 className="text-3xl font-bold">Mi Cuenta</h1>
               <div className=" bg-base-100 rounded-full w-9 h-9 flex items-center justify-center">
-                <span class="material-symbols-outlined">account_circle</span>
+                <span className="material-symbols-outlined">
+                  account_circle
+                </span>
               </div>
             </div>
             <BackBtn />
@@ -31,13 +33,13 @@ const Account = () => {
           </div>
           <div className="my-8">
             <button className="btn btn-outline btn-error btn-sm">
-              <span class="material-symbols-outlined">delete</span>
+              <span className="material-symbols-outlined">delete</span>
               Eliminar mi Cuenta
             </button>
           </div>
         </div>
       </section>
-      <Temp_Caracteristicas/>
+      <Temp_Caracteristicas />
     </>
   );
 };

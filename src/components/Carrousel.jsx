@@ -14,19 +14,23 @@ const Carousel = ({ data }) => {
 
   return (
     <div className="relative">
-{/*       <button
+      {/*       <button
         className="absolute inset-y-1/2 left-0 z-10 text-white px-3 py-1 rounded"
         onClick={prevSlide}
       >
         Anterior
       </button> */}
-      <button className="btn btn-circle bg-base-100 text-white opacity-60 absolute inset-y-1/2 left-0 z-10"
-      onClick={prevSlide}>
-        <span class="material-symbols-outlined">chevron_left</span>
+      <button
+        className="btn btn-circle bg-base-100 text-white opacity-60 absolute inset-y-1/2 left-0 z-10"
+        onClick={prevSlide}
+      >
+        <span className="material-symbols-outlined">chevron_left</span>
       </button>
-      <button className="btn btn-circle bg-base-100 text-white opacity-60 absolute inset-y-1/2 right-0 z-10"
-      onClick={nextSlide}>
-        <span class="material-symbols-outlined">chevron_right</span>
+      <button
+        className="btn btn-circle bg-base-100 text-white opacity-60 absolute inset-y-1/2 right-0 z-10"
+        onClick={nextSlide}
+      >
+        <span className="material-symbols-outlined">chevron_right</span>
       </button>
       <div className="flex justify-center items-center">
         {data.map((image, index) => (

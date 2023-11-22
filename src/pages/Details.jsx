@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unknown-property */
+import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BackBtn from "../components/BackBtn";
@@ -52,16 +53,15 @@ export const Details = () => {
             {data && (
               <>
                 {data.productImages.slice(0, 1).map((imagenProducto, index) => (
-                  <>
+                  <React.Fragment key={index}>
                     <figure className="sm:w-1/2 sm:h-full h-[200px] overflow-hidden object-center rounded-md">
                       <img
                         className="min-w-full min-h-full object-cover"
-                        key={index}
                         src={`data:image/jpeg;base64, ${imagenProducto.productImage}`}
                         alt="Imagen Destacada Maquinaria Pro"
                       />
                     </figure>
-                  </>
+                  </React.Fragment>
                 ))}
 
                 <div className="flex flex-col sm:w-1/2 gap-4 justify-start items-center">
@@ -69,32 +69,30 @@ export const Details = () => {
                     {data.productImages
                       .slice(1, 3)
                       .map((imagenProducto, index) => (
-                        <>
+                        <React.Fragment key={index}>
                           <figure className="w-1/2 overflow-hidden object-center rounded-md">
                             <img
                               className="min-w-full min-h-full object-cover"
-                              key={index}
                               src={`data:image/jpeg;base64, ${imagenProducto.productImage}`}
                               alt="MaquinariaPro"
                             />
                           </figure>
-                        </>
+                        </React.Fragment>
                       ))}
                   </div>
                   <div className="flex max-h-40 sm:h-1/2 gap-4">
                     {data.productImages
                       .slice(3, 5)
                       .map((imagenProducto, index) => (
-                        <>
+                        <React.Fragment key={index}>
                           <figure className="w-1/2 overflow-hidden object-center rounded-md">
                             <img
                               className="min-w-full min-h-full object-cover"
-                              key={index}
                               src={`data:image/jpeg;base64, ${imagenProducto.productImage}`}
                               alt="MaquinariaPro"
                             />
                           </figure>
-                        </>
+                        </React.Fragment>
                       ))}
                   </div>
                   <button
@@ -115,7 +113,7 @@ export const Details = () => {
               <form method="dialog">
                 {/* if there is a button in form, it will close the modal */}
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                  <span class="material-symbols-outlined">close_small</span>
+                  <span className="material-symbols-outlined">close_small</span>
                 </button>
               </form>
               {data && data.productImages.length > 0 && (
@@ -125,7 +123,10 @@ export const Details = () => {
           </dialog>
         </div>
 
-        <div id="Product_Info" className="mt-4 flex flex-col md:flex-row-reverse gap-16">
+        <div
+          id="Product_Info"
+          className="mt-4 flex flex-col md:flex-row-reverse gap-16"
+        >
           <div className="w-full mx-2 sm:mx-8 md:w-1/3">
             <h3 className="text-primary text-xl font-bold my-4">
               Chequear Disponibilidad
@@ -178,7 +179,7 @@ export const Details = () => {
                   return (
                     <li key={index} className=" mb-2">
                       <div className=" flex justify-start items-center gap-2 border-[1.5px] rounded-md px-2 py-1 max-w-fit border-secondary-content">
-                        <span class="material-symbols-outlined">
+                        <span className="material-symbols-outlined">
                           {spec.icon}
                         </span>
                         <p>{spec.description}</p>

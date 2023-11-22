@@ -43,7 +43,7 @@ function SelectCharacters({ specs, updateSpecs }) {
           onClick={handleAddOption}
           className="btn bg-primary join-item text-neutral hover:text-gray-100 px-2 py-1 rounded-r-md"
         >
-          <span class="material-symbols-outlined">add</span>
+          <span className="material-symbols-outlined">add</span>
           Añadir
         </button>
       </div>

@@ -1,6 +1,6 @@
-const AdminMobileOverlay = () => {
+export default function AdminMobileOverlay() {
   return (
-    <div className=" lg:hidden flex flex-col items-center justify-center z-50 w-screen h-screen bg-neutral-900 gap-6">
+    <div className="lg:hidden flex flex-col items-center justify-center z-50 w-screen h-screen bg-neutral-900 gap-6">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="85"
@@ -14,9 +14,9 @@ const AdminMobileOverlay = () => {
         />
       </svg>
       <p className=" text-center">
-      La Vista de Administrador <br />en Dispositivos Móviles <br /> no está disponible
+        La Vista de Administrador <br />
+        en Dispositivos Móviles <br /> no está disponible
       </p>
     </div>
   );
-};
-export default AdminMobileOverlay;
+}

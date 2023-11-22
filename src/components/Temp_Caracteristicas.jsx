@@ -33,19 +33,22 @@ const Temp_Caracteristicas = () => {
     },
   ];
 
-  const caracteristicas = caracteristicas_array.map((caracteristica) => {
+  const caracteristicas = caracteristicas_array.map((caracteristica, index) => {
     return (
-      <div className=" flex justify-start items-center gap-2 border-[1.5px] rounded-md m-2 px-2 py-1 max-w-fit border-secondary-content">
-        <span class='material-symbols-outlined'>{caracteristica.icon}</span>
+      <div
+        className=" flex justify-start items-center gap-2 border-[1.5px] rounded-md m-2 px-2 py-1 max-w-fit border-secondary-content"
+        key={index}
+      >
+        <span className="material-symbols-outlined">{caracteristica.icon}</span>
         <p>{caracteristica.title}</p>
       </div>
     );
   });
 
-  return <div className=" h-screen">
-    <div>
-{caracteristicas}
+  return (
+    <div className=" h-screen">
+      <div>{caracteristicas}</div>
     </div>
-  </div>;
+  );
 };
 export default Temp_Caracteristicas;

@@ -13,7 +13,7 @@ const BackBtn = () => {
       className="btn btn-ghost hidden md:flex items-center px-4"
       onClick={goBack}
     >
-      <span class="material-symbols-outlined">arrow_back</span>
+      <span className="material-symbols-outlined">arrow_back</span>
       <span className=" normal-case font-normal">Atrás</span>
     </button>
   );

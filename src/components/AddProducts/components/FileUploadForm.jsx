@@ -34,7 +34,7 @@ function FileUploadForm({ handleFileUpload }) {
           className="hidden"
         />
         <div className="flex flex-col text-center items-center justify-center">
-          <span class="material-symbols-outlined">add_photo_alternate</span>
+          <span className="material-symbols-outlined">add_photo_alternate</span>
           <span>Agregar Imagen</span>
         </div>
       </label>
