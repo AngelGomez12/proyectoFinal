@@ -167,12 +167,24 @@ export default function AddProducts() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Success:", data);
-          setAlert({
-            color: "bg-success",
-            text: "Se ha agregado correctamente",
-          });
-          setShowAlert(true);
+          if (
+            data.message &&
+            data.message.indexOf("Ya existe un producto con el mismo nombre") >
+              -1
+          ) {
+            setAlert({
+              color: "bg-error",
+              text: `Ya existe un producto con el mismo nombre: ${formData.name}`,
+            });
+            setShowAlert(true);
+          } else {
+            console.log("Success:", data);
+            setAlert({
+              color: "bg-success",
+              text: "Se ha agregado correctamente",
+            });
+            setShowAlert(true);
+          }
         });
     } catch (error) {
       setAlert({
