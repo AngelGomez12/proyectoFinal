@@ -1,28 +1,39 @@
+/* eslint-disable no-unused-vars */
+
 import LogoCode from "../components/LogoCode";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useGlobalContext } from "../contexts/Global";
+import { Alerts } from "../utils/Alerts";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
     email: { value: "" },
     password: { value: "" },
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { isLoggedIn, isAdmin, login, logout } = useGlobalContext();
 
+  const [Alert, setAlert] = useState({
+    color: "",
+    text: "",
+  });
+  const [showAlert, setShowAlert] = useState(false);
+  const handleDismissAlert = () => {
+    setShowAlert(false);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     const body = {
       username: loginData.email.value,
       password: loginData.password.value,
     };
 
-/* REVISAR AQUÍ LA REDIRECCION DESPUES DEL LOGIN */
-  
+    /* REVISAR AQUÍ LA REDIRECCION DESPUES DEL LOGIN */
+
     fetch("http://localhost:8081/auth/login", {
       method: "POST",
       headers: {
@@ -40,19 +51,25 @@ const Login = () => {
       })
       .then((data) => {
         const { token, userDto } = data;
-  
+
         localStorage.setItem("jwtToken", token);
         localStorage.setItem("userDto", JSON.stringify(userDto));
         login(userDto);
         if (userDto.role === "ADMIN") {
-          navigate('/admin');
+          navigate("/admin");
         } else {
-        navigate('/');
+          navigate("/");
         }
-
       })
       .catch((error) => {
-        console.error("Error en el inicio de sesión:", error);
+        console.log("ERROR");
+        setAlert({
+          color: "bg-error",
+          text: "Verifica que tus datos de sean correctos.",
+        });
+        // **Update showAlert state to true**
+        setShowAlert(true);
+        return;
       });
   };
 
@@ -65,6 +82,14 @@ const Login = () => {
         }}
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">
+          {showAlert && (
+            <Alerts
+              text={Alert.text}
+              bgColorClass={Alert.color}
+              duration={2000}
+              onDismiss={handleDismissAlert}
+            />
+          )}
           <div className="flex flex-col gap-6 max-w-xs sm:max-w-max ">
             <LogoCode />
             <div className="hero-content flex-col lg:flex-row-reverse gap-6">

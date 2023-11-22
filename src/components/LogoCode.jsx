@@ -4,7 +4,7 @@ const LogoCode = () => {
     <div id="logo"
     className="mx-auto max-w-md min-w-[336px] hidden lg:flex items-center gap-2">
         <svg
-        className="h-full z-50"
+        className="h-full z-40"
         xmlns="http://www.w3.org/2000/svg"
         width="65"
         height="64"

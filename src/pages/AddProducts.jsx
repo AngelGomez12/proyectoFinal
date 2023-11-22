@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FileUploadForm from "../components/AddProducts/components/FileUploadForm";
 import SelectCharacters from "../components/AddProducts/components/SelectedCharacters";
-import { Alerts } from "../utils/alerts";
+import { Alerts } from "../utils/Alerts";
 import { useNavigate } from "react-router-dom";
 
 export default function AddProducts() {
@@ -42,6 +42,7 @@ export default function AddProducts() {
       .then((data) => {
         // Mapea solo las propiedades "description" de los objetos
         setCategorias(data);
+        /* console.log(data); */
       })
       .catch((error) => {
         console.error("Error al cargar specs", error);
@@ -80,7 +81,6 @@ export default function AddProducts() {
       Promise.all(imagePromises)
         .then(() => {
           setFormData({ ...formData, productImages: base64DataArray });
-          console.log("Datos Base64 de las imágenes:", base64DataArray);
         })
         .catch((error) => {
           console.error("Error al convertir imágenes a Base64:", error);
@@ -167,12 +167,24 @@ export default function AddProducts() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Success:", data);
-          setAlert({
-            color: "bg-success",
-            text: "Se ha agregado correctamente",
-          });
-          setShowAlert(true);
+          if (
+            data.message &&
+            data.message.indexOf("Ya existe un producto con el mismo nombre") >
+              -1
+          ) {
+            setAlert({
+              color: "bg-error",
+              text: `Ya existe un producto con el mismo nombre: ${formData.name}`,
+            });
+            setShowAlert(true);
+          } else {
+            console.log("Success:", data);
+            setAlert({
+              color: "bg-success",
+              text: "Se ha agregado correctamente",
+            });
+            setShowAlert(true);
+          }
         });
     } catch (error) {
       setAlert({
@@ -205,24 +217,24 @@ export default function AddProducts() {
       )}
       <form
         onSubmit={handleSubmit}
-        className="bg-base-100 flex justify-center flex-col md:w-[50%] gap-4 p-8 py-16 rounded-lg w-full"
+        className="bg-base-100 flex justify-center flex-col w-3/5 gap-4 p-8 py-16 rounded-lg"
       >
         <h1 className=" flex text-4xl font-bold justify-center">
-          Agregar una Maquina
+          Agregar una Máquina
         </h1>
-        <div className="flex-col py-11">
+        <div className="flex-col py-8">
           <label htmlFor="">Nombre de la Máquina</label>
           <input
             type="text"
-            placeholder="Tractor con Arado de Disco"
+            placeholder="Nombre Común de la Máquina"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="input w-full input-bordered"
+            className="input w-full input-bordered placeholder:text-secondary-content"
           />
         </div>
         <p>Imágenes (Recomendado 5 Imágenes mínimo)</p>
         <FileUploadForm handleFileUpload={handleFileUpload} />
-        <div className="flex flex-col py-11">
+        <div className="flex flex-col py-8">
           <label htmlFor="">Descripción de la Máquina</label>
           <textarea
             type="text"
@@ -231,20 +243,20 @@ export default function AddProducts() {
             onChange={(e) =>
               setFormData({ ...formData, description: e.target.value })
             }
-            className="textarea textarea-bordered textarea-md w-full"
+            className="textarea textarea-bordered textarea-md w-full placeholder:text-secondary-content"
           ></textarea>
         </div>
-        <div className="flex gap-2 w-full py-11">
+        <div className="flex gap-4 w-full justify-start">
           <div className="flex flex-col w-1/3">
             <label htmlFor="">Precio de Renta por día</label>
             <input
               type="number"
-              placeholder="Precio de Renta por día"
+              placeholder="Precio / día"
               value={formData.price}
               onChange={(e) =>
                 setFormData({ ...formData, price: e.target.value })
               }
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full max-w-xs placeholder:text-secondary-content"
             />
           </div>
           <div className="flex flex-col w-1/3">
@@ -270,7 +282,10 @@ export default function AddProducts() {
               ))}
             </select>
           </div>
-          <div className="flex-col">
+        </div>
+
+        <div className="flex gap-4 w-full justify-start">
+          <div className="flex-col w-1/3 mb-8">
             <label htmlFor="">Marca de la Máquina</label>
             <input
               type="text"
@@ -282,18 +297,10 @@ export default function AddProducts() {
                   brand: { description: e.target.value },
                 })
               }
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full max-w-xs placeholder:text-secondary-content"
             />
           </div>
-        </div>
-        <div className="flex gap-4 mb-4">
-          <div>
-            <label htmlFor="">
-              Características de la Máquina (Selecciona todas las que apliquen)
-            </label>
-            <SelectCharacters specs={categorias} updateSpecs={updateSpecs} />
-          </div>
-          <div>
+          <div className="flex-col w-1/3">
             <label htmlFor="">Stock:</label>
             <input
               type="number"
@@ -302,8 +309,20 @@ export default function AddProducts() {
               onChange={(e) =>
                 setFormData({ ...formData, stock: e.target.value })
               }
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full max-w-xs placeholder:text-secondary-content"
             />
+          </div>
+        </div>
+        <div className="flex gap-3 mb-4">
+          <div className=" flex flex-col gap-2">
+            <label htmlFor="">
+              Características de la Máquina
+              <br />{" "}
+              <span className=" text-sm italic">
+                (Selecciona todas las que apliquen)
+              </span>
+            </label>
+            <SelectCharacters specs={categorias} updateSpecs={updateSpecs} />
           </div>
         </div>
         <div className="flex justify-end w-full gap-4">

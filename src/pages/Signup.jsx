@@ -1,6 +1,11 @@
+/* eslint-disable no-unused-vars */
+
 import LogoCode from "../components/LogoCode";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useGlobalContext } from "../contexts/Global";
+import { Alerts } from "../utils/Alerts";
+
 
 const Signup = () => {
   //Captura de Datos del Form SIGN UP
@@ -8,12 +13,22 @@ const Signup = () => {
   const [userData, setUserData] = useState({
     firstname: { value: "", isOK: null },
     lastname: { value: "", isOK: null },
-    email: { value: "", isOK: null }, /* username */
-    password: { value: "", isOK: null }, 
+    email: { value: "", isOK: null } /* username */,
+    password: { value: "", isOK: null },
     terms: { value: false },
   });
-  
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
+  const { isLoggedIn, isAdmin, login, logout } = useGlobalContext();
+
+  const [Alert, setAlert] = useState({
+    color: "",
+    text: "",
+  });
+  const [showAlert, setShowAlert] = useState(false);
+  const handleDismissAlert = () => {
+    setShowAlert(false);
+  };
 
   // Manejadores:
 
@@ -55,8 +70,8 @@ const Signup = () => {
     // Validar EMAIL con Regex común
     const element = e.target;
     const regex =
-    /* /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; */
-    /\S+@\S+\.\S+/;
+      /* /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; */
+      /\S+@\S+\.\S+/;
 
     if (regex.test(e.target.value)) {
       element.classList.replace("input-error", "input-success");
@@ -75,6 +90,7 @@ const Signup = () => {
   const handlePassData = (e) => {
     // Validar PASSWORD > 4 Caracteres
     const element = e.target;
+
     if (e.target.value.length >= 4 && e.target.value.charAt(0) !== " ") {
       element.classList.replace("input-error", "input-success");
       setUserData({
@@ -91,39 +107,59 @@ const Signup = () => {
   };
   const handleTerms = (e) => {
     // Validar TERMINOS Y CONDICIONES...
-    /*     console.log(e.target.checked); */
     setUserData({
       ...userData,
       terms: { value: e.target.checked },
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const body ={
+    const body = {
       username: userData.email.value,
       password: userData.password.value,
       firstname: userData.firstname.value,
       lastname: userData.lastname.value,
-    }
+    };
 
-    try {
-      fetch('http://localhost:8081/auth/register', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
+    fetch("http://localhost:8081/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
+          throw new Error("Error en la solicitud");
+        }
+      })
+      .then((data) => {
+        const { token, userDto } = data;
 
-    });
-
-    } catch (error) {
-      console.error("Error fetching data");
-    }
-
-    navigate('/login');
-
+        localStorage.setItem("jwtToken", token);
+        localStorage.setItem("userDto", JSON.stringify(userDto));
+        login(userDto);
+        if (userDto.role === "ADMIN") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.log("ERROR");
+        setAlert({
+          color: "bg-error",
+          text: "No pudimos crear el usuario",
+        });
+        // **Update showAlert state to true**
+        setShowAlert(true);
+        return;
+      });
   };
 
   return (
@@ -135,6 +171,14 @@ const Signup = () => {
         }}
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">
+          {showAlert && (
+            <Alerts
+              text={Alert.text}
+              bgColorClass={Alert.color}
+              duration={2000}
+              onDismiss={handleDismissAlert}
+            />
+          )}
           <div className="hero-content flex-col lg:flex-row-reverse gap-6 mt-[10vh] max-w-xs sm:max-w-max">
             <div className="text-center lg:text-left w-96">
               <h1 className="text-4xl font-bold text-primary-content mt-6 lg:mt-0">
