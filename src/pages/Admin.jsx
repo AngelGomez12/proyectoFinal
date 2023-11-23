@@ -13,8 +13,8 @@ const Admin = () => {
         <Link to='agregar-producto'>
         <button className="btn bg-primary w-72 text-neutral hover:text-gray-100">Agregar Máquina</button>
         </Link>
-        <Link to='/'>
-        <button className="btn btn-outline w-72 btn-disabled ">Administrar Maquinaria</button>
+        <Link to='/admin/productos'>
+        <button className="btn btn-outline w-72">Administrar Maquinaria</button>
         </Link>
         <button className="btn btn-outline w-72 btn-disabled">Gestionar Categorías</button>
         <button className="btn btn-outline w-72 btn-disabled">Gestionar Características</button>
