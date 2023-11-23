@@ -22,7 +22,7 @@ export const Footer = () => {
         <nav>
           <header className="footer-title">Legal</header>
           <a className="link link-hover">Aviso legal</a>
-          <a className="link link-hover">Política de privacidad</a>
+          <a href="/politicas" className="link link-hover">Política generales de contratacion</a>
           <a className="link link-hover">Política de cookies</a>
           <a className="link link-hover">Accesibilidad</a>
         </nav>
