@@ -58,7 +58,7 @@ export const TableListProduct = () => {
               </th>
               <th className="flex">
                 Imagen
-                <div className="ml-1">Nombre</div>
+                <div className="ml-12">Nombre</div>
               </th>
               <th>Descripción</th>
               <th>Precio</th>
