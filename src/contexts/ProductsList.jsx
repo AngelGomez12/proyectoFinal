@@ -42,7 +42,7 @@ export default function CartProvider(props) {
     getHomeProductsList().then((products) => {
       const randomProds = randomizerProducts(products);
       setProducts(randomProds);
-      const firstChunk = randomProds.slice(0, 6);
+      const firstChunk = randomProds?.slice(0, 6);
       setProductsViewed(firstChunk);
       setPagination({
         ...pagination,
