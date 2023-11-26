@@ -46,7 +46,7 @@ export default function CartProvider(props) {
       setProductsViewed(firstChunk);
       setPagination({
         ...pagination,
-        totalPages: Math.ceil(products.length / pagination.itemsPerPage),
+        totalPages: Math.ceil(products?.length / pagination.itemsPerPage),
       });
     });
     getProductTypes().then((types) => {
