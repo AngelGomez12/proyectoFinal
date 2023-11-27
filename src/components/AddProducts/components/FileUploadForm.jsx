@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-function FileUploadForm({ handleFileUpload }) {
+function FileUploadForm({ handleFileUpload, images }) {
   const [files, setFiles] = useState([]);
+  let dataImages = [];
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -11,6 +12,14 @@ function FileUploadForm({ handleFileUpload }) {
     }
   };
 
+  if (files.length === 0 && images && images.length > 0) {
+    images.find((image) => {
+      dataImages.push(`data:image/jpeg;base64, ${image.productImage}`);
+    });
+
+    setFiles(dataImages);
+  }
+
   return (
     <div className="flex flex-wrap items-center gap-4 h-fit w-full my-4">
       {files.map((file, index) => (
@@ -19,7 +28,7 @@ function FileUploadForm({ handleFileUpload }) {
           className="w-28 h-24 rounded-md flex items-center justify-center cursor-pointer"
         >
           <img
-            src={URL.createObjectURL(file)}
+            src={images ? file : URL.createObjectURL(file)}
             alt={`Selected Image ${index}`}
             className="w-full h-full object-cover rounded-md"
           />

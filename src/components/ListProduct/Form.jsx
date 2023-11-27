@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import FileUploadForm from "../AddProducts/components/FileUploadForm";
-import SelectCharacters from "./SelectedCharacters";
-import { useNavigate } from "react-router-dom";
 import useApi from "../../hooks/hookApi";
+import SelectCharacters from "../AddProducts/components/SelectedCharacters";
+import { Alerts } from "../../utils/Alerts";
 
-function Form({ showButtons, editingProduct, onUpdateProduct }) {
-  const navigate = useNavigate();
+function Form({ editingProduct, onUpdateProduct, setShowModal, specs }) {
   const [categorias, setCategorias] = useState([]);
   const [Alert, setAlert] = useState({
     color: "",
@@ -13,20 +12,13 @@ function Form({ showButtons, editingProduct, onUpdateProduct }) {
   });
   const [showAlert, setShowAlert] = useState(false);
   const [files, setFiles] = useState([]);
-  const [formData, setFormData] = useState({
-    nombre: editingProduct.name,
-    precio: editingProduct.price,
-    descripcion: editingProduct.description,
-    productType: {
-      id: editingProduct.productType.id,
-      descripcion: editingProduct.productType.description,
-    },
-    brand: {
-      id: editingProduct.brand.id,
-      description: editingProduct.brand.description,
-    },
-    imagenProductos: [{ ruta: "" }],
-  });
+  const [formData, setFormData] = useState({ ...editingProduct });
+
+  useEffect(() => {
+    if (editingProduct) {
+      setFormData({ ...editingProduct });
+    }
+  }, [editingProduct]);
 
   const { data } = useApi(
     `${import.meta.env.VITE_BACKEND_URL}productTypes`,
@@ -46,23 +38,32 @@ function Form({ showButtons, editingProduct, onUpdateProduct }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form...");
     const formDataToSend = {
-      name: formData.nombre,
-      price: parseInt(formData.precio),
-      description: formData.descripcion,
+      name: formData.name,
+      price: parseInt(formData.price),
+      description: formData.description,
+      stock: parseInt(formData.stock),
       productType: {
-        id: parseInt(formData.productType.id),
+        id: parseInt(
+          formData.productType.id
+            ? formData.productType.id
+            : formData.productType
+        ),
       },
       brand: {
         description: formData.brand.description,
       },
-      productImages: (formData.imagenProductos || []).map((image) => ({
-        productImage: image,
+      specs: formData.specs.map((spec) => ({
+        id: parseInt(spec.id),
+      })),
+      productImages: (formData.productImages || []).map((image) => ({
+        productImage: image.productImage,
       })),
     };
 
-    const url = `${import.meta.env.VITE_BACKEND_URL}products/${editingProduct.id}`;
+    const url = `${import.meta.env.VITE_BACKEND_URL}products/${
+      editingProduct.id
+    }`;
 
     try {
       const res = await fetch(url, {
@@ -105,17 +106,33 @@ function Form({ showButtons, editingProduct, onUpdateProduct }) {
     }
   };
 
+  const updateSpecs = (newSpecs) => {
+    setFormData({
+      ...formData,
+      specs: newSpecs,
+    });
+  };
+
   const handleDismissAlert = () => {
     setShowAlert(false);
   };
 
-  const handleCancelar = () => {
-    // Close the modal or perform any other necessary action
-  };
-
-
   return (
-    <div>
+    <div className="flex items-center justify-center min-w-full">
+      {showAlert && (
+        <Alerts
+          text={Alert.text}
+          bgColorClass={Alert.color}
+          duration={2000}
+          onDismiss={handleDismissAlert}
+        />
+      )}
+      <form method="dialog">
+        {/* if there is a button in form, it will close the modal */}
+        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          <span className="material-symbols-outlined">close_small</span>
+        </button>
+      </form>
       <form onSubmit={handleSubmit}>
         <div className="form flex flex-col">
           <div className="mb-8">
@@ -124,8 +141,10 @@ function Form({ showButtons, editingProduct, onUpdateProduct }) {
               type="text"
               placeholder="Nombre de la Maquina"
               className="input input-bordered w-full max-w-screen-md"
-              value={formData.nombre}
-              onChange={(e) => setFormData({  ...formData, nombre: e.target.value  })}
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
             />
           </div>
           <div className="mb-9">
@@ -137,7 +156,10 @@ function Form({ showButtons, editingProduct, onUpdateProduct }) {
               </div>
             </p>
 
-            <FileUploadForm handleFileUpload={handleFileUpload} />
+            <FileUploadForm
+              handleFileUpload={handleFileUpload}
+              images={formData.productImages}
+            />
           </div>
 
           <div className="mb-8 w-full ">
@@ -146,9 +168,9 @@ function Form({ showButtons, editingProduct, onUpdateProduct }) {
               type="text"
               placeholder="Agregá la descripción aquí"
               className="input input-bordered w-screen max-w-2xl  pt-5 pr-48 pb-20"
-              value={editingProduct.description}
+              value={formData.description}
               onChange={(e) =>
-                setFormData({ ...formData, descripcion: e.target.value })
+                setFormData({ ...formData, description: e.target.value })
               }
             />
           </div>
@@ -160,9 +182,9 @@ function Form({ showButtons, editingProduct, onUpdateProduct }) {
                 type="text"
                 placeholder="$"
                 className="input input-bordered w-full max-w-xs"
-                value={editingProduct.price}
+                value={formData.price}
                 onChange={(e) =>
-                  setFormData({ ...formData, precio: e.target.value })
+                  setFormData({ ...formData, price: e.target.value })
                 }
               />
             </div>
@@ -170,12 +192,10 @@ function Form({ showButtons, editingProduct, onUpdateProduct }) {
               <p>Categoría de Máquina</p>
               <select
                 className="select select-bordered w-full max-w-xs"
-                value={formData.productType}
+                value={formData.productType.description}
                 onChange={(e) => {
                   setFormData({ ...formData, productType: e.target.value });
-                  console.log(formData); // Check the updated state
                 }}
-                
               >
                 <option disabled value="">
                   Seleccione una categoría
@@ -213,22 +233,20 @@ function Form({ showButtons, editingProduct, onUpdateProduct }) {
                 (Selecciona todas las que apliquen)
               </div>
             </p>
-            {<SelectCharacters />}
+            <SelectCharacters
+              dataSpecs={formData.specs}
+              specs={specs}
+              updateSpecs={updateSpecs}
+            />
           </div>
-
-          {showButtons && (
-            <div className="flex justify-between items-center">
-              <div>
-                <button className="bg-base100 mr-16">Cancelar</button>
-                <input
-                  className="bg-primary rounded-lg w-40 py-2 text-black mr-5 cursor-pointer"
-                  type="submit"
-                  value="Agregar"
-                  
-                />
-              </div>
-            </div>
-          )}
+        </div>
+        <div className="w-full flex justify-end">
+          <button
+            className="bg-primary rounded-lg w-40 py-2 text-black mr-5 cursor-pointer"
+            type="submit"
+          >
+            Guardar Cambios{" "}
+          </button>
         </div>
       </form>
     </div>
