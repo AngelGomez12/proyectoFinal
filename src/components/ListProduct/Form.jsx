@@ -20,10 +20,23 @@ function Form({onUpdateProduct}) {
         if(!formData.nombre.trim() || !formData.precio.trim()){
             setError(" Por favor chequea que la informacion sea correcta")
         }else{
-            
+            /*
             onUpdateProduct(formData)
             setFormData({nombre:'', precio:''})
             setError("")
+            */
+           onUpdateProduct(formData)
+           .then(() => {
+            // Display an alert after updating the product successfully
+            alert("!La maquina se ha agregado correctamente¡");
+
+            setFormData({ nombre: "", precio: "" });
+            setError("");
+           })
+           .catch((error) => {
+            console.log("Error al agregar la maquina", error);
+            setError("Ocurrio un error al cargar la maquina. Por favor, intentelo de nuevo.")
+        })
         }
        
     }
