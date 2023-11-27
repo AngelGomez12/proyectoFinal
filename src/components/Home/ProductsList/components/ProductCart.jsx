@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function ProductCart({ name, description, productImages, id }) {
   return (
     <Link to={"/details/" + id}>
-      <article className="max-w-[600px] min-h-[300px] h-full rounded-[16px] flex flex-wrap sm:flex-nowrap md:flex-wrap lg:flex-nowrap overflow-hidden bg-[#1D232A]">
+      <article className="max-w-[600px] min-h-[300px] max-h-[300px] h-full rounded-[16px] flex flex-wrap sm:flex-nowrap md:flex-wrap lg:flex-nowrap overflow-hidden bg-[#1D232A]">
         <img
           className="h-[60%] sm:h-[unset] w-full sm:w-1/2 md:w-full md:h-[55%] lg:h-[unset] lg:w-[55%] object-cover"
           src={"data:image/png;base64," + productImages?.[0]?.productImage}

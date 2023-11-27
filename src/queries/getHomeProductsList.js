@@ -1,6 +1,6 @@
 export const getHomeProductsList = async () => {
     try {
-        const url = "http://localhost:8081/products"
+        const url = import.meta.env.VITE_BACKEND_URL + 'products'
         
       const response = await fetch(url);
       if (!response.ok) {

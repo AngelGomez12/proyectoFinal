@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Account from "./pages/Account";
 import { useEffect, useState } from "react";
 import AdminMobileOverlay from "./components/AdminMobileOverlay";
+import Politicas from "./pages/Politicas";
 
 function App() {
   const { isAdmin } = useGlobalContext();
@@ -51,6 +52,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/politicas" element={<Politicas />} /> {/* Nueva ruta */}
         </Route>
       </Routes>
     </BrowserRouter>

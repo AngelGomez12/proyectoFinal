@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useGlobalContext } from "../contexts/Global";
 import { Alerts } from "../utils/Alerts";
 
-
 const Signup = () => {
   //Captura de Datos del Form SIGN UP
 
@@ -123,7 +122,7 @@ const Signup = () => {
       lastname: userData.lastname.value,
     };
 
-    fetch("http://localhost:8081/auth/register", {
+    fetch(import.meta.env.VITE_BACKEND_URL + "auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -151,7 +150,7 @@ const Signup = () => {
         }
       })
       .catch((error) => {
-        console.log("ERROR");
+        console.error(error);
         setAlert({
           color: "bg-error",
           text: "No pudimos crear el usuario",

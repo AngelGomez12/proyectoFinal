@@ -42,13 +42,13 @@ export const Header = () => {
       </div>
 
       {isLoggedIn ? (
-        /* ADMINISTRADOR */
+        /* AotDMINISTRADOR */
         isAdmin ? (
           <>
             <div className="navbar-end hidden lg:flex">
               <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
                 <li>
-                  <Link to="admin/productos">Gestionar Maquinaria</Link>
+                  <Link to="admin">Administrar Negocio</Link>
                 </li>
                 <li>
                   <Link to="admin/agregar-producto">Agregar Máquina</Link>
