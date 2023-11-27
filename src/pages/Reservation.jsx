@@ -6,7 +6,7 @@ import BackBtn from "../components/BackBtn";
 import Carrousel from "../components/Carrousel";
 import Datepicker from "react-tailwindcss-datepicker";
 
-export const Details = () => {
+export const Reservation = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [value, setValue] = useState({
