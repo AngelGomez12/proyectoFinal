@@ -62,7 +62,7 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        console.log("ERROR");
+        console.error(error);
         setAlert({
           color: "bg-error",
           text: "Verifica que tus datos de sean correctos.",

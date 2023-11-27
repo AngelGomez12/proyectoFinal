@@ -1,16 +1,33 @@
 /* eslint-disable react/no-unknown-property */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function SelectCharacters({ specs, updateSpecs }) {
+function SelectCharacters({ dataSpecs, specs, updateSpecs }) {
   const [options, setOptions] = useState([]);
   const [currentOption, setCurrentOption] = useState("");
-  let specCopy = [...(specs || [])];
+  let specCopy = [];
+  if (dataSpecs) {
+    specCopy = [...dataSpecs];
+  } else {
+    specCopy = [...(specs || [])];
+  }
+
+  useEffect(() => {
+    if (dataSpecs) {
+      setOptions(dataSpecs);
+    }
+  }, [dataSpecs]);
+
   const handleAddOption = (e) => {
     e.preventDefault();
     if (currentOption) {
       setOptions([...options, currentOption]);
       setCurrentOption("");
       updateSpecs([...options, currentOption]); // Pasa el objeto de especificación
+    }
+    // eslint-disable-next-line no-dupe-else-if
+    else if (currentOption && dataSpecs) {
+      setOptions((prevOptions) => [...prevOptions, currentOption]);
+      updateSpecs((prevOptions) => [...prevOptions, currentOption]);
     }
   };
 
@@ -22,18 +39,28 @@ function SelectCharacters({ specs, updateSpecs }) {
     updateSpecs(newOptions);
   };
 
+  const onChange = (e) => {
+    if (dataSpecs) {
+      const selectedId = Number(e.target.value);
+      const selectedSpec = specs.find((spec) => spec.id === selectedId);
+      setCurrentOption(selectedSpec);
+    } else {
+      setCurrentOption(e.target.value);
+    }
+  };
+
   return (
     <div>
       <div className="join mb-4">
         <select
           className="select select-bordered w-full max-w-xs join-item"
           value={currentOption} // Establece el ID de la especificación en lugar del objeto
-          onChange={(e) => setCurrentOption(e.target.value)} // Maneja el ID seleccionado
+          onChange={onChange} // Maneja el ID seleccionado
         >
           <option value="">Seleccione una opción</option>
-          {specCopy &&
-            specCopy.map((spec) => (
-              <option key={spec.id} value={spec.id.toString()}>
+          {specs &&
+            specs.map((spec) => (
+              <option key={spec.id} value={spec.id}>
                 {spec.description}
               </option>
             ))}
@@ -48,24 +75,34 @@ function SelectCharacters({ specs, updateSpecs }) {
         </button>
       </div>
 
-      <div className="flex flex-col flex-nowrap gap-1">
-        {options.map((optionId, index) => (
-          <div
-            key={index}
-            className="flex justify-start items-center gap-2 border-[1.5px] rounded-md px-2 py-1 max-w-fit border-secondary-content"
-          >
-            <span class="material-symbols-outlined">
-              {specCopy[parseInt(optionId) - 1].icon}
-            </span>
-            <span>{specCopy[parseInt(optionId) - 1].description}</span>
-            <button
-              onClick={() => handleRemoveOption(index)}
-              className="ml-1 hover:text-red-500 flex items-center"
+      <div className="flex flex-wrap gap-1 w-[1000px]">
+        {options.map((optionId, index) => {
+          let option = null;
+          if (dataSpecs && specs) {
+            option = specs.find((spec) => spec.id === parseInt(optionId.id));
+          }
+          return (
+            <div
+              key={index}
+              className="flex justify-start items-center gap-2 border-[1.5px] rounded-md px-2 py-1 max-w-fit border-secondary-content"
             >
-              <span className="material-symbols-outlined">close_small</span>
-            </button>
-          </div>
-        ))}
+              <span className="material-symbols-outlined">
+                {option ? option.icon : specCopy[parseInt(optionId) - 1].icon}
+              </span>
+              <span>
+                {option
+                  ? option.description
+                  : specCopy[parseInt(optionId) - 1].description}
+              </span>
+              <button
+                onClick={() => handleRemoveOption(index)}
+                className="ml-1 hover:text-red-500 flex items-center"
+              >
+                <span className="material-symbols-outlined">close_small</span>
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
