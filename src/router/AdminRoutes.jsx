@@ -3,6 +3,7 @@ import AddProducts from "../pages/AddProducts";
 import Admin from "../pages/Admin";
 import AdminMobileOverlay from "../components/AdminMobileOverlay";
 import ListProduct from "../pages/ListProduct";
+import ListCategories from "../pages/ListCategories"
 export default function AdminRoutes() {
   /* SUPONGO QUE HAY QUE SACAR ESTE COMPONENTE  'Admin' DE AQUÍ...
 Y Hacer que Reemplace por completo el Home de User y Cliente */
@@ -24,6 +25,7 @@ Y Hacer que Reemplace por completo el Home de User y Cliente */
       />
       <Route path="agregar-producto" element={<AddProducts />} />
       <Route path="productos" element={<ListProduct />} />
+      <Route path="categorias" element={<ListCategories/>} /> 
     </Routes>
   );
 }

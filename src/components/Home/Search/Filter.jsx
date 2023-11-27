@@ -1,3 +1,5 @@
+
+
 export const Filter = ({ productTypes, onFilterChange }) => {
   const handleFilterChange = (productType) => {
     if (productType === "Todos") {
