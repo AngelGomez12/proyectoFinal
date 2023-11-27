@@ -34,7 +34,7 @@ const Login = () => {
 
     /* REVISAR AQUÍ LA REDIRECCION DESPUES DEL LOGIN */
 
-    fetch("http://localhost:8081/auth/login", {
+    fetch(import.meta.env.VITE_BACKEND_URL + "auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

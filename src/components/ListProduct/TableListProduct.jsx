@@ -91,7 +91,7 @@ export const TableListProduct = () => {
               </th>
               <th className="flex">
                 Imagen
-                <div className="ml-1">Nombre</div>
+                <div className="ml-12">Nombre</div>
               </th>
               <th>Descripción</th>
               <th>Precio</th>
@@ -117,18 +117,7 @@ export const TableListProduct = () => {
                     </div>
                   </th>
                   <td>
-                    <div className="flex items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src={
-                              "data:image/png;base64," +
-                              product.productImages?.[0]?.productImage
-                            }
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
+                    <div className="flex">
                       <div className="ml-8">
                         <div className="font-bold ml-8">{product.name}</div>
                         <div className="font-light ml-8">
@@ -140,7 +129,11 @@ export const TableListProduct = () => {
                       </div>
                     </div>
                   </td>
-                  <td>{product.description}</td>
+                  <td>
+                    <p className=" w-[220px] truncate ... ">
+                      {product.description}
+                    </p>
+                  </td>
                   <th>
                     <p>${product.price}</p>
                   </th>
@@ -150,78 +143,30 @@ export const TableListProduct = () => {
                         tabIndex={0}
                         className="btn m-1 bg-inherit border-none"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          className="inline-block w-5 h-15 stroke-current"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                          ></path>
-                        </svg>
+                        <span className="material-symbols-outlined">
+                          more_horiz
+                        </span>
                       </label>
                       <ul
                         tabIndex={0}
                         className="dropdown-content z-[4] menu p-2 shadow bg-base-100 rounded-box w-50 font-thin"
                       >
                         <li>
-                          <div className="flex font-thin">
-                            <button
-                              className="btn bg-transparent border-none w-5 no-hover h-5 font-thin capitalize text-base hover:bg-transparent "
-                              onClick={() => {
-                                openEditModal(product.id);
-                                document
-                                  .getElementById("my_modal_1")
-                                  .showModal();
-                              }}
-                            >
-                              {" "}
-                              Editar
-                            </button>
-                          </div>
-                          <dialog
-                            id="my_modal_1"
-                            className="modal justify-center items-center"
-                          >
-                            <div
-                              className="modal-box"
-                              style={{ maxWidth: "none", width: "auto" }}
-                            >
-                              {showModal &&
-                                editingProduct &&
-                                specs.length > 0 && (
-                                  <Form
-                                    editingProduct={editingProduct}
-                                    onUpdateProduct={handleUpdateProduct}
-                                    setShowModal={setShowModal}
-                                    specs={specs}
-                                  />
-                                )}
-                            </div>
-                          </dialog>
+                          <a>
+                            <span className="material-symbols-outlined">
+                              border_color
+                            </span>
+                            Editar
+                          </a>
                         </li>
-
                         <li>
                           <a
                             className="text-red-600"
                             onClick={() => handleDeleteProduct(product.id)}
                           >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="18"
-                              viewBox="0 0 16 18"
-                              fill="none"
-                            >
-                              <path
-                                d="M5.4 13.5L8 10.9L10.6 13.5L12 12.1L9.4 9.5L12 6.9L10.6 5.5L8 8.1L5.4 5.5L4 6.9L6.6 9.5L4 12.1L5.4 13.5ZM3 18C2.45 18 1.97917 17.8042 1.5875 17.4125C1.19583 17.0208 1 16.55 1 16V3H0V1H5V0H11V1H16V3H15V16C15 16.55 14.8042 17.0208 14.4125 17.4125C14.0208 17.8042 13.55 18 13 18H3ZM13 3H3V16H13V3Z"
-                                fill="#FF4343"
-                              />
-                            </svg>
+                            <span className="material-symbols-outlined">
+                              delete_forever
+                            </span>
                             Borrar
                           </a>
                         </li>

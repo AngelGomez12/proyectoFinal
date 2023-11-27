@@ -122,7 +122,7 @@ const Signup = () => {
       lastname: userData.lastname.value,
     };
 
-    fetch("http://localhost:8081/auth/register", {
+    fetch(import.meta.env.VITE_BACKEND_URL + "auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
