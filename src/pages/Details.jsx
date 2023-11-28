@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import BackBtn from "../components/BackBtn";
 import Carrousel from "../components/Carrousel";
 import Datepicker from "react-tailwindcss-datepicker";
+import { Link } from "react-router-dom";
 
 export const Details = () => {
   const { id } = useParams();
@@ -126,48 +127,18 @@ export const Details = () => {
           id="Product_Info"
           className="mt-4 flex flex-col-reverse md:flex-row-reverse md:gap-4 justify-center items-start"
         >
-          <div className="md:mt-4 mb-8 flex flex-col justify-center w-full md:w-1/3 md:min-w-[242px] md:sticky md:top-24">
-            {/*             <h3 className="text-primary text-xl font-bold my-4">
-              Chequear Disponibilidad
-            </h3>
-            <Datepicker
-              disabledDates={[
-                {
-                  startDate: "2023-11-23",
-                  endDate: "2023-11-26",
-                },
-                {
-                  startDate: "2023-12-01",
-                  endDate: "2023-12-05",
-                },
-              ]}
-              value={value}
-              onChange={handleValueChange}
-              i18n={"es"}
-              popoverDirection="down"
-              placeholder={"Cuáles fechas?"}
-              separator={" → "}
-              displayFormat={"DD/MM/YY"}
-              primaryColor={"yellow"}
-              startWeekOn="mon"
-              useRange={false}
-              showFooter={true}
-              configs={{
-                footer: {
-                  cancel: "Cancelar",
-                  apply: "Aplicar",
-                },
-              }}
-            /> */}
+          <div className="mb-8 flex flex-col justify-center items-center w-full md:mt-4 md:w-1/3 md:min-w-[232px] md:sticky md:top-24">
             <h4 className="text-primary-content text-lg font-bold my-4 w-full text-center">
               ¿Quieres Resevar esta Máquina?
             </h4>
-            <button className="btn text-neutral bg-primary btn-lg md:hover:text-primary m-auto min-w[240px]">
-              Reservar Ahora
-              <span className="material-symbols-outlined">
-                assignment_turned_in
-              </span>
-            </button>
+            <Link to={"/reservation/" + id}>
+              <button className="btn text-neutral bg-primary btn-lg md:hover:text-primary m-auto">
+                Reservar
+                <span className="material-symbols-outlined">
+                  assignment_turned_in
+                </span>
+              </button>
+            </Link>
           </div>
 
           <div className="w-full md:w-2/3">

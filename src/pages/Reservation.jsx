@@ -36,10 +36,10 @@ export const Reservation = () => {
 
   return (
     <section className="h-min w-full flex justify-center items-center flex-col bg-neutral ms:h-screen">
-      <div className="mx-16 h-full mt-36 w-4/5">
+      <div className="mx-16 h-full mt-36 mb-24 w-4/5">
         <div className="flex justify-between w-full mb-5">
           <div>
-            <h1 className="text-4xl font-bold">{data && data.name}</h1>
+            <h1 className="text-2xl font-bold">{data && data.name}</h1>
             <p className="text-xl">{data && data.productType.description}</p>
           </div>
           <BackBtn />
@@ -48,7 +48,7 @@ export const Reservation = () => {
           id="Product_Images"
           className="max-h-[600px] sm:h-[400px] mb-8 sm:mb-4"
         >
-          <div className="flex flex-col sm:flex-row gap-4 h-full">
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-16 h-full">
             {data && (
               <>
                 {data.productImages.slice(0, 1).map((imagenProducto, index) => (
@@ -63,45 +63,63 @@ export const Reservation = () => {
                   </React.Fragment>
                 ))}
 
-                <div className="flex flex-col sm:w-1/2 gap-4 justify-start items-center">
-                  <div className="flex max-h-40 sm:h-1/2 gap-4">
-                    {data.productImages
-                      .slice(1, 3)
-                      .map((imagenProducto, index) => (
-                        <React.Fragment key={index}>
-                          <figure className="w-1/2 overflow-hidden object-center rounded-md">
-                            <img
-                              className="min-w-full min-h-full object-cover"
-                              src={`data:image/jpeg;base64, ${imagenProducto.productImage}`}
-                              alt="MaquinariaPro"
-                            />
-                          </figure>
-                        </React.Fragment>
-                      ))}
+                <div className="flex flex-col sm:w-1/2 gap-4 items-center">
+                <h3 className="text-primary text-2xl font-bold my-4 w-full text-center mt-0">
+                        Reserva esta Máquina
+                      </h3>
+                  <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded-lg py-2">
+                    <form className="card-body justify-between">
+                      <Datepicker
+                        disabledDates={[
+                          {
+                            startDate: "2023-11-23",
+                            endDate: "2023-11-26",
+                          },
+                          {
+                            startDate: "2023-12-01",
+                            endDate: "2023-12-05",
+                          },
+                        ]}
+                        value={value}
+                        onChange={handleValueChange}
+                        i18n={"es"}
+                        popoverDirection="down"
+                        placeholder={"Cuáles fechas?"}
+                        separator={" → "}
+                        displayFormat={"DD/MM/YY"}
+                        primaryColor={"yellow"}
+                        startWeekOn="mon"
+                        showFooter={true}
+                        configs={{
+                          footer: {
+                            cancel: "Cancelar",
+                            apply: "Aplicar",
+                          },
+                        }}
+                      />
+
+                      <div className="form-control mt-4">
+                        <label htmlFor="">Algo a tener en cuenta?</label>
+                        <textarea
+                          type="text"
+                          placeholder="Ejemplo: Indicación para dirección de entrega"
+                          /*    value={formData.description}
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            } */
+                          className="textarea textarea-bordered textarea-md w-full placeholder:text-secondary-content"
+                        ></textarea>
+                      </div>
+                      <div className="form-control mt-6">
+                        <button className="btn text-neutral bg-primary md:hover:text-primary m-auto min-w[240px]">
+                          Reservar Ahora
+                          <span className="material-symbols-outlined">
+                            assignment_turned_in
+                          </span>
+                        </button>
+                      </div>
+                    </form>
                   </div>
-                  <div className="flex max-h-40 sm:h-1/2 gap-4">
-                    {data.productImages
-                      .slice(3, 5)
-                      .map((imagenProducto, index) => (
-                        <React.Fragment key={index}>
-                          <figure className="w-1/2 overflow-hidden object-center rounded-md">
-                            <img
-                              className="min-w-full min-h-full object-cover"
-                              src={`data:image/jpeg;base64, ${imagenProducto.productImage}`}
-                              alt="MaquinariaPro"
-                            />
-                          </figure>
-                        </React.Fragment>
-                      ))}
-                  </div>
-                  <button
-                    className="btn btn-outline btn-md max-w-[288px] min-w-fit "
-                    onClick={() =>
-                      document.getElementById("my_modal_3").showModal()
-                    }
-                  >
-                    Ver todas las imagenes
-                  </button>
                 </div>
               </>
             )}
@@ -120,83 +138,6 @@ export const Reservation = () => {
               )}
             </div>
           </dialog>
-        </div>
-
-        <div
-          id="Product_Info"
-          className="mt-4 flex flex-col-reverse md:flex-row-reverse md:gap-4 justify-center items-start"
-        >
-          <div className="md:mt-4 mb-8 flex flex-col justify-center w-full md:w-1/3 md:min-w-[242px] md:sticky md:top-24">
-            {/*             <h3 className="text-primary text-xl font-bold my-4">
-              Chequear Disponibilidad
-            </h3>
-            <Datepicker
-              disabledDates={[
-                {
-                  startDate: "2023-11-23",
-                  endDate: "2023-11-26",
-                },
-                {
-                  startDate: "2023-12-01",
-                  endDate: "2023-12-05",
-                },
-              ]}
-              value={value}
-              onChange={handleValueChange}
-              i18n={"es"}
-              popoverDirection="down"
-              placeholder={"Cuáles fechas?"}
-              separator={" → "}
-              displayFormat={"DD/MM/YY"}
-              primaryColor={"yellow"}
-              startWeekOn="mon"
-              useRange={false}
-              showFooter={true}
-              configs={{
-                footer: {
-                  cancel: "Cancelar",
-                  apply: "Aplicar",
-                },
-              }}
-            /> */}
-            <h4 className="text-primary-content text-lg font-bold my-4 w-full text-center">
-              ¿Quieres Resevar esta Máquina?
-            </h4>
-            <button className="btn text-neutral bg-primary btn-lg md:hover:text-primary m-auto min-w[240px]">
-              Reservar Ahora
-              <span className="material-symbols-outlined">
-                assignment_turned_in
-              </span>
-            </button>
-          </div>
-
-          <div className="w-full md:w-2/3">
-            <p className="mb-4 text-xl">
-              Precio por dia: ${data && data.price}{" "}
-            </p>
-            <h2 className="text-primary text-3xl font-bold my-4">
-              Descripción general del Equipo
-            </h2>
-            <p>{data && data.description}</p>
-            <h3 className="text-primary text-xl font-bold my-4">
-              Características de Máquina
-            </h3>
-            <ul className="mb-8">
-              {data &&
-                data.specs.map((spec, index) => {
-                  return (
-                    <li key={index} className=" mb-2">
-                      <div className=" flex justify-start items-center gap-2 border-[1.5px] rounded-md px-2 py-1 max-w-fit border-secondary-content">
-                        <span className="material-symbols-outlined">
-                          {spec.icon}
-                        </span>
-                        <p>{spec.description}</p>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ul>
-          </div>
         </div>
       </div>
     </section>
