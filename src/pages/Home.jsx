@@ -8,18 +8,36 @@ import CartProvider from "../contexts/ProductsList";
 import Datepicker from "react-tailwindcss-datepicker";
 
 export const Home = () => {
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState({
+    date: {
+      startDate: null,
+      endDate: null,
+    },
+    search: "",
+  });
   const [value, setValue] = useState({
     startDate: null,
     endDate: null,
   });
+  const [filterDate, setFilterDate] = useState(false);
 
   const handleValueChange = (newValue) => {
+    setFilterDate(true);
     setValue(newValue);
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      date: {
+        startDate: newValue.startDate,
+        endDate: newValue.endDate,
+      },
+    }));
   };
 
   const handleFilterChange = (newFilter) => {
-    setFilter(newFilter);
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      search: newFilter,
+    }));
   };
   return (
     <main className="flex flex-col scroll-smooth">
@@ -109,7 +127,11 @@ export const Home = () => {
         </div>
       </div>
       <CartProvider>
-        <ProductsList filter={filter} onFilterChange={handleFilterChange} />
+        <ProductsList
+          filter={filter}
+          onFilterChange={handleFilterChange}
+          filterDate={filterDate}
+        />
       </CartProvider>
       <div id="catSection" className=" flex flex-col items-center py-16">
         <h2 className="text-xl sm:text-2xl font-bold mb-20">

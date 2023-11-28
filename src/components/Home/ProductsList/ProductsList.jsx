@@ -1,25 +1,47 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ContextProducts } from "../../../contexts/ProductsList";
 import Paginator from "./components/Paginator";
 import ProductCart from "./components/ProductCart";
 import { Spinner } from "../../../utils/Spinner";
 import { Filter } from "../Search/Filter";
 
-export default function ProductsList({ filter, onFilterChange }) {
+export default function ProductsList({ filter, onFilterChange, filterDate }) {
   const { productsViewed, products, productTypes } =
     useContext(ContextProducts);
   let filterProducts = [];
 
   if (products) {
-    filterProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(filter.toLowerCase())
+    if (filterDate) {
+      // Filtrar productos basados en la fecha seleccionada
+      filterProducts = products.filter((product) => {
+        // Asumiendo que 'product.reservation' es un array de objetos con 'startDate' y 'endDate'
+        return !product.reservations.some((reservation) => {
+          const reservationStartDate = new Date(reservation.startDate);
+          reservationStartDate.setHours(0, 0, 0, 0);
+          const reservationEndDate = new Date(reservation.endDate);
+          reservationEndDate.setHours(23, 59, 59, 999);
+          const selectedStartDate = new Date(filter.date.startDate);
+          selectedStartDate.setHours(0, 0, 0, 0);
+          const selectedEndDate = new Date(filter.date.endDate);
+          selectedEndDate.setHours(23, 59, 59, 999);
+
+          return (
+            reservationStartDate <= selectedEndDate &&
+            reservationEndDate >= selectedStartDate
+          );
+        });
+      });
+    }
+
+    filterProducts = filterProducts.filter((product) =>
+      product.name.toLowerCase().includes(filter.search.toLowerCase())
     );
 
     if (filterProducts.length === 0) {
       filterProducts = products.filter((product) =>
         product.productType.description
           .toLowerCase()
-          .includes(filter.toLowerCase())
+          .includes(filter.search.toLowerCase())
       );
     }
   }
