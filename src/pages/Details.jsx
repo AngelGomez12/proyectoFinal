@@ -4,20 +4,17 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BackBtn from "../components/BackBtn";
 import Carrousel from "../components/Carrousel";
-import Datepicker from "react-tailwindcss-datepicker";
 import { Link } from "react-router-dom";
+import { useGlobalContext } from "../contexts/Global";
 
 export const Details = () => {
+  const { isAdmin, isLoggedIn, logout } = useGlobalContext();
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [value, setValue] = useState({
     startDate: null,
     endDate: null,
   });
-
-  const handleValueChange = (newValue) => {
-    setValue(newValue);
-  };
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -131,7 +128,7 @@ export const Details = () => {
             <h4 className="text-primary-content text-lg font-bold my-4 w-full text-center">
               ¿Quieres Resevar esta Máquina?
             </h4>
-            <Link to={"/reservation/" + id}>
+            <Link to={ isLoggedIn ? "/reservation/" + id : "/Login"}>
               <button className="btn text-neutral bg-primary btn-lg md:hover:text-primary m-auto">
                 Reservar
                 <span className="material-symbols-outlined">

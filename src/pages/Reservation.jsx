@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import React from "react";
+import React, { useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BackBtn from "../components/BackBtn";
@@ -8,6 +8,9 @@ import Datepicker from "react-tailwindcss-datepicker";
 
 export const Reservation = () => {
   const { id } = useParams();
+
+  const refBoton = useRef(null);
+
   const [data, setData] = useState(null);
   const [value, setValue] = useState({
     startDate: null,
@@ -16,7 +19,27 @@ export const Reservation = () => {
 
   const handleValueChange = (newValue) => {
     setValue(newValue);
+
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Hola gonorrea");
+  };
+
+  useEffect(() => {
+    const btn = refBoton.current
+
+    if (btn) {
+      if (value.startDate !== null && value.endDate !== null) {
+        btn.classList.remove('btn-disabled')
+      } else {
+        btn.classList.add('btn-disabled')
+      }
+    } 
+
+  }, [value,refBoton])
+  
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -68,7 +91,8 @@ export const Reservation = () => {
                         Reserva esta Máquina
                       </h3>
                   <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded-lg py-2">
-                    <form className="card-body justify-between">
+                    <form className="card-body justify-between"
+                    onSubmit={handleSubmit}>
                       <Datepicker
                         disabledDates={[
                           {
@@ -96,8 +120,8 @@ export const Reservation = () => {
                             apply: "Aplicar",
                           },
                         }}
+                      
                       />
-
                       <div className="form-control mt-4">
                         <label htmlFor="">Algo a tener en cuenta?</label>
                         <textarea
@@ -111,7 +135,8 @@ export const Reservation = () => {
                         ></textarea>
                       </div>
                       <div className="form-control mt-6">
-                        <button className="btn text-neutral bg-primary md:hover:text-primary m-auto min-w[240px]">
+                        <button className="btn btn-disabled text-neutral bg-primary md:hover:text-primary m-auto min-w[240px]"
+                        type="submit" ref={refBoton}>
                           Reservar Ahora
                           <span className="material-symbols-outlined">
                             assignment_turned_in
