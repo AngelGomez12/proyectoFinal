@@ -59,7 +59,6 @@ export const Home = () => {
                   displayFormat={"DD/MM/YY"}
                   primaryColor={"yellow"}
                   startWeekOn="mon"
-                  useRange={false}
                   showFooter={true}
                   configs={{
                     footer: {

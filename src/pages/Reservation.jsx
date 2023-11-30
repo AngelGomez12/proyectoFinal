@@ -15,31 +15,31 @@ export const Reservation = () => {
   const [value, setValue] = useState({
     startDate: null,
     endDate: null,
+    extraInfo: "",
   });
 
   const handleValueChange = (newValue) => {
     setValue(newValue);
-
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Hola gonorrea");
+  
+  const handleExtraInfo = (e) => {
+    const element = e.target;
+    setValue(
+      Object.assign({}, value, { extraInfo: element.value })
+    )
   };
 
   useEffect(() => {
-    const btn = refBoton.current
+    const btn = refBoton.current;
 
     if (btn) {
       if (value.startDate !== null && value.endDate !== null) {
-        btn.classList.remove('btn-disabled')
+        btn.classList.remove("btn-disabled");
       } else {
-        btn.classList.add('btn-disabled')
+        btn.classList.add("btn-disabled");
       }
-    } 
-
-  }, [value,refBoton])
-  
+    }
+  }, [value, refBoton]);
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -56,6 +56,67 @@ export const Reservation = () => {
 
     fetchProductData();
   }, []);
+
+  const body = {
+    product: {
+        id: Number(id)
+    },
+    user: {
+        id: localStorage.getItem("userDto") ? JSON.parse(localStorage.getItem("userDto")).id : null
+    },
+    startDate: value.startDate,
+    endDate: value.endDate,
+    extraData: value.extraInfo
+  };
+  
+  /* 
+
+    {
+    "product": {
+        "id": 1
+    },
+    "user": {
+        "id": 2
+    },
+    "startDate": "2023-12-15",
+    "endDate": "2023-12-19",
+    "extraData": "Información adicional"
+    }
+
+    */
+
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log(body);
+      fetch(import.meta.env.VITE_BACKEND_URL + "reservations/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
+            throw new Error("Error en la solicitud");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+    /*       setAlert({
+            color: "bg-error",
+            text: "No pudimos crear el usuario",
+          });
+          // **Update showAlert state to true**
+          setShowAlert(true);
+          return; */
+        });
+    };
+  
+
 
   return (
     <section className="h-min w-full flex justify-center items-center flex-col bg-neutral ms:h-screen">
@@ -87,12 +148,14 @@ export const Reservation = () => {
                 ))}
 
                 <div className="flex flex-col sm:w-1/2 gap-4 items-center">
-                <h3 className="text-primary text-2xl font-bold my-4 w-full text-center mt-0">
-                        Reserva esta Máquina
-                      </h3>
+                  <h3 className="text-primary text-2xl font-bold my-4 w-full text-center mt-0">
+                    Reserva esta Máquina
+                  </h3>
                   <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded-lg py-2">
-                    <form className="card-body justify-between"
-                    onSubmit={handleSubmit}>
+                    <form
+                      className="card-body justify-between"
+                      onSubmit={handleSubmit}
+                    >
                       <Datepicker
                         disabledDates={[
                           {
@@ -120,23 +183,22 @@ export const Reservation = () => {
                             apply: "Aplicar",
                           },
                         }}
-                      
                       />
                       <div className="form-control mt-4">
-                        <label htmlFor="">Algo a tener en cuenta?</label>
+                        <label htmlFor="" className="mb-2">Algo a tener en cuenta?</label>
                         <textarea
                           type="text"
                           placeholder="Ejemplo: Indicación para dirección de entrega"
-                          /*    value={formData.description}
-            onChange={(e) =>
-              setFormData({ ...formData, description: e.target.value })
-            } */
-                          className="textarea textarea-bordered textarea-md w-full placeholder:text-secondary-content"
+                          onChange={handleExtraInfo}
+                          className="textarea textarea-bordered textarea-md w-full placeholder:text-[#6a7282] text-primary-content bg-[#1E293B]"
                         ></textarea>
                       </div>
                       <div className="form-control mt-6">
-                        <button className="btn btn-disabled text-neutral bg-primary md:hover:text-primary m-auto min-w[240px]"
-                        type="submit" ref={refBoton}>
+                        <button
+                          className="btn btn-disabled text-neutral bg-primary md:hover:text-primary m-auto min-w[240px]"
+                          type="submit"
+                          ref={refBoton}
+                        >
                           Reservar Ahora
                           <span className="material-symbols-outlined">
                             assignment_turned_in
