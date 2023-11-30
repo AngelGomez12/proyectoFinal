@@ -33,7 +33,7 @@ export default function ProductsList({ filter, onFilterChange, filterDate }) {
       });
     }
 
-    filterProducts = filterProducts.filter((product) =>
+    filterProducts = products.filter((product) =>
       product.name.toLowerCase().includes(filter.search.toLowerCase())
     );
 

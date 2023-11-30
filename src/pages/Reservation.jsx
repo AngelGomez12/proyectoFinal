@@ -1,12 +1,13 @@
 /* eslint-disable react/no-unknown-property */
 import React, { useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BackBtn from "../components/BackBtn";
 import Carrousel from "../components/Carrousel";
 import Datepicker from "react-tailwindcss-datepicker";
 
 export const Reservation = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const refBoton = useRef(null);
@@ -21,12 +22,10 @@ export const Reservation = () => {
   const handleValueChange = (newValue) => {
     setValue(newValue);
   };
-  
+
   const handleExtraInfo = (e) => {
     const element = e.target;
-    setValue(
-      Object.assign({}, value, { extraInfo: element.value })
-    )
+    setValue(Object.assign({}, value, { extraInfo: element.value }));
   };
 
   useEffect(() => {
@@ -59,16 +58,18 @@ export const Reservation = () => {
 
   const body = {
     product: {
-        id: Number(id)
+      id: Number(id),
     },
     user: {
-        id: localStorage.getItem("userDto") ? JSON.parse(localStorage.getItem("userDto")).id : null
+      id: localStorage.getItem("userDto")
+        ? JSON.parse(localStorage.getItem("userDto")).id
+        : null,
     },
     startDate: value.startDate,
     endDate: value.endDate,
-    extraData: value.extraInfo
+    extraData: value.extraInfo,
   };
-  
+
   /* 
 
     {
@@ -85,38 +86,36 @@ export const Reservation = () => {
 
     */
 
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log(body);
-      fetch(import.meta.env.VITE_BACKEND_URL + "reservations/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(body);
+    fetch(import.meta.env.VITE_BACKEND_URL + "reservations/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        if (response.ok) {
+          navigate("/confirma-reserva");
+          return response.json();
+        } else {
+          // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
+          throw new Error("Error en la solicitud");
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
-            throw new Error("Error en la solicitud");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-    /*       setAlert({
+      .catch((error) => {
+        console.error(error);
+        /*       setAlert({
             color: "bg-error",
             text: "No pudimos crear el usuario",
           });
           // **Update showAlert state to true**
           setShowAlert(true);
           return; */
-        });
-    };
-  
-
+      });
+  };
 
   return (
     <section className="h-min w-full flex justify-center items-center flex-col bg-neutral ms:h-screen">
@@ -185,7 +184,9 @@ export const Reservation = () => {
                         }}
                       />
                       <div className="form-control mt-4">
-                        <label htmlFor="" className="mb-2">Algo a tener en cuenta?</label>
+                        <label htmlFor="" className="mb-2">
+                          Algo a tener en cuenta?
+                        </label>
                         <textarea
                           type="text"
                           placeholder="Ejemplo: Indicación para dirección de entrega"
