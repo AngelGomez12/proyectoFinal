@@ -67,9 +67,9 @@ export default function ProductsList({ filter, onFilterChange, filterDate }) {
         ) : productsViewed.length === 0 ? (
           <div className="col-span-2">No tenemos productos en stock</div>
         ) : (
-          filterProducts.map((product) => (
-            <ProductCart key={product.id} {...product} />
-          ))
+          filterProducts
+            .slice(0, 6)
+            .map((product) => <ProductCart key={product.id} {...product} />)
         )}
       </section>
       <Paginator />
