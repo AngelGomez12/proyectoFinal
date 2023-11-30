@@ -64,6 +64,7 @@ export default function CartProvider(props) {
         pagination,
         handlerPageChange,
         productTypes,
+        setPagination,
       }}
     >
       {props.children}

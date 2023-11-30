@@ -19,7 +19,7 @@ export default function AddProducts() {
     price: "",
     description: "",
     stock: 0,
-    productType: {},
+    productType: undefined,
     brand: { id: 0, description: "" },
     specs: {},
     productImages: [],
@@ -143,7 +143,7 @@ export default function AddProducts() {
       description: formData.description,
       stock: parseInt(formData.stock),
       productType: {
-        id: parseInt(formData.productType),
+        id: parseInt(formData.productType || "1"),
       },
       brand: {
         description: formData.brand.description,
