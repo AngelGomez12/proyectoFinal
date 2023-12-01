@@ -6,6 +6,12 @@ import BackBtn from "../components/BackBtn";
 import Carrousel from "../components/Carrousel";
 import Datepicker from "react-tailwindcss-datepicker";
 
+import Share from "../components/Share/Share";
+
+import ShareOnFacebook from "../components/Share/ShareOnFacebook";
+import CompartirBoton from "../components/Share/ShareOnFacebook";
+
+
 export const Details = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
@@ -19,21 +25,25 @@ export const Details = () => {
     setValue(newValue);
   };
 
-  useEffect(() => {
+  /*Se utiliza useEffect para realizar operaciones asincronicas, como llamadas a api. 
+  Con Operaciones Asincronicas nos refermios a la manipulación de datos que no están disponibles de inmediato. */
+  useEffect(() => {  
+    // fetchProductData es una funcion que se encargará de realizar la llamada a la API para obtener los datos del producto.
     const fetchProductData = async () => {
+      // Try catch es una estructura de control que nos permite manejar errores en el código.
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}products/${id}`
+          `${import.meta.env.VITE_BACKEND_URL}products/${id}`  // Esta es la URL de la API que nos devolverá los datos del producto.
         );
-        const productData = await response.json();
-        setData(productData);
-      } catch (error) {
-        console.error("Error al cargar specs", error);
+        const productData = await response.json(); // Convertimos los datos obtenidos en un objeto JSON.
+        setData(productData); // Guardamos los datos en el estado data.
+      } catch (error) { // En caso de que ocurra un error, lo mostramos en consola.
+        console.error("Error al cargar specs", error); // lo imprimimos en consola
       }
     };
 
-    fetchProductData();
-  }, []);
+    fetchProductData(); // Ejecutamos la funcion fetchProductData.
+  }, []); // El segundo parametro de useEffect es un array vacio, esto indica que la funcion se ejecutará solo una vez.
 
   return (
     <section className="h-min w-full flex justify-center items-center flex-col bg-neutral ms:h-screen">
@@ -111,7 +121,6 @@ export const Details = () => {
           <dialog id="my_modal_3" className="modal">
             <div className="modal-box p-8">
               <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                   <span className="material-symbols-outlined">close_small</span>
                 </button>
@@ -188,6 +197,9 @@ export const Details = () => {
                   );
                 })}
             </ul>
+            {/* Agrega el botón de compartir en Facebook */}
+            {/* <CompartirBoton productName={data && data.name} /> */}
+            <Share productName = {data && data.name} />
           </div>
         </div>
       </div>
