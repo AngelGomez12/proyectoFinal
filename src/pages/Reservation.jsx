@@ -9,6 +9,7 @@ import Datepicker from "react-tailwindcss-datepicker";
 export const Reservation = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const dataUser = JSON.parse(localStorage.getItem("userDto"));
 
   const refBoton = useRef(null);
 
@@ -155,34 +156,59 @@ export const Reservation = () => {
                       className="card-body justify-between"
                       onSubmit={handleSubmit}
                     >
-                      <Datepicker
-                        disabledDates={[
-                          {
-                            startDate: "2023-11-23",
-                            endDate: "2023-11-26",
-                          },
-                          {
-                            startDate: "2023-12-01",
-                            endDate: "2023-12-05",
-                          },
-                        ]}
-                        value={value}
-                        onChange={handleValueChange}
-                        i18n={"es"}
-                        popoverDirection="down"
-                        placeholder={"Cuáles fechas?"}
-                        separator={" → "}
-                        displayFormat={"DD/MM/YY"}
-                        primaryColor={"yellow"}
-                        startWeekOn="mon"
-                        showFooter={true}
-                        configs={{
-                          footer: {
-                            cancel: "Cancelar",
-                            apply: "Aplicar",
-                          },
-                        }}
-                      />
+                      <div className="flex gap-2">
+                        <label htmlFor="">Nombre</label>
+                        <input
+                          type="text"
+                          className="input input-bordered w-full max-w-xs"
+                          value={dataUser.firstName}
+                          disabled
+                        />
+                        <label htmlFor="">Apellido</label>
+                        <input
+                          type="text"
+                          className="input input-bordered w-full max-w-xs"
+                          value={dataUser.lastName}
+                          disabled
+                        />
+                      </div>
+                      <div className="flex gap-2">
+                        <label htmlFor="">Email</label>
+                        <input
+                          type="text"
+                          className="input input-bordered w-full max-w-xs"
+                          value={dataUser.username}
+                          disabled
+                        />
+                        <Datepicker
+                          disabledDates={[
+                            {
+                              startDate: "2023-11-23",
+                              endDate: "2023-11-26",
+                            },
+                            {
+                              startDate: "2023-12-01",
+                              endDate: "2023-12-05",
+                            },
+                          ]}
+                          value={value}
+                          onChange={handleValueChange}
+                          i18n={"es"}
+                          popoverDirection="down"
+                          placeholder={"Cuáles fechas?"}
+                          separator={" → "}
+                          displayFormat={"DD/MM/YY"}
+                          primaryColor={"yellow"}
+                          startWeekOn="mon"
+                          showFooter={true}
+                          configs={{
+                            footer: {
+                              cancel: "Cancelar",
+                              apply: "Aplicar",
+                            },
+                          }}
+                        />
+                      </div>
                       <div className="form-control mt-4">
                         <label htmlFor="" className="mb-2">
                           Algo a tener en cuenta?
