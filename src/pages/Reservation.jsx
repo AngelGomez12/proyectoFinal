@@ -119,7 +119,7 @@ export const Reservation = () => {
   };
 
   return (
-    <section className="h-min w-full flex justify-center items-center flex-col bg-neutral ms:h-screen">
+    <section className="h-screen w-full flex justify-center items-center flex-col bg-neutral ms:h-screen">
       <div className="mx-16 h-full mt-36 mb-24 w-4/5">
         <div className="flex justify-between w-full mb-5">
           <div>
@@ -137,7 +137,7 @@ export const Reservation = () => {
               <>
                 {data.productImages.slice(0, 1).map((imagenProducto, index) => (
                   <React.Fragment key={index}>
-                    <figure className="sm:w-1/2 sm:h-full h-[200px] overflow-hidden object-center rounded-md">
+                    <figure className="sm:w-1/2 sm:h-full h-[200px] overflow-hidden object-center rounded-md relative top-20">
                       <img
                         className="min-w-full min-h-full object-cover"
                         src={`data:image/jpeg;base64, ${imagenProducto.productImage}`}
@@ -147,67 +147,76 @@ export const Reservation = () => {
                   </React.Fragment>
                 ))}
 
-                <div className="flex flex-col sm:w-1/2 gap-4 items-center">
+                <div className="flex flex-col sm:w-1/2 gap-4 items-center w-96">
                   <h3 className="text-primary text-2xl font-bold my-4 w-full text-center mt-0">
                     Reserva esta Máquina
                   </h3>
                   <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded-lg py-2">
                     <form
-                      className="card-body justify-between"
+                      className="card-body justify-between w-96"
                       onSubmit={handleSubmit}
                     >
                       <div className="flex gap-2">
-                        <label htmlFor="">Nombre</label>
-                        <input
-                          type="text"
-                          className="input input-bordered w-full max-w-xs"
-                          value={dataUser.firstName}
-                          disabled
-                        />
-                        <label htmlFor="">Apellido</label>
-                        <input
-                          type="text"
-                          className="input input-bordered w-full max-w-xs"
-                          value={dataUser.lastName}
-                          disabled
-                        />
+                        <div className="flex-col">
+                          <label htmlFor="">Nombre</label>
+                          <input
+                            type="text"
+                            className="input input-bordered w-full max-w-xs"
+                            value={dataUser.firstName}
+                            disabled
+                          />
+                        </div>
+                        <div className="flex-col">
+                          <label htmlFor="">Apellido</label>
+                          <input
+                            type="text"
+                            className="input input-bordered w-full max-w-xs"
+                            value={dataUser.lastName}
+                            disabled
+                          />
+                        </div>
                       </div>
                       <div className="flex gap-2">
-                        <label htmlFor="">Email</label>
-                        <input
-                          type="text"
-                          className="input input-bordered w-full max-w-xs"
-                          value={dataUser.username}
-                          disabled
-                        />
-                        <Datepicker
-                          disabledDates={[
-                            {
-                              startDate: "2023-11-23",
-                              endDate: "2023-11-26",
-                            },
-                            {
-                              startDate: "2023-12-01",
-                              endDate: "2023-12-05",
-                            },
-                          ]}
-                          value={value}
-                          onChange={handleValueChange}
-                          i18n={"es"}
-                          popoverDirection="down"
-                          placeholder={"Cuáles fechas?"}
-                          separator={" → "}
-                          displayFormat={"DD/MM/YY"}
-                          primaryColor={"yellow"}
-                          startWeekOn="mon"
-                          showFooter={true}
-                          configs={{
-                            footer: {
-                              cancel: "Cancelar",
-                              apply: "Aplicar",
-                            },
-                          }}
-                        />
+                        <div className="flex-col">
+                          <label htmlFor="">Email</label>
+                          <input
+                            type="text"
+                            className="input input-bordered w-full max-w-xs"
+                            value={dataUser.username}
+                            disabled
+                          />
+                        </div>
+                        <div className="flex-col">
+                          <label htmlFor="">Fecha</label>
+                          <Datepicker
+                            disabledDates={[
+                              {
+                                startDate: "2023-11-23",
+                                endDate: "2023-11-26",
+                              },
+                              {
+                                startDate: "2023-12-01",
+                                endDate: "2023-12-05",
+                              },
+                            ]}
+                            value={value}
+                            onChange={handleValueChange}
+                            i18n={"es"}
+                            popoverDirection="down"
+                            placeholder={"Cuáles fechas?"}
+                            separator={" → "}
+                            displayFormat={"DD/MM/YY"}
+                            primaryColor={"yellow"}
+                            startWeekOn="mon"
+                            showFooter={true}
+                            configs={{
+                              footer: {
+                                cancel: "Cancelar",
+                                apply: "Aplicar",
+                              },
+                            }}
+                          />
+                        </div>
                       </div>
                       <div className="form-control mt-4">
                         <label htmlFor="" className="mb-2">
