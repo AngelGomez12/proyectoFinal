@@ -18,15 +18,15 @@ export const Reservation = () => {
     extraInfo: "",
   });
 
+  const [reservations, setReservations] = useState([]);
+
   const handleValueChange = (newValue) => {
     setValue(newValue);
   };
-  
+
   const handleExtraInfo = (e) => {
     const element = e.target;
-    setValue(
-      Object.assign({}, value, { extraInfo: element.value })
-    )
+    setValue(Object.assign({}, value, { extraInfo: element.value }));
   };
 
   useEffect(() => {
@@ -49,6 +49,8 @@ export const Reservation = () => {
         );
         const productData = await response.json();
         setData(productData);
+        setReservations(productData.reservations.map(({endDate,startDate}) => ({endDate,startDate}))
+        );
       } catch (error) {
         console.error("Error al cargar specs", error);
       }
@@ -57,65 +59,58 @@ export const Reservation = () => {
     fetchProductData();
   }, []);
 
+console.log(reservations);
+
   const body = {
     product: {
-        id: Number(id)
+      id: Number(id),
     },
     user: {
-        id: localStorage.getItem("userDto") ? JSON.parse(localStorage.getItem("userDto")).id : null
+      id: localStorage.getItem("userDto")
+        ? JSON.parse(localStorage.getItem("userDto")).id
+        : null,
     },
     startDate: value.startDate,
     endDate: value.endDate,
-    extraData: value.extraInfo
+    extraData: value.extraInfo,
   };
-  
-  /* 
 
-    {
-    "product": {
-        "id": 1
-    },
-    "user": {
-        "id": 2
-    },
-    "startDate": "2023-12-15",
-    "endDate": "2023-12-19",
-    "extraData": "Información adicional"
-    }
-
-    */
-
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log(body);
-      fetch(import.meta.env.VITE_BACKEND_URL + "reservations/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(body);
+    fetch(import.meta.env.VITE_BACKEND_URL + "reservations/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
+          throw new Error("Error en la solicitud");
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
-            throw new Error("Error en la solicitud");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-    /*       setAlert({
+      .catch((error) => {
+        console.error(error);
+        /*       setAlert({
             color: "bg-error",
             text: "No pudimos crear el usuario",
           });
           // **Update showAlert state to true**
           setShowAlert(true);
           return; */
-        });
-    };
-  
+      });
+  };
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  const formattedDate = `${year}-${month}-${day}`;
+
 
 
   return (
@@ -157,16 +152,11 @@ export const Reservation = () => {
                       onSubmit={handleSubmit}
                     >
                       <Datepicker
-                        disabledDates={[
-                          {
-                            startDate: "2023-11-23",
-                            endDate: "2023-11-26",
-                          },
-                          {
-                            startDate: "2023-12-01",
-                            endDate: "2023-12-05",
-                          },
-                        ]}
+                        minDate={formattedDate}
+                        startFrom={formattedDate}
+
+                        disabledDates={reservations}
+
                         value={value}
                         onChange={handleValueChange}
                         i18n={"es"}
@@ -185,7 +175,9 @@ export const Reservation = () => {
                         }}
                       />
                       <div className="form-control mt-4">
-                        <label htmlFor="" className="mb-2">Algo a tener en cuenta?</label>
+                        <label htmlFor="" className="mb-2">
+                          Algo a tener en cuenta?
+                        </label>
                         <textarea
                           type="text"
                           placeholder="Ejemplo: Indicación para dirección de entrega"

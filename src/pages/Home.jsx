@@ -33,6 +33,19 @@ export const Home = () => {
     }));
   };
 
+  // THANKS GPT!!
+
+  // Create a new Date object for today's date
+  const today = new Date();
+  // Get the year, month, and day
+  const year = today.getFullYear();
+  // Months are zero-based (0 = January, 1 = February, etc.)
+  // To get the current month, add 1
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  // Format the date as "YYYY-MM-DD"
+  const formattedDate = `${year}-${month}-${day}`;
+
   const handleFilterChange = (newFilter) => {
     setFilter((prevFilter) => ({
       ...prevFilter,
@@ -68,7 +81,9 @@ export const Home = () => {
               </div>
               <div className="flex items-center bg-[#1E293B] sm:join-item rounded h-12">
                 <Datepicker
+                  minDate={formattedDate}
                   value={value}
+                  startFrom={formattedDate}
                   onChange={handleValueChange}
                   i18n={"es"}
                   popoverDirection="down"
