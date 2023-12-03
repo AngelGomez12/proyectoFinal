@@ -51,7 +51,7 @@ export default function ProductsList({ filter, onFilterChange, filterDate }) {
     : `Resultados de la búsqueda(${filterProducts.length})`;
 
   return (
-    <article className="flex flex-col items-center gap-[60px] bg-[#2B323C]">
+    <article id="ProductList" className="flex flex-col items-center gap-[60px] bg-[#2B323C]">
       <div className="flex items-center justify-between w-2/3">
         <h1 className="text-[30px] mt-[112px] font-[700] text-center">
           {title}

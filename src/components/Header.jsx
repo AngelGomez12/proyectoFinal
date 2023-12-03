@@ -42,20 +42,24 @@ export const Header = () => {
       </div>
 
       {isLoggedIn ? (
-        /* AotDMINISTRADOR */
+        /* ADMINISTRADOR */
         isAdmin ? (
           <>
-            <div className="navbar-end hidden lg:flex">
-              <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
-                <li>
-                  <Link to="admin">Administrar Negocio</Link>
-                </li>
-                <li>
-                  <Link to="admin/agregar-producto">Agregar Máquina</Link>
-                </li>
-              </ul>
-
-              <div className="flex items-center justify-center gap-2 mr-6 navbar-end ">
+            <div className="navbar-center hidden lg:flex justify-center">
+            <ul className="gap-2 menu menu-horizontal">
+              <li>
+                <Link to="admin">
+                  <a className="font-medium tracking-wide">Administrar Negocio</a>
+                </Link>
+              </li>
+              <li>
+              <Link to="admin/agregar-producto">
+                  <a className="font-medium tracking-wide">Agregar Máquina</a>
+                </Link>
+              </li>
+            </ul>
+            </div>
+            <div className=" navbar-end flex items-center justify-end gap-2 mr-6">
                 <div className="dropdown dropdown-end">
                   <label
                     tabIndex={0}
@@ -87,27 +91,25 @@ export const Header = () => {
                   </ul>
                 </div>
               </div>
-            </div>
           </>
         ) : (
           /* USUARIO */
           <>
-            <div className="navbar-end hidden lg:flex">
-              <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
-                <li>
-                  <Link to="/">Inicio</Link>
-                </li>
-                <li>
-                  <a>Contacto</a>
-                </li>
-                <li>
-                  <a className="hover:bg-primary hover:text-black">
-                    Renta de Maquinaria
-                  </a>
-                </li>
-              </ul>
-
-              <div className="flex items-center justify-center gap-2 mr-6 navbar-end ">
+            <div className="navbar-center hidden lg:flex justify-center">
+            <ul className="gap-2 menu menu-horizontal">
+              <li>
+                <Link to="/">
+                  <a className="text-lg font-medium tracking-wide">Inicio</a>
+                </Link>
+              </li>
+              <li>
+              <Link to="/contact">
+                  <a className="text-lg font-medium tracking-wide">Contacto</a>
+                </Link>
+              </li>
+            </ul>
+            </div>
+            <div className=" navbar-end flex items-center justify-cend gap-2 mr-6">
                 <div className="dropdown dropdown-end">
                   <label
                     tabIndex={0}
@@ -140,7 +142,6 @@ export const Header = () => {
                   </ul>
                 </div>
               </div>
-            </div>
 
             <div className="w-full justify-end flex lg:hidden">
               <div className="dropdown dropdown-end" onClick={toggleMenu}>
@@ -166,11 +167,6 @@ export const Header = () => {
                     </li>
                     <li>
                       <a>Contacto</a>
-                    </li>
-                    <li>
-                      <a className="hover:bg-primary hover:text-black">
-                        Renta de Maquinaria
-                      </a>
                     </li>
                     <hr className=" border-neutral-900" />
                     <li>
@@ -201,28 +197,27 @@ export const Header = () => {
       ) : (
         /* ANONIMO NO LOGUEADO */
         <>
-          <div className="navbar-end hidden lg:flex">
-            <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
+          <div className="navbar-center hidden lg:flex justify-center">
+            <ul className="gap-2 menu menu-horizontal">
               <li>
-                <Link to="/">Inicio</Link>
+                <Link to="/">
+                  <a className="text-lg font-medium tracking-wide">Inicio</a>
+                </Link>
               </li>
               <li>
-                <a>Contacto</a>
-              </li>
-              <li>
-                <a className="hover:bg-primary hover:text-black">
-                  Renta de Maquinaria
-                </a>
+              <Link to="/contact">
+                  <a className="text-lg font-medium tracking-wide">Contacto</a>
+                </Link>
               </li>
             </ul>
           </div>
 
-          <div className="hidden lg:flex gap-2 navbar-end">
-            <Link to="/Signup">
-              <a className="btn">Crear Cuenta</a>
-            </Link>
+          <div className="hidden lg:flex gap-2 navbar-end mr-4">
             <Link to="/Login">
               <a className="btn">Iniciar Sesion</a>
+            </Link>
+            <Link to="/Signup">
+              <a className="mr-6 tracking-wide text-sm" >Crear Cuenta</a>
             </Link>
           </div>
 
