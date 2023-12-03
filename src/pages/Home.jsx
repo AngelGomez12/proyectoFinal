@@ -8,18 +8,49 @@ import CartProvider from "../contexts/ProductsList";
 import Datepicker from "react-tailwindcss-datepicker";
 
 export const Home = () => {
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState({
+    date: {
+      startDate: null,
+      endDate: null,
+    },
+    search: "",
+  });
   const [value, setValue] = useState({
     startDate: null,
     endDate: null,
   });
+  const [filterDate, setFilterDate] = useState(false);
 
   const handleValueChange = (newValue) => {
+    setFilterDate(true);
     setValue(newValue);
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      date: {
+        startDate: newValue.startDate,
+        endDate: newValue.endDate,
+      },
+    }));
   };
 
+  // THANKS GPT!!
+
+  // Create a new Date object for today's date
+  const today = new Date();
+  // Get the year, month, and day
+  const year = today.getFullYear();
+  // Months are zero-based (0 = January, 1 = February, etc.)
+  // To get the current month, add 1
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  // Format the date as "YYYY-MM-DD"
+  const formattedDate = `${year}-${month}-${day}`;
+
   const handleFilterChange = (newFilter) => {
-    setFilter(newFilter);
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      search: newFilter,
+    }));
   };
   return (
     <main className="flex flex-col scroll-smooth">
@@ -50,7 +81,9 @@ export const Home = () => {
               </div>
               <div className="flex items-center bg-[#1E293B] sm:join-item rounded h-12">
                 <Datepicker
+                  minDate={formattedDate}
                   value={value}
+                  startFrom={formattedDate}
                   onChange={handleValueChange}
                   i18n={"es"}
                   popoverDirection="down"
@@ -59,7 +92,6 @@ export const Home = () => {
                   displayFormat={"DD/MM/YY"}
                   primaryColor={"yellow"}
                   startWeekOn="mon"
-                  useRange={false}
                   showFooter={true}
                   configs={{
                     footer: {
@@ -109,7 +141,11 @@ export const Home = () => {
         </div>
       </div>
       <CartProvider>
-        <ProductsList filter={filter} onFilterChange={handleFilterChange} />
+        <ProductsList
+          filter={filter}
+          onFilterChange={handleFilterChange}
+          filterDate={filterDate}
+        />
       </CartProvider>
       <div id="catSection" className=" flex flex-col items-center py-16">
         <h2 className="text-xl sm:text-2xl font-bold mb-20">

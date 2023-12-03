@@ -10,6 +10,8 @@ import Account from "./pages/Account";
 import { useEffect, useState } from "react";
 import AdminMobileOverlay from "./components/AdminMobileOverlay";
 import Politicas from "./pages/Politicas";
+import { Reservation } from "./pages/Reservation";
+import { ConfirmPage } from "./pages/ConfirmPage";
 
 function App() {
   const { isAdmin } = useGlobalContext();
@@ -49,10 +51,13 @@ function App() {
             }
           />
           <Route path="/details/:id" element={<Details />} />
+          <Route path="/reservation/:id" element={<Reservation />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/account" element={<Account />} />
           <Route path="/politicas" element={<Politicas />} /> {/* Nueva ruta */}
+          <Route path="/confirma-reserva" element={<ConfirmPage />} />{" "}
+          {/* Nueva ruta */}
         </Route>
       </Routes>
     </BrowserRouter>
