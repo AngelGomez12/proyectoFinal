@@ -20,6 +20,8 @@ export const Reservation = () => {
     extraInfo: "",
   });
 
+  const [reservations, setReservations] = useState([]);
+
   const handleValueChange = (newValue) => {
     setValue(newValue);
   };
@@ -49,6 +51,8 @@ export const Reservation = () => {
         );
         const productData = await response.json();
         setData(productData);
+        setReservations(productData.reservations.map(({endDate,startDate}) => ({endDate,startDate}))
+        );
       } catch (error) {
         console.error("Error al cargar specs", error);
       }
@@ -56,6 +60,8 @@ export const Reservation = () => {
 
     fetchProductData();
   }, []);
+
+console.log(reservations);
 
   const body = {
     product: {
@@ -70,23 +76,6 @@ export const Reservation = () => {
     endDate: value.endDate,
     extraData: value.extraInfo,
   };
-
-  /* 
-
-    {
-    "product": {
-        "id": 1
-    },
-    "user": {
-        "id": 2
-    },
-    "startDate": "2023-12-15",
-    "endDate": "2023-12-19",
-    "extraData": "Información adicional"
-    }
-
-    */
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(body);
@@ -117,6 +106,14 @@ export const Reservation = () => {
           return; */
       });
   };
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  const formattedDate = `${year}-${month}-${day}`;
+
+
 
   return (
     <section className="h-screen w-full flex justify-center items-center flex-col bg-neutral ms:h-screen">
@@ -189,16 +186,10 @@ export const Reservation = () => {
                         <div className="flex-col">
                           <label htmlFor="">Fecha</label>
                           <Datepicker
-                            disabledDates={[
-                              {
-                                startDate: "2023-11-23",
-                                endDate: "2023-11-26",
-                              },
-                              {
-                                startDate: "2023-12-01",
-                                endDate: "2023-12-05",
-                              },
-                            ]}
+                            minDate={formattedDate}
+                            startFrom={formattedDate}
+    
+                            disabledDates={reservations}
                             value={value}
                             onChange={handleValueChange}
                             i18n={"es"}
