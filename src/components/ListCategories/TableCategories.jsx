@@ -95,11 +95,10 @@ export const TableCategories = () => {
     formDataToSend = {
       description: formData.description,
       extraDescription: formData.extraDescription,
-      productImage: formData.productTypeImage.map((image) => ({
-        productImage: image,
-      })),
-    };
-console.log(productType);
+      productTypeImage: formData.productTypeImage.length > 0
+        ? formData.productTypeImage[0]  
+        : null,
+ };
     try {
       fetch(`${import.meta.env.VITE_BACKEND_URL}productTypes/create`, {
         method: "POST",
@@ -112,12 +111,12 @@ console.log(productType);
         .then((data) => {
           if (
             data.message &&
-            data.message.indexOf("Ya existe un producto con el mismo nombre") >
+            data.message.indexOf("Ya existe una categoria con el mismo nombre") >
               -1
           ) {
             setAlert({
               color: "bg-error",
-              text: `Ya existe un producto con el mismo nombre: ${formData.description}`,
+              text: `Ya existe una categoria con el mismo nombre: ${formData.description}`,
             });
             setShowAlert(true);
           } else {
@@ -133,7 +132,7 @@ console.log(productType);
     } catch (error) {
       setAlert({
         color: "bg-error",
-        text: "Error al agregar la máquina",
+        text: "Error al agregar la categoria",
       });
       setShowAlert(true);
     }
@@ -145,37 +144,57 @@ console.log(productType);
     navigate("/");
   };
 
+ 
+  const handleDeleteProduct = (productTypeId) => {
+    if (formData.productTypeId === null) {
+      setAlert({
+        color: "bg-success",
+        text: "Se elimino correctamente la categoria",
+        
+      });
+      setShowAlert(true);
+      return;
+    }
+    
+    try {
+      fetch(`${import.meta.env.VITE_BACKEND_URL}productTypes/${productTypeId}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+  
+          // Check if the response has content before attempting to parse JSON
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            return response.json();
+          } else {
+            // If the response is not JSON, return an empty object or handle it accordingly
+            return {};
+          }
+        })
+        .then((data) => {
+          // Update the state with the new list of products after deletion.
+          // Reload the page.
+          window.location.reload();
+          setAlert({
+            color: "bg-success",
+            text: "Se ha eliminado correctamente",
+          });
+          setShowAlert(true);
+        })
+        .catch((error) => {
+          console.error("Error deleting product", error);
+        });
+    } catch (error) {
+      console.error("Error in handleDeleteProduct", error);
+    }
+  };
   const handleDismissAlert = () => {
     setShowAlert(false);
   };
 
-  const handleDeleteProduct = (productTypeId) => {
-    // Send a DELETE request to the backend to remove the product with the given productId.
-    fetch(`${import.meta.env.VITE_BACKEND_URL}productTypes/${productTypeId}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        // Check if the response has content before attempting to parse JSON
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-          return response.json();
-        } else {
-          // If the response is not JSON, return an empty object or handle it accordingly
-          return {};
-        }
-      })
-      .then((data) => {
-        // Update the state with the new list of products after deletion.
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error("Error deleting product", error);
-      });
-  };
 
   return (
     <>
@@ -183,7 +202,7 @@ console.log(productType);
         <div>
           <div className=" flex mr-9">
             <h1 className="text-3xl font-bold flex mb-8 justify-start relative right-1/4 ml-20	">
-              Todas las Máquinas
+              Todas las Categorias
             </h1>
             {/* Open the modal using document.getElementById('ID').showModal() method */}
             <button
@@ -210,7 +229,7 @@ console.log(productType);
                     <div className="flex">
                       <div className="flex flex-col mr-6">
                         <div className="flex-col py-8">
-                          <label htmlFor="">Nombre de la Máquina</label>
+                          <label htmlFor="">Nombre de la categoria</label>
                           <input
                             type="text"
                             placeholder="Nombre Común de la Máquina"
@@ -223,7 +242,7 @@ console.log(productType);
                             }
                             className="input w-full input-bordered placeholder:text-secondary-content"
                           />
-
+                          <label htmlFor="">Descripcion</label>
                           <textarea
                             type="text"
                             placeholder="Agregá la descripción aquí"
@@ -331,10 +350,10 @@ console.log(productType);
                       >
                         <li>
                           <a>
-                            <img
-                              src="public\border_color (1).svg"
-                              alt="Avatar Tailwind CSS Component"
-                            />
+                          <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 22V18H20V22H0ZM4 14H5.4L13.2 6.225L11.775 4.8L4 12.6V14ZM2 16V11.75L13.2 0.575C13.3833 0.391667 13.5958 0.25 13.8375 0.15C14.0792 0.05 14.3333 0 14.6 0C14.8667 0 15.125 0.05 15.375 0.15C15.625 0.25 15.85 0.4 16.05 0.6L17.425 2C17.625 2.18333 17.7708 2.4 17.8625 2.65C17.9542 2.9 18 3.15833 18 3.425C18 3.675 17.9542 3.92083 17.8625 4.1625C17.7708 4.40417 17.625 4.625 17.425 4.825L6.25 16H2Z" fill="#CDCED0"/>
+<path d="M0 22V18H20V22H0ZM4 14H5.4L13.2 6.225L11.775 4.8L4 12.6V14ZM2 16V11.75L13.2 0.575C13.3833 0.391667 13.5958 0.25 13.8375 0.15C14.0792 0.05 14.3333 0 14.6 0C14.8667 0 15.125 0.05 15.375 0.15C15.625 0.25 15.85 0.4 16.05 0.6L17.425 2C17.625 2.18333 17.7708 2.4 17.8625 2.65C17.9542 2.9 18 3.15833 18 3.425C18 3.675 17.9542 3.92083 17.8625 4.1625C17.7708 4.40417 17.625 4.625 17.425 4.825L6.25 16H2Z" fill="black" fill-opacity="0.2"/>
+</svg>
                             Editar
                           </a>
                         </li>
@@ -370,3 +389,7 @@ console.log(productType);
     </>
   );
 };
+
+
+
+
