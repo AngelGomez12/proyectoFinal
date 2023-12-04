@@ -153,26 +153,7 @@ export const Home = () => {
         </h2>
 
         <div id="catNav" className="flex flex-wrap gap-6 mx-8 justify-center">
-          <Categorie
-            title="Construcción"
-            subtitle="Lorem ipsum dolor sit amet consectetur."
-            image="../../public/img/construccion.jpg"
-          />
-          <Categorie
-            title="Agrícola / Forestal"
-            subtitle="Lorem ipsum dolor sit amet consectetur."
-            image="../../public/img/agro.jpg"
-          />
-          <Categorie
-            title="Carga Útil"
-            subtitle="Lorem ipsum dolor sit amet consectetur."
-            image="../../public/img/carga.jpg"
-          />
-          <Categorie
-            title="Infraestructura"
-            subtitle="Lorem ipsum dolor sit amet consectetur."
-            image="../../public/img/civil.jpg"
-          />
+         <Categorie/>
         </div>
       </div>
     </main>
