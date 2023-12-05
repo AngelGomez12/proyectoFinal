@@ -128,14 +128,14 @@ export const Reservation = () => {
         </div>
         <div
           id="Product_Images"
-          className="max-h-[600px] sm:h-[400px] mb-8 sm:mb-4"
+          className="max-h-[600px] lg:h-[400px] mb-8 lg:mb-4"
         >
-          <div className="flex flex-col sm:flex-row gap-4 md:gap-16 h-full">
+          <div className="flex flex-col lg:flex-row gap-4 lg:gap-16 lg:mt-16 h-full justify-center items-center">
             {data && (
               <>
                 {data.productImages.slice(0, 1).map((imagenProducto, index) => (
                   <React.Fragment key={index}>
-                    <figure className="sm:w-1/2 sm:h-full h-[200px] overflow-hidden object-center rounded-md relative top-20">
+                    <figure className="lg:w-1/2 lg:h-full h-[200px] overflow-hidden object-center rounded-md">
                       <img
                         className="min-w-full min-h-full object-cover"
                         src={`data:image/jpeg;base64, ${imagenProducto.productImage}`}
@@ -145,7 +145,7 @@ export const Reservation = () => {
                   </React.Fragment>
                 ))}
 
-                <div className="flex flex-col sm:w-1/2 gap-4 items-center w-96">
+                <div className="flex flex-col lg:w-1/2 gap-4 items-center w-96">
                   <h3 className="text-primary text-2xl font-bold my-4 w-full text-center mt-0">
                     Reserva esta Máquina
                   </h3>
@@ -242,7 +242,7 @@ export const Reservation = () => {
       </div>
       <div
         id="Reservation_Info"
-        className="w-full mt-4 flex flex-col-reverse md:flex-row md:gap-4 justify-center items-start mb-32"
+        className="w-full mt-4 px-8 flex flex-col-reverse justify-center items-center mb-32"
       >
         <div className="w-full md:w-2/3 h-fit">
           <h3 className="text-primary text-lg font-medium my-4">

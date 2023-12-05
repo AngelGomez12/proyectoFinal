@@ -1,39 +1,74 @@
 import BackBtn from "../components/BackBtn";
+import TeamCard from "../components/TeamCard";
+import Alfre from "../../public/img/alfre.jpg";
+import Angel from "../../public/img/angel.jpg";
+import Diego from "../../public/img/diego.jpg";
+import Dorian from "../../public/img/dorian.jpg";
+import Gonzalo from "../../public/img/gonza.jpg";
+import Pablo from "../../public/img/pablo.jpg";
+import Rony from "../../public/img/rony.jpg";
+import Sergio from "../../public/img/sergio.jpg";
+
 
 const Contact = () => {
   return (
     <>
-      <section className="w-full flex justify-center items-center flex-col bg-neutral h-[90vh]">
-        <div className="px-16 h-full w-screen mt-40 m-5">
-          <div className="flex justify-between w-full mb-5">
-            <div className="flex flex-row gap-4 items-center">
-              <h1 className="text-3xl font-bold">Mi Cuenta</h1>
-              <div className=" bg-base-100 rounded-full w-9 h-9 flex items-center justify-center">
-                <span className="material-symbols-outlined">
-                  account_circle
-                </span>
+      <section className="w-full flex justify-center items-center flex-col bg-neutral">
+        <div className="hero min-h-screen h-fit mx-32 bg-base-200">
+          <div className="hero-content text-center pt-36 mb-12">
+            <div className=" max-w-4xl">
+              <h1 className="text-3xl font-bold text-primary">Conocé a nuestro equipo</h1>
+              <p className="py-6">
+                Nuestros desarrolladores son un grupo multicultural que han
+                creado un sistema web que, <br /> <span className=" font-bold"> ¡Es tan increíble como ellos!. </span>
+              </p>
+              <div className=" flex flex-wrap justify-center items-center">
+                <TeamCard
+                  name="Backend Dev"
+                  pic={Alfre}
+                  role="Alfredo Albornoz"
+                />
+                <TeamCard
+                  name="Frontend Dev"
+                  pic={Angel}
+                  role="Ángel Gomez"
+                />
+                <TeamCard
+                  name="DBA"
+                  pic={Diego}
+                  role="Diego de la Barrera"
+                />
+                <TeamCard
+                  name="Product Owner"
+                  pic={Dorian}
+                  role="Dorian Battiato"
+                />
+                <TeamCard
+                  name="Fullstack Dev"
+                  pic={Gonzalo}
+                  role="Gonzalo Caldoli"
+                />
+                <TeamCard
+                  name="DevOps"
+                  pic={Pablo}
+                  role="Pablo Camejo"
+                />
+                <TeamCard
+                  name="UI / UX Designer"
+                  pic={Rony}
+                  role="Rony Romero Duque"
+                />
+                <TeamCard
+                  name="Scrum Máster"
+                  pic={Sergio}
+                  role="Sergio Gende"
+                />
               </div>
             </div>
-            <BackBtn />
-          </div>
-
-          <div className="my-6">
-            <h4 className="">Nombre Completo:</h4>
-
-          </div>
-          <div className="my-6">
-            <h4 className="">Email Registrado:</h4>
-
-          </div>
-          <div className="my-8">
-            <button className="btn btn-outline btn-error btn-sm">
-              <span className="material-symbols-outlined">delete</span>
-              Eliminar mi Cuenta
-            </button>
           </div>
         </div>
       </section>
     </>
-  )
-}
-export default Contact
+  );
+};
+export default Contact;
