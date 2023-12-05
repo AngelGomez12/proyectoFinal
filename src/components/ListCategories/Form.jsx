@@ -99,20 +99,20 @@ export default function Form({
             ></textarea>
           </div>
         </div>
-        <FileUploadForm
-          handleFileUpload={handleFileUpload}
-          image={formData.productTypeImages}
-        />
+        
         
       </div>
       <div className="flex justify-end w-full gap-4 mt-8">
-        <button className="btn w-52">Editar y salir</button>
         <button
           type="submit"
           className="btn bg-primary w-52 text-neutral hover:text-gray-100"
         >
           Editar
         </button>
+        <form method="dialog">
+        {/* if there is a button in form, it will close the modal */}
+        <button className="btn">Close</button>
+      </form>
       </div>
     </form>
   );

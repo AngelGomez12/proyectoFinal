@@ -3,7 +3,7 @@ import FileUploadForm from "../AddProducts/components/FileUploadForm";
 import { Alerts } from "../../utils/Alerts";
 import Form from "../ListCategories/Form";
 export const TableCategories = () => {
-  const[productType, setProductType] = useState([]);
+  const [productType, setProductType] = useState([]);
   const [productTypes, setProductTypes] = useState([]);
   const [editingProductType, setEditingProductType] = useState(null);
   const [deleteStatus, setDeleteStatus] = useState({
@@ -26,16 +26,20 @@ export const TableCategories = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const openEditModal = (productTypeId) => {
-    const productTypeToEdit = productType.find((productType) => productType.id === productTypeId);
+    const productTypeToEdit = productType.find(
+      (productType) => productType.id === productTypeId
+    );
     setEditingProductType(productTypeToEdit);
     setShowModal(true);
     console.log(productTypeToEdit, productType, productTypeId);
   };
   const handleUpdateCategoria = (updatedProductType) => {
     // Update the state with the edited product
-    setProducts((prevProductTypes) =>
+    setProductTypes((prevProductTypes) =>
       prevProductTypes.map((productTypes) =>
-        productTypes.id === updatedCategoria.id ? updatedCategoria : product
+        productTypes.id === updatedProductType.id
+          ? updatedProductType
+          : productType
       )
     );
   };
@@ -50,10 +54,7 @@ export const TableCategories = () => {
       .catch((error) => {
         console.error("Error al cargar product", error);
       });
-  }, []);
-
-
-
+  }, [showModal]);
 
   const handleFileUpload = (file) => {
     const updatedFiles = [...files, file];
@@ -232,7 +233,7 @@ export const TableCategories = () => {
         console.error("Error deleting product", error);
       });
   };
-console.log(editingProductType);
+  console.log(editingProductType);
   return (
     <>
       <div className="flex justify-center items-center h-screen ">
@@ -297,7 +298,10 @@ console.log(editingProductType);
                       <FileUploadForm handleFileUpload={handleFileUpload} />
                     </div>
                     <div className="flex justify-end w-full gap-4 mt-8">
-                      <button className="btn w-52">Agregar y salir</button>
+                      <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn">Close</button>
+                      </form>
                       <button
                         type="submit"
                         className="btn bg-primary w-52 text-neutral hover:text-gray-100"
@@ -393,9 +397,7 @@ console.log(editingProductType);
                             className="btn bg-transparent border-none w-5 no-hover h-5 font-thin capitalize text-base hover:bg-transparent "
                             onClick={() => {
                               openEditModal(product.id);
-                              document
-                                .getElementById("my_modal_2")
-                                .showModal();
+                              document.getElementById("my_modal_2").showModal();
                             }}
                           >
                             <svg
@@ -414,26 +416,24 @@ console.log(editingProductType);
                                 fill="black"
                                 fill-opacity="0.2"
                               />
-                            </svg>
-                            {" "}
+                            </svg>{" "}
                             Editar
-
                           </button>
-                          <dialog id="my_modal_2" className="modal flex justify-center">
+                          <dialog
+                            id="my_modal_2"
+                            className="modal flex justify-center"
+                          >
                             <div className="modal-box">
-                              {"showModal" && 
-                              "editingProductType" && (
+                              {showModal && "editingProductType" && (
                                 <Form
-                                editingProductType={editingProductType}
-                                onUpdateProductType={handleUpdateCategoria}
-                                setShowModal = {setShowModal}
+                                  editingProductType={editingProductType}
+                                  onUpdateProductType={handleUpdateCategoria}
+                                  setShowModal={setShowModal}
                                 />
                               )}
-                              
+
                               <div className="modal-action">
-                                <form method="dialog">
-                                  
-                                </form>
+                                <form method="dialog"></form>
                               </div>
                             </div>
                           </dialog>
@@ -532,7 +532,7 @@ console.log(editingProductType);
               </svg>
               <span>Categoría eliminada con éxito</span>
             </div>
-          )}
+          )}
         </div>
       </div>
     </>
