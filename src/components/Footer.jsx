@@ -4,25 +4,31 @@ export const Footer = () => {
   return (
     <>
       <footer className="footer p-10 bg-base-200 text-base-content">
-        <nav>
-          <header className="footer-title">Maquinaria</header>
-          <a className="link link-hover">Construcción</a>
-          <a className="link link-hover">Agrícola / Forestal</a>
-          <a className="link link-hover">Carga Útil</a>
-          <a className="link link-hover">Infraestructura</a>
+        <nav className="w-2/5">
+          <header className="footer-title w-full">
+            Aquí va un texto de SEO
+          </header>
+          <p className=" w-52 sm:w-80">
+            El footer de una página web es un espacio ideal para colocar texto
+            de SEO, ya que es un área que suele leerse con frecuencia por los
+            usuarios.
+          </p>
         </nav>
-        <nav>
+        <nav className="w-1/5">
           <header className="footer-title">Empresa</header>
           <Link to="/" className="link link-hover">
             Inicio
           </Link>
-          <a className="link link-hover">Contacto</a>
-          <a className="link link-hover">Renta de Maquinaria</a>
+          <Link to="/contact" className="link link-hover">
+            Contacto
+          </Link>
         </nav>
-        <nav>
+        <nav className="w-2/5">
           <header className="footer-title">Legal</header>
           <a className="link link-hover">Aviso legal</a>
-          <a href="/politicas" className="link link-hover">Política generales de contratacion</a>
+          <a href="/politicas" className="link link-hover">
+            Política generales de contratacion
+          </a>
           <a className="link link-hover">Política de cookies</a>
           <a className="link link-hover">Accesibilidad</a>
         </nav>
