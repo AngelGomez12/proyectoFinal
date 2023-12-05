@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useGlobalContext } from "../contexts/Global";
 import { Alerts } from "../utils/Alerts";
+import { sendEmail } from "../utils/send-email";
+
 
 const Signup = () => {
   //Captura de Datos del Form SIGN UP
@@ -143,6 +145,8 @@ const Signup = () => {
         localStorage.setItem("jwtToken", token);
         localStorage.setItem("userDto", JSON.stringify(userDto));
         login(userDto);
+        const templateID = "template_lztv7ki"
+        sendEmail(body, templateID)
         if (userDto.role === "ADMIN") {
           navigate("/admin");
         } else {
