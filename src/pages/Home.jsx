@@ -14,6 +14,7 @@ export const Home = () => {
       endDate: null,
     },
     search: "",
+    category: "",
   });
   const [value, setValue] = useState({
     startDate: null,
@@ -30,6 +31,7 @@ export const Home = () => {
         startDate: newValue.startDate,
         endDate: newValue.endDate,
       },
+      category: "",
     }));
   };
 
@@ -50,6 +52,13 @@ export const Home = () => {
     setFilter((prevFilter) => ({
       ...prevFilter,
       search: newFilter,
+    }));
+  };
+
+  const handleFilterCategory = (newFilter) => {
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      category: newFilter,
     }));
   };
   return (
@@ -143,7 +152,7 @@ export const Home = () => {
       <CartProvider>
         <ProductsList
           filter={filter}
-          onFilterChange={handleFilterChange}
+          handleFilterCategory={handleFilterCategory}
           filterDate={filterDate}
         />
       </CartProvider>
@@ -153,7 +162,7 @@ export const Home = () => {
         </h2>
 
         <div id="catNav" className="flex flex-wrap gap-6 mx-8 justify-center">
-         <Categorie/>
+          <Categorie />
         </div>
       </div>
     </main>

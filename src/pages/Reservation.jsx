@@ -64,8 +64,6 @@ export const Reservation = () => {
     fetchProductData();
   }, []);
 
-  console.log(reservations);
-
   const body = {
     product: {
       id: Number(id),
@@ -81,7 +79,6 @@ export const Reservation = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(body);
     fetch(import.meta.env.VITE_BACKEND_URL + "reservations/create", {
       method: "POST",
       headers: {
@@ -267,9 +264,9 @@ export const Reservation = () => {
               su destino normal.
             </li>
             <li className=" mb-2">
-              El Arrendatario es responsable de cuantos hechos se deriven de
-              la utilización de la Máquina que no sean imputables al
-              incumplimiento por Maquinaria PRO de sus obligaciones.
+              El Arrendatario es responsable de cuantos hechos se deriven de la
+              utilización de la Máquina que no sean imputables al incumplimiento
+              por Maquinaria PRO de sus obligaciones.
             </li>
             <li className=" mb-2">
               El Arrendatario deberá informar a Maquinaria PRO inmediatamente
@@ -277,13 +274,13 @@ export const Reservation = () => {
               Máquina.
             </li>
             <li className=" mb-2">
-              El Arrendatario tiene el deber de guarda y custodia de la
-              Máquina, siendo el poseedor responsable de los daños y perjuicios
+              El Arrendatario tiene el deber de guarda y custodia de la Máquina,
+              siendo el poseedor responsable de los daños y perjuicios
               ocasionados por y a ésta.
             </li>
             <li className=" mb-2">
-              El Arrendatario es responsable de todos los daños que se causen
-              a la Máquina.
+              El Arrendatario es responsable de todos los daños que se causen a
+              la Máquina.
             </li>
             <li className=" mb-2">
               El Arrendatario es responsable de la revisión diaria y de la
@@ -300,13 +297,23 @@ export const Reservation = () => {
               cláusula 12.
             </li>
             <li className=" mb-2">
-              Salvo que sea un servicio contratado expresamente a Maquinaria
-              PRO conforme la cláusula 10, el Arrendatario es responsable del
+              Salvo que sea un servicio contratado expresamente a Maquinaria PRO
+              conforme la cláusula 10, el Arrendatario es responsable del
               transporte de la Máquina desde las dependencias de Maquinaria PRO
               y, a su devolución, desde el lugar en el que se encuentre la
               Máquina.
             </li>
-            <p>Para conocer toda la información al detalle, ve a la sección <a className="underline hover:text-accent" href="/politicas" target="blank"> Política generales de contratacion </a> </p>
+            <p>
+              Para conocer toda la información al detalle, ve a la sección{" "}
+              <a
+                className="underline hover:text-accent"
+                href="/politicas"
+                target="blank"
+              >
+                {" "}
+                Política generales de contratacion{" "}
+              </a>{" "}
+            </p>
           </ul>
         </div>
       </div>

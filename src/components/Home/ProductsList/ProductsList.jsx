@@ -1,64 +1,84 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextProducts } from "../../../contexts/ProductsList";
 import Paginator from "./components/Paginator";
 import ProductCart from "./components/ProductCart";
 import { Spinner } from "../../../utils/Spinner";
 import { Filter } from "../Search/Filter";
 
-export default function ProductsList({ filter, onFilterChange, filterDate }) {
-  const { productsViewed, products, productTypes } =
-    useContext(ContextProducts);
-  let filterProducts = [];
+export default function ProductsList({
+  filter,
+  handleFilterCategory,
+  filterDate,
+}) {
+  const {
+    productsViewed,
+    products,
+    productTypes,
+    setProducts,
+    allProducts,
+    setProductsViewed,
+    handlerPageChange,
+  } = useContext(ContextProducts);
 
-  if (products) {
-    if (filterDate) {
-      // Filtrar productos basados en la fecha seleccionada
-      filterProducts = products.filter((product) => {
-        // Asumiendo que 'product.reservation' es un array de objetos con 'startDate' y 'endDate'
-        return !product.reservations.some((reservation) => {
-          const reservationStartDate = new Date(reservation.startDate);
-          reservationStartDate.setHours(0, 0, 0, 0);
-          const reservationEndDate = new Date(reservation.endDate);
-          reservationEndDate.setHours(23, 59, 59, 999);
-          const selectedStartDate = new Date(filter.date.startDate);
-          selectedStartDate.setHours(0, 0, 0, 0);
-          const selectedEndDate = new Date(filter.date.endDate);
-          selectedEndDate.setHours(23, 59, 59, 999);
+  useEffect(() => {
+    let resultFilter = allProducts;
 
-          return (
-            reservationStartDate <= selectedEndDate &&
-            reservationEndDate >= selectedStartDate
-          );
+    if (allProducts.length > 0) {
+      if (filterDate) {
+        // Filtrar productos basados en la fecha seleccionada
+        resultFilter = allProducts.filter((product) => {
+          // Asumiendo que 'product.reservation' es un array de objetos con 'startDate' y 'endDate'
+          return !product.reservations.some((reservation) => {
+            const reservationStartDate = new Date(reservation.startDate);
+            reservationStartDate.setHours(0, 0, 0, 0);
+            const reservationEndDate = new Date(reservation.endDate);
+            reservationEndDate.setHours(23, 59, 59, 999);
+            const selectedStartDate = new Date(filter.date.startDate);
+            selectedStartDate.setHours(0, 0, 0, 0);
+            const selectedEndDate = new Date(filter.date.endDate);
+            selectedEndDate.setHours(23, 59, 59, 999);
+
+            return (
+              reservationStartDate <= selectedEndDate &&
+              reservationEndDate >= selectedStartDate
+            );
+          });
         });
-      });
-    }
+      }
 
-    filterProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(filter.search.toLowerCase())
-    );
-
-    if (filterProducts.length === 0) {
-      filterProducts = products.filter((product) =>
-        product.productType.description
-          .toLowerCase()
-          .includes(filter.search.toLowerCase())
+      resultFilter = resultFilter.filter(
+        (product) =>
+          product.name.toLowerCase().includes(filter.search.toLowerCase()) &&
+          product.productType.description
+            .toLowerCase()
+            .includes(filter.category.toLowerCase())
       );
+
+      setProducts(resultFilter);
+      setProductsViewed(resultFilter.slice(0, 6));
+      // handlerPageChange(1);
     }
-  }
+  }, [filter, filterDate, allProducts]);
 
   let title = !filter
     ? "Máquinas Disponibles en este momento"
-    : `Resultados de la búsqueda(${filterProducts.length})`;
+    : `Resultados de la búsqueda(${products.length})`;
 
   return (
-    <article id="ProductList" className="flex flex-col items-center gap-[60px] bg-[#2B323C]">
+    <article
+      id="ProductList"
+      className="flex flex-col items-center gap-[60px] bg-[#2B323C]"
+    >
       <div className="flex items-center justify-between w-2/3">
         <h1 className="text-[30px] mt-[112px] font-[700] text-center">
           {title}
         </h1>
         <div className="mt-[112px] w-1/2 flex items-center gap-2">
           Filtrar por:
-          <Filter productTypes={productTypes} onFilterChange={onFilterChange} />
+          <Filter
+            productTypes={productTypes}
+            handleFilterCategory={handleFilterCategory}
+          />
         </div>
       </div>
       <section className="grid grid-cols-1 md:grid-cols-2 gap-x-[28px] gap-y-[32px] ">
@@ -67,9 +87,9 @@ export default function ProductsList({ filter, onFilterChange, filterDate }) {
         ) : productsViewed.length === 0 ? (
           <div className="col-span-2">No tenemos productos en stock</div>
         ) : (
-          filterProducts
-            .slice(0, 6)
-            .map((product) => <ProductCart key={product.id} {...product} />)
+          productsViewed.map((product) => (
+            <ProductCart key={product.id} {...product} />
+          ))
         )}
       </section>
       <Paginator />
