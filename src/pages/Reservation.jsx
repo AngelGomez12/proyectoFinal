@@ -153,30 +153,30 @@ export const Reservation = () => {
                     >
                       <div className="flex gap-2">
                         <div className="flex-col">
-                          <label htmlFor="">Nombre</label>
+                          <label className="text-sm" htmlFor="">Nombre</label>
                           <input
                             type="text"
-                            className="input input-bordered w-full max-w-xs"
+                            className="input input-sm input-bordered w-full max-w-xs text-sm text-primary-content"
                             value={dataUser.firstName}
                             disabled
                           />
                         </div>
                         <div className="flex-col">
-                          <label htmlFor="">Apellido</label>
+                          <label className="text-sm" htmlFor="">Apellido</label>
                           <input
                             type="text"
-                            className="input input-bordered w-full max-w-xs"
+                            className="input input-sm input-bordered w-full max-w-xs text-sm text-primary-content"
                             value={dataUser.lastName}
                             disabled
                           />
                         </div>
                       </div>
-                      <div className="flex gap-2">
+                      
                         <div className="flex-col">
-                          <label htmlFor="">Email</label>
+                          <label className="text-sm" htmlFor="">Email Registrado:</label>
                           <input
                             type="text"
-                            className="input input-bordered w-full max-w-xs"
+                            className="input input-sm input-bordered w-full max-w-xs text-sm text-primary-content"
                             value={dataUser.username}
                             disabled
                           />
@@ -205,7 +205,7 @@ export const Reservation = () => {
                             }}
                           />
                         </div>
-                      </div>
+                      
                       <div className="form-control mt-4">
                         <label htmlFor="" className="mb-2">
                           Algo a tener en cuenta?
@@ -239,7 +239,7 @@ export const Reservation = () => {
       </div>
       <div
         id="Reservation_Info"
-        className="w-full mt-4 px-8 flex flex-col-reverse justify-center items-center mb-32"
+        className="w-full mt-16 lg:mt-4 px-8 flex flex-col-reverse justify-center items-center mb-32"
       >
         <div className="w-full md:w-2/3 h-fit">
           <h3 className="text-primary text-lg font-medium my-4">
