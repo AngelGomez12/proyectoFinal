@@ -58,8 +58,7 @@ function App() {
           <Route path="/account" element={<Account />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/politicas" element={<Politicas />} /> {/* Nueva ruta */}
-          <Route path="/confirma-reserva" element={<ConfirmPage />} />{" "}
-          {/* Nueva ruta */}
+          <Route path="/confirma-reserva" element={<ConfirmPage />} />{/* Nueva ruta */}
         </Route>
       </Routes>
     </BrowserRouter>

@@ -18,43 +18,37 @@ const Admin = () => {
               <Link to="agregar-producto">
                 <button className="btn bg-primary w-72 text-neutral hover:text-gray-100">
                   Agregar Máquina
-                  <span className="material-symbols-outlined">
-add
-</span>
+                  <span className="material-symbols-outlined">add</span>
                 </button>
               </Link>
               <Link to="/admin/productos">
                 <button className="btn btn-outline w-72">
                   Administrar Maquinaria
-                  <span className="material-symbols-outlined">
-engineering
-</span>
+                  <span className="material-symbols-outlined">engineering</span>
                 </button>
               </Link>
               <button className="btn btn-outline w-72 btn-disabled">
                 Gestionar Categorías
-                <span className="material-symbols-outlined">
-category
-</span>
+                <span className="material-symbols-outlined">category</span>
               </button>
               <button className="btn btn-outline w-72 btn-disabled">
                 Gestionar Características
-                <span className="material-symbols-outlined">
-manufacturing
-</span>
+                <span className="material-symbols-outlined">manufacturing</span>
               </button>
               <button className="btn btn-outline w-72 btn-disabled">
                 Administrar Usuarios
                 <span className="material-symbols-outlined">
-manage_accounts
-</span>
+                  manage_accounts
+                </span>
               </button>
-              <button className="btn btn-outline w-72 btn-disabled">
-                Administrar Reservas
-                <span className="material-symbols-outlined">
-confirmation_number
-</span>
-              </button>
+              <Link to="/admin/reservas">
+                <button className="btn btn-outline w-72">
+                  Administrar Reservas
+                  <span className="material-symbols-outlined">
+                    confirmation_number
+                  </span>
+                </button>
+              </Link>
             </div>
           </div>
         </div>

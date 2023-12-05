@@ -109,7 +109,7 @@ export const Header = () => {
               </li>
             </ul>
             </div>
-            <div className=" navbar-end flex items-center justify-cend gap-2 mr-6">
+            <div className=" navbar-end hidden lg:flex items-center justify-cend gap-2 mr-6">
                 <div className="dropdown dropdown-end">
                   <label
                     tabIndex={0}
