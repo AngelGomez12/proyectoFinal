@@ -62,18 +62,18 @@ export default function ProductsList({
 
   let title = !filter
     ? "Máquinas Disponibles en este momento"
-    : `Resultados de la búsqueda(${products.length})`;
+    : `Resultados de la búsqueda (${products.length})`;
 
   return (
     <article
       id="ProductList"
-      className="flex flex-col items-center gap-[60px] bg-[#2B323C]"
+      className="flex flex-col items-center gap-16 bg-[#2B323C] pt-16 lg:pt-24"
     >
-      <div className="flex items-center justify-between w-2/3">
-        <h1 className="text-[30px] mt-[112px] font-[700] text-center">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-around gap-6 w-80 lg:w-2/3">
+        <h1 className=" text-xl md:text-2xl font-bold text-center lg:text-left">
           {title}
         </h1>
-        <div className="mt-[112px] w-1/2 flex items-center gap-2">
+        <div className=" lg:w-1/2 flex items-center justify-center md:justify-start gap-2 px-2">
           Filtrar por:
           <Filter
             productTypes={productTypes}
