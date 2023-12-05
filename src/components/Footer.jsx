@@ -54,6 +54,7 @@ export const Footer = () => {
             {" "}
             <a
               href="https://daisyui.com/blog/daisyui-vs-tailwindui/#accessibility"
+              target="blank"
               className="link link-hover"
             >
               Accesibilidad
