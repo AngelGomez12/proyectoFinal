@@ -24,6 +24,7 @@ export default function CartProvider(props) {
     totalPages: 0,
   });
   const [productTypes, setProductTypes] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
 
   const handlerPageChange = (page) => {
     setPagination({
@@ -41,12 +42,13 @@ export default function CartProvider(props) {
   useEffect(() => {
     getHomeProductsList().then((products) => {
       const randomProds = randomizerProducts(products);
+      setAllProducts(randomProds);
       setProducts(randomProds);
       const firstChunk = randomProds?.slice(0, 6);
       setProductsViewed(firstChunk);
       setPagination({
         ...pagination,
-        totalPages: Math.ceil(products?.length / pagination.itemsPerPage),
+        totalPages: Math.ceil(randomProds?.length / pagination.itemsPerPage),
       });
     });
     getProductTypes().then((types) => {
@@ -65,6 +67,7 @@ export default function CartProvider(props) {
         handlerPageChange,
         productTypes,
         setPagination,
+        allProducts,
       }}
     >
       {props.children}

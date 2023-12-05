@@ -21,7 +21,7 @@ jobs:
           aws-region: eu-central-1
 
       - name: Instalar dependencias
-        run: npm ci
+        run: npm i
 
       - name: Construir la aplicación en producción
         run: npm run build --verbose

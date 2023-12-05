@@ -6,6 +6,7 @@ import BackBtn from "../components/BackBtn";
 import Carrousel from "../components/Carrousel";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../contexts/Global";
+import Share  from "../components/Share";
 
 export const Details = () => {
   const { isAdmin, isLoggedIn, logout } = useGlobalContext();
@@ -164,6 +165,7 @@ export const Details = () => {
                   );
                 })}
             </ul>
+            <Share productName = {data && data.name} />
           </div>
         </div>
       </div>
