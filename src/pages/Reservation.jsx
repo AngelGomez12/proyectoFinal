@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BackBtn from "../components/BackBtn";
 import Datepicker from "react-tailwindcss-datepicker";
+import { sendEmail } from "../utils/send-email";
 
 export const Reservation = () => {
   const navigate = useNavigate();
@@ -94,6 +95,12 @@ export const Reservation = () => {
           // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
           throw new Error("Error en la solicitud");
         }
+      })
+      .then(dataResponse => {
+        const { userDto } = localStorage 
+        const userData = JSON.parse(userDto)
+        const templateId = 'template_lw3vxbg'
+        sendEmail({...dataResponse, ...userData, name: data.name}, templateId)
       })
       .catch((error) => {
         console.error(error);
