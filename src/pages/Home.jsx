@@ -162,7 +162,7 @@ export const Home = () => {
         </h2>
 
         <div id="catNav" className="flex justify-center">
-          <Categorie />
+          <Categorie handleFilterCategory={handleFilterCategory} />
         </div>
       </div>
     </main>
