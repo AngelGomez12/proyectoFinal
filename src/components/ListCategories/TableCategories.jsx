@@ -1,8 +1,17 @@
 import { useState, useEffect } from "react";
 import FileUploadForm from "../AddProducts/components/FileUploadForm";
 import { Alerts } from "../../utils/Alerts";
+import Form from "../ListCategories/Form";
 export const TableCategories = () => {
-  const [productType, setProductType] = useState([]);
+  const[productType, setProductType] = useState([]);
+  const [productTypes, setProductTypes] = useState([]);
+  const [editingProductType, setEditingProductType] = useState(null);
+  const [deleteStatus, setDeleteStatus] = useState({
+    showConfirmation: false,
+    showSuccess: false,
+    categoryToDelete: null,
+  });
+  const [showModal, setShowModal] = useState(false);
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     description: "",
@@ -15,6 +24,22 @@ export const TableCategories = () => {
     text: "",
   });
   const [showAlert, setShowAlert] = useState(false);
+
+  const openEditModal = (productTypeId) => {
+    const productTypeToEdit = productType.find((productType) => productType.id === productTypeId);
+    setEditingProductType(productTypeToEdit);
+    setShowModal(true);
+    console.log(productTypeToEdit, productType, productTypeId);
+  };
+  const handleUpdateCategoria = (updatedProductType) => {
+    // Update the state with the edited product
+    setProducts((prevProductTypes) =>
+      prevProductTypes.map((productTypes) =>
+        productTypes.id === updatedCategoria.id ? updatedCategoria : product
+      )
+    );
+  };
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}productTypes`)
       .then((response) => response.json())
@@ -26,6 +51,10 @@ export const TableCategories = () => {
         console.error("Error al cargar product", error);
       });
   }, []);
+
+
+
+
   const handleFileUpload = (file) => {
     const updatedFiles = [...files, file];
     setFiles(updatedFiles);
@@ -95,9 +124,10 @@ export const TableCategories = () => {
     formDataToSend = {
       description: formData.description,
       extraDescription: formData.extraDescription,
-      productImage: formData.productTypeImage.map((image) => ({
-        productImage: image,
-      })),
+      productTypeImage:
+        formData.productTypeImage.length > 0
+          ? formData.productTypeImage[0]
+          : null,
     };
     console.log(productType);
     try {
@@ -150,7 +180,18 @@ export const TableCategories = () => {
   };
 
   const handleDeleteProduct = (productTypeId) => {
-    // Send a DELETE request to the backend to remove the product with the given productId.
+    const categoryToDelete = productType.find(
+      (product) => product.id === productTypeId
+    );
+
+    setDeleteStatus({
+      showConfirmation: true,
+      showSuccess: false,
+      categoryToDelete: categoryToDelete,
+    });
+  };
+
+  const handleDeleteConfirmation = (productTypeId) => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}productTypes/${productTypeId}`, {
       method: "DELETE",
     })
@@ -159,31 +200,46 @@ export const TableCategories = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        // Check if the response has content before attempting to parse JSON
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
           return response.json();
         } else {
-          // If the response is not JSON, return an empty object or handle it accordingly
           return {};
         }
       })
       .then((data) => {
-        // Update the state with the new list of products after deletion.
-        window.location.reload();
+        // Actualiza el estado productType eliminando la categoría
+        setProductType((prevProductType) =>
+          prevProductType.filter((product) => product.id !== productTypeId)
+        );
+
+        setDeleteStatus({
+          showConfirmation: false,
+          showSuccess: true,
+          categoryToDelete: null,
+        });
+
+        // Oculta el mensaje de éxito después de 3 segundos (3000 milisegundos)
+        setTimeout(() => {
+          setDeleteStatus({
+            showConfirmation: false,
+            showSuccess: false,
+            categoryToDelete: null,
+          });
+        }, 2000);
       })
       .catch((error) => {
         console.error("Error deleting product", error);
       });
   };
-
+console.log(editingProductType);
   return (
     <>
       <div className="flex justify-center items-center h-screen ">
         <div>
           <div className=" flex mr-9">
             <h1 className="text-3xl font-bold flex mb-8 justify-start relative right-1/4 ml-20	">
-              Todas las Máquinas
+              Todas las Categorias
             </h1>
             {/* Open the modal using document.getElementById('ID').showModal() method */}
             <button
@@ -210,7 +266,7 @@ export const TableCategories = () => {
                     <div className="flex">
                       <div className="flex flex-col mr-6">
                         <div className="flex-col py-8">
-                          <label htmlFor="">Nombre de la Máquina</label>
+                          <label htmlFor="">Nombre de la Categoria</label>
                           <input
                             type="text"
                             placeholder="Nombre Común de la Máquina"
@@ -223,7 +279,7 @@ export const TableCategories = () => {
                             }
                             className="input w-full input-bordered placeholder:text-secondary-content"
                           />
-
+                          <label htmlFor="">Descripcion de la categoria</label>
                           <textarea
                             type="text"
                             placeholder="Agregá la descripción aquí"
@@ -327,24 +383,60 @@ export const TableCategories = () => {
                       </label>
                       <ul
                         tabIndex={0}
-                        className="dropdown-content z-[4] menu p-2 shadow bg-base-100 rounded-box w-50 font-thin"
+                        className="dropdown-content z-[4] menu p-2 shadow bg-base-100 rounded-box w-50 font-thin mb-1"
                       >
-                        <li>
-                          <a>
+                        <li className="flex items-center justify-center">
+                          {/* Open the modal using document.getElementById('ID').showModal() method */}
+
+                          {/* Open the modal using document.getElementById('ID').showModal() method */}
+                          <button
+                            className="btn bg-transparent border-none w-5 no-hover h-5 font-thin capitalize text-base hover:bg-transparent "
+                            onClick={() => {
+                              openEditModal(product.id);
+                              document
+                                .getElementById("my_modal_2")
+                                .showModal();
+                            }}
+                          >
                             <svg
+                              width="20"
+                              height="22"
+                              viewBox="0 0 20 22"
+                              fill="none"
                               xmlns="http://www.w3.org/2000/svg"
-                              height="16"
-                              width="16"
-                              viewBox="0 0 512 512"
                             >
                               <path
-                                opacity="1"
-                                fill="#a8a8a8"
-                                d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"
+                                d="M0 22V18H20V22H0ZM4 14H5.4L13.2 6.225L11.775 4.8L4 12.6V14ZM2 16V11.75L13.2 0.575C13.3833 0.391667 13.5958 0.25 13.8375 0.15C14.0792 0.05 14.3333 0 14.6 0C14.8667 0 15.125 0.05 15.375 0.15C15.625 0.25 15.85 0.4 16.05 0.6L17.425 2C17.625 2.18333 17.7708 2.4 17.8625 2.65C17.9542 2.9 18 3.15833 18 3.425C18 3.675 17.9542 3.92083 17.8625 4.1625C17.7708 4.40417 17.625 4.625 17.425 4.825L6.25 16H2Z"
+                                fill="#CDCED0"
+                              />
+                              <path
+                                d="M0 22V18H20V22H0ZM4 14H5.4L13.2 6.225L11.775 4.8L4 12.6V14ZM2 16V11.75L13.2 0.575C13.3833 0.391667 13.5958 0.25 13.8375 0.15C14.0792 0.05 14.3333 0 14.6 0C14.8667 0 15.125 0.05 15.375 0.15C15.625 0.25 15.85 0.4 16.05 0.6L17.425 2C17.625 2.18333 17.7708 2.4 17.8625 2.65C17.9542 2.9 18 3.15833 18 3.425C18 3.675 17.9542 3.92083 17.8625 4.1625C17.7708 4.40417 17.625 4.625 17.425 4.825L6.25 16H2Z"
+                                fill="black"
+                                fill-opacity="0.2"
                               />
                             </svg>
+                            {" "}
                             Editar
-                          </a>
+
+                          </button>
+                          <dialog id="my_modal_2" className="modal flex justify-center">
+                            <div className="modal-box">
+                              {"showModal" && 
+                              "editingProductType" && (
+                                <Form
+                                editingProductType={editingProductType}
+                                onUpdateProductType={handleUpdateCategoria}
+                                setShowModal = {setShowModal}
+                                />
+                              )}
+                              
+                              <div className="modal-action">
+                                <form method="dialog">
+                                  
+                                </form>
+                              </div>
+                            </div>
+                          </dialog>
                         </li>
                         <li>
                           <a
@@ -373,6 +465,74 @@ export const TableCategories = () => {
               ))}
             </tbody>
           </table>
+          {deleteStatus.showConfirmation && (
+            <div
+              role="alert"
+              className="alert fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-1/2 w-3/4 p-4 rounded shadow-md z-[10000] text-white flex justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                style={{ stroke: "red" }}
+                className="shrink-0 w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <span>
+                ¿Seguro qué deseas eliminar la categoría{" "}
+                {deleteStatus.categoryToDelete.description}?
+              </span>
+              <div>
+                <button
+                  className="btn btn-sm"
+                  onClick={() =>
+                    setDeleteStatus({
+                      ...deleteStatus,
+                      showConfirmation: false,
+                    })
+                  }
+                >
+                  Cancelar
+                </button>
+                <button
+                  className="btn btn-sm bg-red-500 text-white"
+                  onClick={() =>
+                    handleDeleteConfirmation(deleteStatus.categoryToDelete.id)
+                  }
+                >
+                  Aceptar
+                </button>
+              </div>
+            </div>
+          )}
+
+          {deleteStatus.showSuccess && (
+            <div
+              role="alert"
+              className="alert alert-success fixed top-6 left-1/2 transform -translate-x-1/2 alert p-4 rounded shadow-md z-[10000] sm:w-1/2 w-3/4 text-white flex justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="stroke-current shrink-0 h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>Categoría eliminada con éxito</span>
+            </div>
+          )}
         </div>
       </div>
     </>
