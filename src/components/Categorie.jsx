@@ -24,7 +24,7 @@ const Categorie = () => {
   }, []); // <- Agrega un array vacío como dependencia para ejecutar el efecto solo una vez
 
   return (
-    <div className="flex space-x-4">
+    <div className="flex flex-wrap justify-center gap-6 mx-8">
       {categories.map((category) => (
         <div key={category.id} className="card bg-base-100 shadow-xl image-full w-72 h-40 bg-cover">
           <figure className="bg-cover bg-center">

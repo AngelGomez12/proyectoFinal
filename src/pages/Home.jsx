@@ -161,7 +161,7 @@ export const Home = () => {
           Explora nuestras opciones por categorías
         </h2>
 
-        <div id="catNav" className="flex flex-wrap gap-6 mx-8 justify-center">
+        <div id="catNav" className="flex justify-center">
           <Categorie />
         </div>
       </div>
