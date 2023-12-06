@@ -66,7 +66,7 @@ export const Home = () => {
     <main className="flex flex-col scroll-smooth">
       <div
         id="hero-home"
-        className="hero min-h-fit bg-[url('../../public/img/bg-image-hero.jpg')"
+        className="hero min-h-fit bg-[url('https://i.imgur.com/TIMOCng.jpeg')"
         style={{
           backgroundImage: HomeImg,
         }}
