@@ -18,7 +18,7 @@ export const Header = () => {
     navigate("/");
   };
   return (
-    <header className="navbar bg-base-100 fixed z-50">
+    <header className="navbar bg-base-100 fixed z-50 p-0">
       <div className=" navbar-start">
         <Link to="/" className="btn btn-ghost normal-case text-xl">
           <svg
@@ -46,102 +46,103 @@ export const Header = () => {
         isAdmin ? (
           <>
             <div className="navbar-center hidden lg:flex justify-center">
-            <ul className="gap-2 menu menu-horizontal">
-              <li>
-                <Link to="admin">
-                  <a className="font-medium tracking-wide">Administrar Negocio</a>
-                </Link>
-              </li>
-              <li>
-              <Link to="admin/agregar-producto">
-                  <a className="font-medium tracking-wide">Agregar Máquina</a>
-                </Link>
-              </li>
-            </ul>
+              <ul className="gap-2 menu menu-horizontal">
+                <li>
+                  <Link to="admin" className="font-medium tracking-wide">
+                    Administrar Negocio
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="admin/agregar-producto"
+                    className="font-medium tracking-wide"
+                  >
+                    Agregar Máquina
+                  </Link>
+                </li>
+              </ul>
             </div>
             <div className=" navbar-end flex items-center justify-end gap-2 mr-6">
-                <div className="dropdown dropdown-end">
-                  <label
-                    tabIndex={0}
-                    className=" flex items-center gap-2 cursor-pointer"
-                  >
-                    <p className=" w-32 text-right text-[14px]">
-                      Hola!,{" "}
-                      <span>{`${
-                        userDto ? userDto.firstName : "usuario"
-                      }`}</span>
-                    </p>
-                    <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900 border border-primary">
-                      <span className=" text-xl font-medium m-auto">
-                        {`${userDto ? userDto.firstName.charAt(0) : "U"}`}
-                        {/* {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`} */}
-                      </span>
-                    </div>
-                  </label>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                  >
-                    <li>
-                      <Link to="/account">Mi Cuenta</Link>
-                    </li>
-                    <li>
-                      <a onClick={closeSessionHandler}>Cerrar Sesión</a>
-                    </li>
-                  </ul>
-                </div>
+              <div className="dropdown dropdown-end">
+                <label
+                  tabIndex={0}
+                  className=" flex items-center gap-2 cursor-pointer"
+                >
+                  <p className=" w-32 text-right text-[14px]">
+                    Hola!,{" "}
+                    <span>{`${userDto ? userDto.firstName : "usuario"}`}</span>
+                  </p>
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900 border border-primary">
+                    <span className=" text-xl font-medium m-auto">
+                      {`${userDto ? userDto.firstName.charAt(0) : "U"}`}
+                      {/* {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`} */}
+                    </span>
+                  </div>
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <Link to="/account">Mi Cuenta</Link>
+                  </li>
+                  <li>
+                    <a onClick={closeSessionHandler}>Cerrar Sesión</a>
+                  </li>
+                </ul>
               </div>
+            </div>
           </>
         ) : (
           /* USUARIO */
           <>
             <div className="navbar-center hidden lg:flex justify-center">
-            <ul className="gap-2 menu menu-horizontal">
-              <li>
-                <Link to="/">
-                  <a className="text-lg font-medium tracking-wide">Inicio</a>
-                </Link>
-              </li>
-              <li>
-              <Link to="/contact">
-                  <a className="text-lg font-medium tracking-wide">Contacto</a>
-                </Link>
-              </li>
-            </ul>
+              <ul className="gap-2 menu menu-horizontal">
+                <li>
+                  <Link to="/">
+                    <a className="text-lg font-medium tracking-wide">Inicio</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/contact">
+                    <a className="text-lg font-medium tracking-wide">
+                      Contacto
+                    </a>
+                  </Link>
+                </li>
+              </ul>
             </div>
             <div className=" navbar-end hidden lg:flex items-center justify-cend gap-2 mr-6">
-                <div className="dropdown dropdown-end">
-                  <label
-                    tabIndex={0}
-                    className=" flex items-center gap-2 cursor-pointer"
-                  >
-                    <p className=" w-32 text-right text-[14px]">
-                      Hola!,{" "}
-                      <span>{`${
-                        userDto ? userDto.firstName : "usuario"
-                      }`}</span>
-                    </p>
-                    <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
-                      <span className=" text-xl font-medium m-auto">
-                        {`${JSON.parse(
-                          localStorage.getItem("userDto")
-                        ).firstName.charAt(0)}`}
-                      </span>
-                    </div>
-                  </label>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                  >
-                    <li>
-                      <Link to="/account">Mi Cuenta</Link>
-                    </li>
-                    <li>
-                      <a onClick={closeSessionHandler}>Cerrar Sesión</a>
-                    </li>
-                  </ul>
-                </div>
+              <div className="dropdown dropdown-end">
+                <label
+                  tabIndex={0}
+                  className=" flex items-center gap-2 cursor-pointer"
+                >
+                  <p className=" w-32 text-right text-[14px]">
+                    Hola!,{" "}
+                    <span>{`${userDto ? userDto.firstName : "usuario"}`}</span>
+                  </p>
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
+                    <span className=" text-xl font-medium m-auto">
+                      {`${JSON.parse(
+                        localStorage.getItem("userDto")
+                      ).firstName.charAt(0)}`}
+                    </span>
+                  </div>
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <Link to="/account">Mi Cuenta</Link>
+                  </li>
+                  <li>
+                    <a onClick={closeSessionHandler}>Cerrar Sesión</a>
+                  </li>
+                </ul>
               </div>
+            </div>
 
             <div className="w-full justify-end flex lg:hidden">
               <div className="dropdown dropdown-end" onClick={toggleMenu}>
@@ -205,7 +206,7 @@ export const Header = () => {
                 </Link>
               </li>
               <li>
-              <Link to="/contact">
+                <Link to="/contact">
                   <a className="text-lg font-medium tracking-wide">Contacto</a>
                 </Link>
               </li>
@@ -217,7 +218,7 @@ export const Header = () => {
               <a className="btn">Iniciar Sesion</a>
             </Link>
             <Link to="/Signup">
-              <a className="mr-6 tracking-wide text-sm" >Crear Cuenta</a>
+              <a className="mr-6 tracking-wide text-sm">Crear Cuenta</a>
             </Link>
           </div>
 

@@ -18,7 +18,7 @@ export default function AddProducts() {
     name: "",
     price: "",
     description: "",
-    stock: 0,
+    stock: 1,
     productType: undefined,
     brand: { id: 0, description: "" },
     specs: {},
@@ -309,6 +309,7 @@ export default function AddProducts() {
                 setFormData({ ...formData, stock: e.target.value })
               }
               className="input input-bordered w-full max-w-xs placeholder:text-secondary-content"
+              readOnly
             />
           </div>
         </div>

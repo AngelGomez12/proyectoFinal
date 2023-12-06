@@ -78,7 +78,7 @@ const Login = () => {
       <div
         className="min-h-screen bg-cover bg-no-repeat"
         style={{
-          backgroundImage: "url(../../public/img/login-bg.jpg)",
+          backgroundImage: 'url(https://i.imgur.com/nFHIlyT.jpg)',
         }}
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">

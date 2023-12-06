@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ContextProducts } from "../../../contexts/ProductsList";
 import Paginator from "./components/Paginator";
 import ProductCart from "./components/ProductCart";
@@ -17,7 +17,6 @@ export default function ProductsList({
     setProducts,
     allProducts,
     setProductsViewed,
-    handlerPageChange,
   } = useContext(ContextProducts);
 
   useEffect(() => {
@@ -56,13 +55,13 @@ export default function ProductsList({
 
       setProducts(resultFilter);
       setProductsViewed(resultFilter.slice(0, 6));
-      // handlerPageChange(1);
     }
   }, [filter, filterDate, allProducts]);
 
-  let title = !filter
-    ? "Máquinas Disponibles en este momento"
-    : `Resultados de la búsqueda (${products.length})`;
+  let title =
+    filter.search === "" && filter.category === ""
+      ? "Máquinas Disponibles en este momento"
+      : `Resultados de la búsqueda (${products.length})`;
 
   return (
     <article

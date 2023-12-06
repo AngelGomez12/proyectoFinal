@@ -6,6 +6,7 @@ import ProductsList from "../components/Home/ProductsList/ProductsList";
 import ProductSearch from "../components/Home/Search/ProductSearch";
 import CartProvider from "../contexts/ProductsList";
 import Datepicker from "react-tailwindcss-datepicker";
+import HomeImg from "../../public/img/bg-image-hero.jpg";
 
 export const Home = () => {
   const [filter, setFilter] = useState({
@@ -67,7 +68,7 @@ export const Home = () => {
         id="hero-home"
         className="hero min-h-fit"
         style={{
-          backgroundImage: "url(../../public/img/bg-image-hero.jpg)",
+          backgroundImage: 'url(https://i.imgur.com/TIMOCng.jpeg)',
         }}
       >
         <div className="hero-overlay bg-opacity-70"></div>
@@ -162,7 +163,7 @@ export const Home = () => {
         </h2>
 
         <div id="catNav" className="flex justify-center">
-          <Categorie />
+          <Categorie handleFilterCategory={handleFilterCategory} />
         </div>
       </div>
     </main>
