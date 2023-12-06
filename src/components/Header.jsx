@@ -48,15 +48,16 @@ export const Header = () => {
             <div className="navbar-center hidden lg:flex justify-center">
               <ul className="gap-2 menu menu-horizontal">
                 <li>
-                  <Link to="admin">
-                    <a className="font-medium tracking-wide">
-                      Administrar Negocio
-                    </a>
+                  <Link to="admin" className="font-medium tracking-wide">
+                    Administrar Negocio
                   </Link>
                 </li>
                 <li>
-                  <Link to="admin/agregar-producto">
-                    <a className="font-medium tracking-wide">Agregar Máquina</a>
+                  <Link
+                    to="admin/agregar-producto"
+                    className="font-medium tracking-wide"
+                  >
+                    Agregar Máquina
                   </Link>
                 </li>
               </ul>
