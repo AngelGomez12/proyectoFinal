@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useGlobalContext } from "../contexts/Global";
 import { Alerts } from "../utils/Alerts";
 import { sendEmail } from "../utils/send-email";
+import SignImg from "../../public/img/signup-bg.jpg";
 
 
 const Signup = () => {
@@ -168,10 +169,7 @@ const Signup = () => {
   return (
     <>
       <div
-        className="min-h-screen bg-cover bg-no-repeat"
-        style={{
-          backgroundImage: "url(../../public/img/signup-bg.jpg)",
-        }}
+        className="min-h-screen bg-cover bg-no-repeat bg-[url('../../public/img/signup-bg.jpg')]"
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">
           {showAlert && (

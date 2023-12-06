@@ -6,6 +6,7 @@ import ProductsList from "../components/Home/ProductsList/ProductsList";
 import ProductSearch from "../components/Home/Search/ProductSearch";
 import CartProvider from "../contexts/ProductsList";
 import Datepicker from "react-tailwindcss-datepicker";
+import HomeImg from "../../public/img/bg-image-hero.jpg";
 
 export const Home = () => {
   const [filter, setFilter] = useState({
@@ -65,9 +66,9 @@ export const Home = () => {
     <main className="flex flex-col scroll-smooth">
       <div
         id="hero-home"
-        className="hero min-h-fit"
+        className="hero min-h-fit bg-[url('../../public/img/bg-image-hero.jpg')"
         style={{
-          backgroundImage: "url(../../public/img/bg-image-hero.jpg)",
+          backgroundImage: HomeImg,
         }}
       >
         <div className="hero-overlay bg-opacity-70"></div>
