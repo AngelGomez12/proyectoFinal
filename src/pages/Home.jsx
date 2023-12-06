@@ -66,9 +66,9 @@ export const Home = () => {
     <main className="flex flex-col scroll-smooth">
       <div
         id="hero-home"
-        className="hero min-h-fit bg-[url('https://i.imgur.com/TIMOCng.jpeg')"
+        className="hero min-h-fit"
         style={{
-          backgroundImage: HomeImg,
+          backgroundImage: 'url(https://i.imgur.com/TIMOCng.jpeg)',
         }}
       >
         <div className="hero-overlay bg-opacity-70"></div>
