@@ -169,7 +169,10 @@ const Signup = () => {
   return (
     <>
       <div
-        className="min-h-screen bg-cover bg-no-repeat bg-[url('../../public/img/signup-bg.jpg')]"
+        className="min-h-screen bg-cover bg-no-repeat"
+        style={{
+          backgroundImage: 'url(https://i.imgur.com/573H8L3.jpg)',
+        }}
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">
           {showAlert && (
