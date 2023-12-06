@@ -21,6 +21,7 @@ export default function Form({
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     const formDataToSend = {
       description: formData.description,
@@ -67,7 +68,9 @@ export default function Form({
   };
 
   return (
+    
     <form method="dialog" onSubmit={handleSubmit}>
+      
       <div className="flex">
         <div className="flex flex-col mr-6">
           <div className="flex-col py-8">
@@ -111,7 +114,9 @@ export default function Form({
         </button>
         <form method="dialog">
         {/* if there is a button in form, it will close the modal */}
-        <button className="btn">Close</button>
+        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          <span className="material-symbols-outlined">close_small</span>
+        </button>
       </form>
       </div>
     </form>

@@ -34,7 +34,6 @@ export const TableCategories = () => {
     console.log(productTypeToEdit, productType, productTypeId);
   };
   const handleUpdateCategoria = (updatedProductType) => {
-    // Update the state with the edited product
     setProductTypes((prevProductTypes) =>
       prevProductTypes.map((productTypes) =>
         productTypes.id === updatedProductType.id
@@ -54,7 +53,7 @@ export const TableCategories = () => {
       .catch((error) => {
         console.error("Error al cargar product", error);
       });
-  }, [showModal]);
+  }, [showModal,productType]);
 
   const handleFileUpload = (file) => {
     const updatedFiles = [...files, file];

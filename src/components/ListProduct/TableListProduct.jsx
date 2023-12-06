@@ -9,7 +9,11 @@ export const TableListProduct = () => {
   const [showModal, setShowModal] = useState(false);
   const [specs, setSpecs] = useState([]);
   const [deleteProduct, setDeleteProduct] = useState(false);
-
+  const [deleteStatus, setDeleteStatus] = useState({
+    showConfirmation: false,
+    showSuccess: false,
+    productToDelete: null,
+  });
   const openEditModal = (productId) => {
     const productToEdit = products.find((product) => product.id === productId);
     setEditingProduct(productToEdit);
@@ -24,27 +28,61 @@ export const TableListProduct = () => {
       )
     );
   };
-
   const handleDeleteProduct = (productId) => {
-    // Send a DELETE request to the backend to remove the product with the given productId.
+    const categoryToDelete = products.find(
+      (product) => product.id === productId
+    );
+
+    setDeleteStatus({
+      showConfirmation: true,
+      showSuccess: false,
+      productToDelete: categoryToDelete,
+    });
+   
+  };
+  const handleDeleteConfirmation = (productId) => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}products/${productId}`, {
       method: "DELETE",
     })
-      .then((response) =>
-        response.json(
-          response.ok ? setDeleteProduct(true) : setDeleteProduct(false)
-        )
-      )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          return response.json();
+        } else {
+          return {};
+        }
+      })
       .then((data) => {
-        // Update the state with the new list of products after deletion.
+        // Actualiza el estado productType eliminando la categoría
         setProducts((prevProducts) =>
           prevProducts.filter((product) => product.id !== productId)
         );
+
+        setDeleteStatus({
+          showConfirmation: false,
+          showSuccess: true,
+          productToDelete: null,
+        });
+
+        // Oculta el mensaje de éxito después de 3 segundos (3000 milisegundos)
+        setTimeout(() => {
+          setDeleteStatus({
+            showConfirmation: false,
+            showSuccess: false,
+            productToDelete: null,
+          });
+        }, 2000);
       })
       .catch((error) => {
         console.error("Error deleting product", error);
       });
   };
+
+
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}products`)
@@ -233,7 +271,77 @@ export const TableListProduct = () => {
             )}
           </tbody>
         </table>
-      </div>
+       
+        {deleteStatus.showConfirmation && (
+          
+            <div
+              role="alert"
+              className="alert fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-1/2 w-3/4 p-4 rounded shadow-md z-[10000] text-white flex justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                style={{ stroke: "red" }}
+                className="shrink-0 w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <span>
+                ¿Seguro qué deseas eliminar el producto{" "}
+                {deleteStatus.productToDelete.name}?
+              </span>
+              <div>
+                <button
+                  className="btn btn-sm"
+                  onClick={() =>
+                    setDeleteStatus({
+                      ...deleteStatus,
+                      showConfirmation: false,
+                    })
+                  }
+                >
+                  Cancelar
+                </button>
+                <button
+                  className="btn btn-sm bg-red-500 text-white"
+                  onClick={() =>
+                    handleDeleteConfirmation(deleteStatus.productToDelete.id)
+                  }
+                >
+                  Aceptar
+                </button>
+              </div>
+            </div>
+          )}
+                  </div>
+          {deleteStatus.showSuccess && (
+            <div
+              role="alert"
+              className="alert alert-success fixed top-6 left-1/2 transform -translate-x-1/2 alert p-4 rounded shadow-md z-[10000] sm:w-1/2 w-3/4 text-white flex justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="stroke-current shrink-0 h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>Producto eliminada con éxito</span>
+            </div>
+          )}
+      
     </>
   );
 };
