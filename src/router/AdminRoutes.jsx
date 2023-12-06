@@ -5,6 +5,7 @@ import AdminMobileOverlay from "../components/AdminMobileOverlay";
 import ListProduct from "../pages/ListProduct";
 import ListCategories from "../pages/ListCategories"
 import ListBookings from "../pages/ListBookings"
+import ListUsers from "../pages/ListUsers"
 export default function AdminRoutes() {
   /* SUPONGO QUE HAY QUE SACAR ESTE COMPONENTE  'Admin' DE AQUÍ...
 Y Hacer que Reemplace por completo el Home de User y Cliente */
@@ -28,6 +29,7 @@ Y Hacer que Reemplace por completo el Home de User y Cliente */
       <Route path="productos" element={<ListProduct />}/>
       <Route path="categorias" element={<ListCategories/>}/> 
       <Route path="reservas" element={<ListBookings/>}/> 
+      <Route path="usuarios" element={<ListUsers/>}/>
     </Routes>
   );
 }
