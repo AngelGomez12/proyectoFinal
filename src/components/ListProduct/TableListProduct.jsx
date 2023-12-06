@@ -178,7 +178,11 @@ export const TableListProduct = () => {
                       </div>
                     </div>
                   </td>
-                  <td>{product.description}</td>
+                  <td>
+                    <p className="truncate ... w-[220px]">
+                      {product.description}
+                    </p>
+                  </td>
                   <th>
                     <p>${product.price}</p>
                   </th>

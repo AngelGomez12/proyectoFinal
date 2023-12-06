@@ -124,12 +124,10 @@ export const TableCategories = () => {
     formDataToSend = {
       description: formData.description,
       extraDescription: formData.extraDescription,
-      productTypeImage:
-        formData.productTypeImage.length > 0
-          ? formData.productTypeImage[0]
-          : null,
-    };
-    console.log(productType);
+      productTypeImage: formData.productTypeImage.length > 0
+        ? formData.productTypeImage[0]  
+        : null,
+ };
     try {
       fetch(`${import.meta.env.VITE_BACKEND_URL}productTypes/create`, {
         method: "POST",
@@ -142,12 +140,12 @@ export const TableCategories = () => {
         .then((data) => {
           if (
             data.message &&
-            data.message.indexOf("Ya existe un producto con el mismo nombre") >
+            data.message.indexOf("Ya existe una categoria con el mismo nombre") >
               -1
           ) {
             setAlert({
               color: "bg-error",
-              text: `Ya existe un producto con el mismo nombre: ${formData.description}`,
+              text: `Ya existe una categoria con el mismo nombre: ${formData.description}`,
             });
             setShowAlert(true);
           } else {
@@ -163,7 +161,7 @@ export const TableCategories = () => {
     } catch (error) {
       setAlert({
         color: "bg-error",
-        text: "Error al agregar la máquina",
+        text: "Error al agregar la categoria",
       });
       setShowAlert(true);
     }
@@ -175,10 +173,7 @@ export const TableCategories = () => {
     navigate("/");
   };
 
-  const handleDismissAlert = () => {
-    setShowAlert(false);
-  };
-
+ 
   const handleDeleteProduct = (productTypeId) => {
     const categoryToDelete = productType.find(
       (product) => product.id === productTypeId
@@ -266,7 +261,7 @@ export const TableCategories = () => {
                     <div className="flex">
                       <div className="flex flex-col mr-6">
                         <div className="flex-col py-8">
-                          <label htmlFor="">Nombre de la Categoria</label>
+                          <label htmlFor="">Nombre de la categoria</label>
                           <input
                             type="text"
                             placeholder="Nombre Común de la Máquina"
@@ -537,3 +532,7 @@ export const TableCategories = () => {
     </>
   );
 };
+
+
+
+

@@ -5,6 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useGlobalContext } from "../contexts/Global";
 import { Alerts } from "../utils/Alerts";
+import { sendEmail } from "../utils/send-email";
+import SignImg from "../../public/img/signup-bg.jpg";
+
 
 const Signup = () => {
   //Captura de Datos del Form SIGN UP
@@ -143,6 +146,8 @@ const Signup = () => {
         localStorage.setItem("jwtToken", token);
         localStorage.setItem("userDto", JSON.stringify(userDto));
         login(userDto);
+        const templateID = "template_lztv7ki"
+        sendEmail(body, templateID)
         if (userDto.role === "ADMIN") {
           navigate("/admin");
         } else {
@@ -166,7 +171,7 @@ const Signup = () => {
       <div
         className="min-h-screen bg-cover bg-no-repeat"
         style={{
-          backgroundImage: "url(../../public/img/signup-bg.jpg)",
+          backgroundImage: 'url(https://i.imgur.com/573H8L3.jpg)',
         }}
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">

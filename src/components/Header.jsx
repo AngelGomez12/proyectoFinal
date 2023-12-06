@@ -18,7 +18,7 @@ export const Header = () => {
     navigate("/");
   };
   return (
-    <header className="navbar bg-base-100 fixed z-50">
+    <header className="navbar bg-base-100 fixed z-50 p-0">
       <div className=" navbar-start">
         <Link to="/" className="btn btn-ghost normal-case text-xl">
           <svg
@@ -42,103 +42,105 @@ export const Header = () => {
       </div>
 
       {isLoggedIn ? (
-        /* AotDMINISTRADOR */
+        /* ADMINISTRADOR */
         isAdmin ? (
           <>
-            <div className="navbar-end hidden lg:flex">
-              <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
+            <div className="navbar-center hidden lg:flex justify-center">
+              <ul className="gap-2 menu menu-horizontal">
                 <li>
-                  <Link to="admin">Administrar Negocio</Link>
+                  <Link to="admin" className="font-medium tracking-wide">
+                    Administrar Negocio
+                  </Link>
                 </li>
                 <li>
-                  <Link to="admin/agregar-producto">Agregar Máquina</Link>
+                  <Link
+                    to="admin/agregar-producto"
+                    className="font-medium tracking-wide"
+                  >
+                    Agregar Máquina
+                  </Link>
                 </li>
               </ul>
-
-              <div className="flex items-center justify-center gap-2 mr-6 navbar-end ">
-                <div className="dropdown dropdown-end">
-                  <label
-                    tabIndex={0}
-                    className=" flex items-center gap-2 cursor-pointer"
-                  >
-                    <p className=" w-32 text-right text-[14px]">
-                      Hola!,{" "}
-                      <span>{`${
-                        userDto ? userDto.firstName : "usuario"
-                      }`}</span>
-                    </p>
-                    <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900 border border-primary">
-                      <span className=" text-xl font-medium m-auto">
-                        {`${userDto ? userDto.firstName.charAt(0) : "U"}`}
-                        {/* {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`} */}
-                      </span>
-                    </div>
-                  </label>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                  >
-                    <li>
-                      <Link to="/account">Mi Cuenta</Link>
-                    </li>
-                    <li>
-                      <a onClick={closeSessionHandler}>Cerrar Sesión</a>
-                    </li>
-                  </ul>
-                </div>
+            </div>
+            <div className=" navbar-end flex items-center justify-end gap-2 mr-6">
+              <div className="dropdown dropdown-end">
+                <label
+                  tabIndex={0}
+                  className=" flex items-center gap-2 cursor-pointer"
+                >
+                  <p className=" w-32 text-right text-[14px]">
+                    Hola!,{" "}
+                    <span>{`${userDto ? userDto.firstName : "usuario"}`}</span>
+                  </p>
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900 border border-primary">
+                    <span className=" text-xl font-medium m-auto">
+                      {`${userDto ? userDto.firstName.charAt(0) : "U"}`}
+                      {/* {`${JSON.parse(localStorage.getItem("userDto")).firstName.charAt(0)}`} */}
+                    </span>
+                  </div>
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <Link to="/account">Mi Cuenta</Link>
+                  </li>
+                  <li>
+                    <a onClick={closeSessionHandler}>Cerrar Sesión</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </>
         ) : (
           /* USUARIO */
           <>
-            <div className="navbar-end hidden lg:flex">
-              <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
+            <div className="navbar-center hidden lg:flex justify-center">
+              <ul className="gap-2 menu menu-horizontal">
                 <li>
-                  <Link to="/">Inicio</Link>
+                  <Link to="/">
+                    <a className="text-lg font-medium tracking-wide">Inicio</a>
+                  </Link>
                 </li>
                 <li>
-                  <a>Contacto</a>
-                </li>
-                <li>
-                  <a className="hover:bg-primary hover:text-black">
-                    Renta de Maquinaria
-                  </a>
+                  <Link to="/contact">
+                    <a className="text-lg font-medium tracking-wide">
+                      Contacto
+                    </a>
+                  </Link>
                 </li>
               </ul>
-
-              <div className="flex items-center justify-center gap-2 mr-6 navbar-end ">
-                <div className="dropdown dropdown-end">
-                  <label
-                    tabIndex={0}
-                    className=" flex items-center gap-2 cursor-pointer"
-                  >
-                    <p className=" w-32 text-right text-[14px]">
-                      Hola!,{" "}
-                      <span>{`${
-                        userDto ? userDto.firstName : "usuario"
-                      }`}</span>
-                    </p>
-                    <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
-                      <span className=" text-xl font-medium m-auto">
-                        {`${JSON.parse(
-                          localStorage.getItem("userDto")
-                        ).firstName.charAt(0)}`}
-                      </span>
-                    </div>
-                  </label>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                  >
-                    <li>
-                      <Link to="/account">Mi Cuenta</Link>
-                    </li>
-                    <li>
-                      <a onClick={closeSessionHandler}>Cerrar Sesión</a>
-                    </li>
-                  </ul>
-                </div>
+            </div>
+            <div className=" navbar-end hidden lg:flex items-center justify-cend gap-2 mr-6">
+              <div className="dropdown dropdown-end">
+                <label
+                  tabIndex={0}
+                  className=" flex items-center gap-2 cursor-pointer"
+                >
+                  <p className=" w-32 text-right text-[14px]">
+                    Hola!,{" "}
+                    <span>{`${userDto ? userDto.firstName : "usuario"}`}</span>
+                  </p>
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-900">
+                    <span className=" text-xl font-medium m-auto">
+                      {`${JSON.parse(
+                        localStorage.getItem("userDto")
+                      ).firstName.charAt(0)}`}
+                    </span>
+                  </div>
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <Link to="/account">Mi Cuenta</Link>
+                  </li>
+                  <li>
+                    <a onClick={closeSessionHandler}>Cerrar Sesión</a>
+                  </li>
+                </ul>
               </div>
             </div>
 
@@ -166,11 +168,6 @@ export const Header = () => {
                     </li>
                     <li>
                       <a>Contacto</a>
-                    </li>
-                    <li>
-                      <a className="hover:bg-primary hover:text-black">
-                        Renta de Maquinaria
-                      </a>
                     </li>
                     <hr className=" border-neutral-900" />
                     <li>
@@ -201,28 +198,27 @@ export const Header = () => {
       ) : (
         /* ANONIMO NO LOGUEADO */
         <>
-          <div className="navbar-end hidden lg:flex">
-            <ul className="navbar-center gap-2 menu menu-horizontal px-2 mr-8">
+          <div className="navbar-center hidden lg:flex justify-center">
+            <ul className="gap-2 menu menu-horizontal">
               <li>
-                <Link to="/">Inicio</Link>
+                <Link to="/">
+                  <a className="text-lg font-medium tracking-wide">Inicio</a>
+                </Link>
               </li>
               <li>
-                <a>Contacto</a>
-              </li>
-              <li>
-                <a className="hover:bg-primary hover:text-black">
-                  Renta de Maquinaria
-                </a>
+                <Link to="/contact">
+                  <a className="text-lg font-medium tracking-wide">Contacto</a>
+                </Link>
               </li>
             </ul>
           </div>
 
-          <div className="hidden lg:flex gap-2 navbar-end">
-            <Link to="/Signup">
-              <a className="btn">Crear Cuenta</a>
-            </Link>
+          <div className="hidden lg:flex gap-2 navbar-end mr-4">
             <Link to="/Login">
               <a className="btn">Iniciar Sesion</a>
+            </Link>
+            <Link to="/Signup">
+              <a className="mr-6 tracking-wide text-sm">Crear Cuenta</a>
             </Link>
           </div>
 

@@ -1,11 +1,9 @@
-
-
-export const Filter = ({ productTypes, onFilterChange }) => {
+export const Filter = ({ productTypes, handleFilterCategory }) => {
   const handleFilterChange = (productType) => {
     if (productType === "Todos") {
-      onFilterChange(""); // Si se selecciona 'Todos', se pasa una cadena vacía para mostrar todos los productos
+      handleFilterCategory(""); // Si se selecciona 'Todos', se pasa una cadena vacía para mostrar todos los productos
     } else {
-      onFilterChange(productType); // Llamar a la función onFilterChange con el tipo de producto seleccionado
+      handleFilterCategory(productType); // Llamar a la función onFilterChange con el tipo de producto seleccionado
     }
   };
 

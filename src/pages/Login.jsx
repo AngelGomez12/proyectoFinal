@@ -78,7 +78,7 @@ const Login = () => {
       <div
         className="min-h-screen bg-cover bg-no-repeat"
         style={{
-          backgroundImage: "url(../../public/img/login-bg.jpg)",
+          backgroundImage: 'url(https://i.imgur.com/nFHIlyT.jpg)',
         }}
       >
         <div className="hero min-h-screen bg-base-100 bg-opacity-80">
@@ -106,6 +106,9 @@ const Login = () => {
               </div>
               <div className="card flex-shrink-0 shadow-2xl bg-base-100 w-72 sm:w-full max-w-sm">
                 <form className="card-body" onSubmit={handleSubmit}>
+                <p className="label-text my-1 text-xs">
+                    *Para poder hacer una reserva es necesario iniciar
+                    sesión.</p>
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text">Email</span>
@@ -140,24 +143,28 @@ const Login = () => {
                       required
                     />
                   </div>
-                  <p className="label-text my-4">
-                    Aún no tienes cuenta? <br />
+                  <p className="label-text my-4 text-sm">
+                    Si aún no tienes una cuenta <br /> 
                     <Link to="/Signup">
                       <a
                         href="#"
                         className="text-sm label-text-alt link font-bold text-accent link-hover"
                       >
                         {" "}
-                        Crea tu cuenta aquí{" "}
+                        Regístrate aquí{" "}
                       </a>
                     </Link>
                   </p>
-                  <a
-                    href="#"
-                    className="text-sm label-text-alt link link-hover"
-                  >
-                    Olvidaste tu contraseña?
-                  </a>
+                  <div className="tooltip text-left" data-tip="Lo sentimos, este es un MVP y aún no recuperamos contraseñas">
+                    {" "}
+                    <a
+                      href="#"
+                      className="text-sm label-text-alt link link-hover"
+                    >
+                      Olvidaste tu contraseña?
+                    </a>
+                  </div>
+
                   <div className="form-control mt-6">
                     <button className="btn bg-primary text-base-100 hover:bg-yellow-500">
                       INICIAR SESIÓN
