@@ -227,7 +227,11 @@ export const TableCategories = () => {
         console.error("Error deleting product", error);
       });
   };
-  console.log(editingProductType);
+  
+
+  const handleDismissAlert = () => {
+    setShowAlert(false);
+  };
   return (
     <>
       <div className="flex justify-center items-center h-screen ">
