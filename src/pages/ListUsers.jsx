@@ -7,7 +7,7 @@ function ListUsers() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className='h-screen bg-neutral'>
+    <div className='min-h-screen bg-neutral pt-24 pb-12'>
     <TableUsers/>
     </div>
   )

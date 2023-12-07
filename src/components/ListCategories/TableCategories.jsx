@@ -236,8 +236,8 @@ export const TableCategories = () => {
     <>
       <div className="flex justify-center items-center h-screen ">
         <div>
-          <div className=" flex mr-9">
-            <h1 className="text-3xl font-bold flex mb-8 justify-start relative right-1/4 ml-20	">
+          <div className=" flex justify-between">
+            <h1 className="text-3xl font-bold flex mb-8 justify-start	">
               Todas las Categorias
             </h1>
             {/* Open the modal using document.getElementById('ID').showModal() method */}

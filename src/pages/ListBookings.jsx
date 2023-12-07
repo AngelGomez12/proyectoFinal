@@ -8,7 +8,7 @@ function ListProduct() {
 
   return (
     
-    <div className='h-screen bg-neutral'>
+    <div className='min-h-screen max-w-[100vw] bg-neutral pt-24 pb-12'>
     <TableBookings/>
     </div>
     

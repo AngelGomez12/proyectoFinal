@@ -5,7 +5,7 @@ import Img from "../../public/img/admin-home.jpg";
 const Admin = () => {
   return (
     <>
-      <div className=" hidden lg:grid hero min-h-screen bg-base-200">
+      <div className=" hidden lg:grid hero min-h-screen h-fit bg-base-200">
         <div className="hero-content flex-col-reverse  lg:flex-row-reverse ">
           <img src={Img} className="max-w-sm rounded-lg shadow-2xl" />
           <div>

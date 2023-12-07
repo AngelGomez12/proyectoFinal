@@ -38,7 +38,6 @@ export const TableListProduct = () => {
       showSuccess: false,
       productToDelete: categoryToDelete,
     });
-   
   };
   const handleDeleteConfirmation = (productId) => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}products/${productId}`, {
@@ -82,8 +81,6 @@ export const TableListProduct = () => {
       });
   };
 
-
-
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}products`)
       .then((response) => response.json())
@@ -108,14 +105,14 @@ export const TableListProduct = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen flex-col">
-        <div className="flex space-x-80">
-          <h1 className="text-3xl font-bold flex mb-8 justify-start relative right-1/4 ml-20	">
+      <div className="flex justify-center items-center min-h-fit flex-col">
+        <div className="flex space-x-80 h-fit">
+          <h1 className="text-3xl font-bold flex mb-8 justify-start ml-20	">
             Todas las Máquinas
           </h1>
           <AgregarMaquina />
         </div>
-        <table className="table w-3/5">
+        <table className="table w-3/5 my-1">
           {/* head */}
           <thead>
             <tr>
@@ -208,23 +205,21 @@ export const TableListProduct = () => {
                       </label>
                       <ul
                         tabIndex={0}
-                        className="dropdown-content z-[4] menu p-2 shadow bg-base-100 rounded-box w-50 font-thin"
+                        className="dropdown-content z-[4] menu p-2 shadow bg-base-100 rounded-box w-50"
                       >
                         <li>
-                          <div className="flex font-thin">
-                            <button
-                              className="btn bg-transparent border-none w-5 no-hover h-5 font-thin capitalize text-base hover:bg-transparent "
-                              onClick={() => {
-                                openEditModal(product.id);
-                                document
-                                  .getElementById("my_modal_1")
-                                  .showModal();
-                              }}
-                            >
-                              {" "}
-                              Editar
-                            </button>
-                          </div>
+                          <a
+                            className="font-light"
+                            onClick={() => {
+                              openEditModal(product.id);
+                              document.getElementById("my_modal_1").showModal();
+                            }}
+                          >
+                            <span className="material-symbols-outlined">
+                              edit_note
+                            </span>{" "}
+                            Editar
+                          </a>
                           <dialog
                             id="my_modal_1"
                             className="modal justify-center items-center"
@@ -249,21 +244,12 @@ export const TableListProduct = () => {
 
                         <li>
                           <a
-                            className="text-red-600"
+                            className="font-light text-red-700"
                             onClick={() => handleDeleteProduct(product.id)}
                           >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="18"
-                              viewBox="0 0 16 18"
-                              fill="none"
-                            >
-                              <path
-                                d="M5.4 13.5L8 10.9L10.6 13.5L12 12.1L9.4 9.5L12 6.9L10.6 5.5L8 8.1L5.4 5.5L4 6.9L6.6 9.5L4 12.1L5.4 13.5ZM3 18C2.45 18 1.97917 17.8042 1.5875 17.4125C1.19583 17.0208 1 16.55 1 16V3H0V1H5V0H11V1H16V3H15V16C15 16.55 14.8042 17.0208 14.4125 17.4125C14.0208 17.8042 13.55 18 13 18H3ZM13 3H3V16H13V3Z"
-                                fill="#FF4343"
-                              />
-                            </svg>
+                            <span className="material-symbols-outlined">
+                              delete_forever
+                            </span>{" "}
                             Borrar
                           </a>
                         </li>
@@ -275,77 +261,75 @@ export const TableListProduct = () => {
             )}
           </tbody>
         </table>
-       
+
         {deleteStatus.showConfirmation && (
-          
-            <div
-              role="alert"
-              className="alert fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-1/2 w-3/4 p-4 rounded shadow-md z-[10000] text-white flex justify-center"
+          <div
+            role="alert"
+            className="alert fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-1/2 w-3/4 p-4 rounded shadow-md z-[10000] text-white flex justify-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              style={{ stroke: "red" }}
+              className="shrink-0 w-6 h-6"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                style={{ stroke: "red" }}
-                className="shrink-0 w-6 h-6"
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <span>
+              ¿Seguro qué deseas eliminar el producto{" "}
+              {deleteStatus.productToDelete.name}?
+            </span>
+            <div>
+              <button
+                className="btn btn-sm"
+                onClick={() =>
+                  setDeleteStatus({
+                    ...deleteStatus,
+                    showConfirmation: false,
+                  })
+                }
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-              <span>
-                ¿Seguro qué deseas eliminar el producto{" "}
-                {deleteStatus.productToDelete.name}?
-              </span>
-              <div>
-                <button
-                  className="btn btn-sm"
-                  onClick={() =>
-                    setDeleteStatus({
-                      ...deleteStatus,
-                      showConfirmation: false,
-                    })
-                  }
-                >
-                  Cancelar
-                </button>
-                <button
-                  className="btn btn-sm bg-red-500 text-white"
-                  onClick={() =>
-                    handleDeleteConfirmation(deleteStatus.productToDelete.id)
-                  }
-                >
-                  Aceptar
-                </button>
-              </div>
-            </div>
-          )}
-                  </div>
-          {deleteStatus.showSuccess && (
-            <div
-              role="alert"
-              className="alert alert-success fixed top-6 left-1/2 transform -translate-x-1/2 alert p-4 rounded shadow-md z-[10000] sm:w-1/2 w-3/4 text-white flex justify-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="stroke-current shrink-0 h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
+                Cancelar
+              </button>
+              <button
+                className="btn btn-sm bg-red-500 text-white"
+                onClick={() =>
+                  handleDeleteConfirmation(deleteStatus.productToDelete.id)
+                }
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>Producto eliminada con éxito</span>
+                Aceptar
+              </button>
             </div>
-          )}
-      
+          </div>
+        )}
+      </div>
+      {deleteStatus.showSuccess && (
+        <div
+          role="alert"
+          className="alert alert-success fixed top-6 left-1/2 transform -translate-x-1/2 alert p-4 rounded shadow-md z-[10000] sm:w-1/2 w-3/4 text-white flex justify-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>Producto eliminada con éxito</span>
+        </div>
+      )}
     </>
   );
 };
