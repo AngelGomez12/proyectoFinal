@@ -29,7 +29,7 @@ export const TableBookings = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center h-screen max-w-5xl">
+      <div className="flex flex-col justify-center items-center h-screen">
         <div>
           <h1 className="text-3xl font-bold flex mb-8 justify-start">
             Todas las Reservas

@@ -27,41 +27,49 @@ const Contact = () => {
                   name="Backend Dev"
                   pic={Alfre}
                   role="Alfredo Albornoz"
+                  tooltip='Guri 🇺🇾'
                 />
                 <TeamCard
                   name="Frontend Dev"
                   pic={Angel}
                   role="Ángel Gomez"
+                  tooltip='Guri 🇺🇾'
                 />
                 <TeamCard
                   name="DBA"
                   pic={Diego}
                   role="Diego de la Barrera"
+                  tooltip='Guri 🇺🇾'
                 />
                 <TeamCard
                   name="Product Owner"
                   pic={Dorian}
                   role="Dorian Battiato"
+                  tooltip='Profe'
                 />
                 <TeamCard
                   name="Fullstack Dev"
                   pic={Gonzalo}
                   role="Gonzalo Caldoli"
+                  tooltip='Pibe 🇦🇷'
                 />
                 <TeamCard
                   name="DevOps"
                   pic={Pablo}
                   role="Pablo Camejo"
+                  tooltip='Guri 🇺🇾'
                 />
                 <TeamCard
                   name="UI / UX Designer"
                   pic={Rony}
                   role="Rony Romero Duque"
+                  tooltip='Parcero 🇨🇴'
                 />
                 <TeamCard
                   name="Scrum Máster"
                   pic={Sergio}
                   role="Sergio Gende"
+                  tooltip='Pibe 🇦🇷'
                 />
               </div>
             </div>
