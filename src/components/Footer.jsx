@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const Footer = () => {
   return (
     <>
-      <footer className="footer p-10 bg-base-200 text-base-content">
+      <footer className="footer p-10 bg-base-200 text-base-content overflow-x-hidden">
         <nav className="w-2/5">
           <header className="footer-title w-full">
             Aquí va un texto de SEO
@@ -92,7 +92,7 @@ export const Footer = () => {
             <a className="link link-hover">@Copyright</a> Camada 1 Equipo 3
           </p>
         </div>
-        <nav className="md:place-self-center md:justify-self-end">
+        <nav className="md:place-self-center md:justify-self-end md:pr-12">
           <div className=" flex items-center justify-end gap-2">
             {" "}
             <p>Links Repositorios: </p>

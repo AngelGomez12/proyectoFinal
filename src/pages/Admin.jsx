@@ -1,17 +1,13 @@
 import { Link } from "react-router-dom";
 
-import Img from "../../public/img/admin-home.jpg"
-
+import Img from "../../public/img/admin-home.jpg";
 
 const Admin = () => {
   return (
     <>
       <div className=" hidden lg:grid hero min-h-screen bg-base-200">
         <div className="hero-content flex-col-reverse  lg:flex-row-reverse ">
-          <img
-            src={Img}
-            className="max-w-sm rounded-lg shadow-2xl"
-          />
+          <img src={Img} className="max-w-sm rounded-lg shadow-2xl" />
           <div>
             <h1 className="text-4xl font-bold">
               Gestiona el negocio de manera fácil
@@ -30,20 +26,24 @@ const Admin = () => {
                   <span className="material-symbols-outlined">engineering</span>
                 </button>
               </Link>
-              <button className="btn btn-outline w-72 btn-disabled">
-                Gestionar Categorías
-                <span className="material-symbols-outlined">category</span>
-              </button>
-              <button className="btn btn-outline w-72 btn-disabled">
+              <Link to="/admin/categorias">
+                <button className="btn btn-outline w-72">
+                  Gestionar Categorías
+                  <span className="material-symbols-outlined">category</span>
+                </button>
+              </Link>
+              {/*               <button className="btn btn-outline w-72 btn-disabled">
                 Gestionar Características
                 <span className="material-symbols-outlined">manufacturing</span>
-              </button>
-              <button className="btn btn-outline w-72 btn-disabled">
-                Administrar Usuarios
-                <span className="material-symbols-outlined">
-                  manage_accounts
-                </span>
-              </button>
+              </button> */}
+              <Link to="/admin/usuarios">
+                <button className="btn btn-outline w-72">
+                  Administrar Usuarios
+                  <span className="material-symbols-outlined">
+                    manage_accounts
+                  </span>
+                </button>
+              </Link>
               <Link to="/admin/reservas">
                 <button className="btn btn-outline w-72">
                   Administrar Reservas
